@@ -168,8 +168,13 @@
         </div>
 
         <!-- Font Style Toggle -->
-        <button id="fontToggle" onclick="toggleFontStyle()" class="text-[11px] font-semibold px-2 py-1 rounded bg-zinc-200/80 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition" title="Toggle Serif / Sans">
+        <button id="fontToggle" onclick="toggleFontStyle()" class="text-[11px] font-semibold px-2 py-1 rounded bg-zinc-200/80 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition cursor-pointer" title="Toggle Serif / Sans">
           Serif
+        </button>
+
+        <!-- Time Travel Random Story Button -->
+        <button onclick="triggerRandomArticle()" title="Jump to another random dispatch" class="text-[11px] font-semibold px-2 py-1 rounded bg-zinc-200/80 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition flex items-center gap-1 cursor-pointer">
+          🎲 <span>Random</span>
         </button>
 
         <span class="text-zinc-300 dark:text-zinc-700 hidden sm:inline">|</span>
@@ -717,6 +722,9 @@
               <a href="https://wa.me/?text=${encodeURIComponent(article.title + ' ' + window.location.href)}" target="_blank" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition font-medium">
                 💬 WhatsApp
               </a>
+              <button onclick="triggerRandomArticle()" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition font-medium cursor-pointer flex items-center gap-1">
+                🎲 Next Story
+              </button>
             </div>
           </div>
         </article>
@@ -976,6 +984,21 @@
         toggleAudio();
       }
     };
+
+    window.triggerRandomArticle = function() {
+      const allArticles = getArticles().filter(a => a.status === "Published");
+      const currentId = article ? article.id : "";
+      const otherArticles = allArticles.filter(a => a.id !== currentId);
+      const candidates = otherArticles.length > 0 ? otherArticles : allArticles;
+      if (candidates.length === 0) return;
+      const random = candidates[Math.floor(Math.random() * candidates.length)];
+      window.location.href = `article.html?id=${random.id}`;
+    };
+
+    // Clean up speech synthesis on tab close or page navigation
+    window.addEventListener("beforeunload", () => {
+      if (speechSynth) speechSynth.cancel();
+    });
   </script>
 </body>
 </html>

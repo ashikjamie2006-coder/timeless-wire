@@ -44,6 +44,17 @@
     .font-masthead { font-family: 'Cinzel', serif; }
     .font-serif { font-family: 'Newsreader', Georgia, serif; }
     .font-sans { font-family: 'Inter', sans-serif; }
+
+    /* Continuous Telegraph Marquee */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 35s linear infinite;
+    }
   </style>
 </head>
 <body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col">
@@ -51,6 +62,18 @@
   <!-- NOTIFICATION TOAST -->
   <div id="appToast" class="fixed bottom-6 right-6 z-50 hidden bg-zinc-900 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-xl border border-zinc-700 flex items-center gap-2">
     <span id="toastMsg">✓ Notification</span>
+  </div>
+
+  <!-- 30-SECOND QUICK PEEK MODAL -->
+  <div id="quickPeekModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-[#FAF8F5] dark:bg-[#1A1816] border border-zinc-200 dark:border-zinc-800 rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeQuickPeek()" class="absolute top-4 right-4 h-8 w-8 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 flex items-center justify-center font-bold text-sm cursor-pointer transition">
+        ✕
+      </button>
+      <div id="quickPeekContent">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
   </div>
 
   <!-- TOP WIRE BAR -->
@@ -64,7 +87,13 @@
         <span class="text-zinc-500 dark:text-zinc-400 hidden sm:inline">|</span>
         <span id="currentDate" class="text-zinc-600 dark:text-zinc-400"></span>
       </div>
-      <div class="flex items-center gap-4 text-zinc-600 dark:text-zinc-300">
+      <div class="flex items-center gap-3 sm:gap-4 text-zinc-600 dark:text-zinc-300">
+        <!-- Time Travel Button -->
+        <button onclick="triggerTimeTravel()" title="Jump to a random story from history or markets" class="hover:text-amber-500 font-medium flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/80 dark:bg-zinc-800/80 border border-zinc-300 dark:border-zinc-700 shadow-xs cursor-pointer hover:scale-105 active:scale-95 transition">
+          <span id="timeTravelIcon" class="inline-block transition-transform duration-500 text-sm">🎲</span>
+          <span class="font-semibold text-xs text-zinc-800 dark:text-zinc-200">Time Travel</span>
+        </button>
+
         <button id="themeToggle" class="hover:text-zinc-900 dark:hover:text-white flex items-center gap-1 cursor-pointer">
           <span id="themeIcon">🌙</span> <span class="hidden sm:inline">Theme</span>
         </button>
@@ -94,6 +123,20 @@
       </p>
     </div>
   </header>
+
+  <!-- LIVE TELEGRAPH WIRE MARQUEE -->
+  <div class="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-950 text-zinc-100 text-xs py-2 px-4 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto flex items-center gap-3">
+      <span class="inline-flex items-center gap-1.5 font-masthead font-bold uppercase tracking-widest text-[10px] text-amber-400 bg-zinc-800/90 px-2.5 py-0.5 rounded shrink-0">
+        ⚡ WIRE TELETYPE
+      </span>
+      <div class="overflow-hidden whitespace-nowrap relative flex-1 cursor-pointer group" id="tickerContainer">
+        <div class="inline-block animate-marquee group-hover:[animation-play-state:paused]" id="tickerContent">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- CATEGORY NAVIGATION -->
   <nav class="sticky top-0 z-40 bg-[#FAF8F5]/95 dark:bg-[#121110]/95 backdrop-blur border-b border-zinc-200 dark:border-zinc-800 px-4">
@@ -134,20 +177,15 @@
       </div>
     </div>
 
-    <!-- THEMATIC TOPIC TAGS -->
+    <!-- CHRONOLOGICAL ERA TIMELINE FILTER -->
     <div class="max-w-7xl mx-auto pb-2 flex items-center gap-1.5 text-[11px] overflow-x-auto scrollbar-none text-zinc-500">
-      <span class="font-semibold uppercase tracking-wider text-zinc-400">Topics:</span>
-      <button onclick="filterByTag('All')" class="tag-btn font-semibold text-zinc-800 dark:text-zinc-200 hover:underline">All</button>
-      <span>•</span>
-      <button onclick="filterByTag('Bronze Age')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#BronzeAge</button>
-      <span>•</span>
-      <button onclick="filterByTag('Silk Road')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#SilkRoad</button>
-      <span>•</span>
-      <button onclick="filterByTag('Minerals')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#CriticalMinerals</button>
-      <span>•</span>
-      <button onclick="filterByTag('Commerce')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#Marketplaces</button>
-      <span>•</span>
-      <button onclick="filterByTag('Deep Time')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#DeepTime</button>
+      <span class="font-semibold uppercase tracking-wider text-zinc-400 shrink-0">Chronology:</span>
+      <button onclick="filterByEra('All')" class="era-btn font-bold text-zinc-900 dark:text-zinc-100 bg-zinc-200 dark:bg-zinc-800 px-2.5 py-0.5 rounded cursor-pointer whitespace-nowrap">All Eras</button>
+      <button onclick="filterByEra('Antiquity')" class="era-btn hover:text-crimson-600 dark:hover:text-red-400 px-2 py-0.5 rounded cursor-pointer whitespace-nowrap">🏛 Antiquity (~1200 BCE)</button>
+      <button onclick="filterByEra('Silk Road')" class="era-btn hover:text-crimson-600 dark:hover:text-red-400 px-2 py-0.5 rounded cursor-pointer whitespace-nowrap">🐪 Silk Road (~700 CE)</button>
+      <button onclick="filterByEra('Present')" class="era-btn hover:text-crimson-600 dark:hover:text-red-400 px-2 py-0.5 rounded cursor-pointer whitespace-nowrap">🌍 Today (2026)</button>
+      <button onclick="filterByEra('Tomorrow')" class="era-btn hover:text-crimson-600 dark:hover:text-red-400 px-2 py-0.5 rounded cursor-pointer whitespace-nowrap">🤖 Tomorrow (2027+)</button>
+      <button onclick="filterByEra('Deep Time')" class="era-btn hover:text-crimson-600 dark:hover:text-red-400 px-2 py-0.5 rounded cursor-pointer whitespace-nowrap">⏳ Deep Time Horizons</button>
     </div>
   </nav>
 
@@ -376,7 +414,7 @@
     }
 
     let currentCategory = "All";
-    let currentTag = "All";
+    let currentEra = "All";
     let searchQuery = "";
 
     // Toast
@@ -409,10 +447,108 @@
       day: "numeric"
     });
 
+    // Time Travel Serendipity Handler
+    window.triggerTimeTravel = function() {
+      const icon = document.getElementById("timeTravelIcon");
+      if (icon) icon.style.transform = "rotate(360deg) scale(1.3)";
+      showToast("⏳ Shuffling through history & dispatches...");
+      const articles = getArticles().filter(a => a.status === "Published");
+      if (articles.length === 0) return;
+      const random = articles[Math.floor(Math.random() * articles.length)];
+      setTimeout(() => {
+        window.location.href = `article.html?id=${random.id}`;
+      }, 450);
+    };
+
+    // Telegraph Ticker Populator
+    function renderTicker() {
+      const articles = getArticles().filter(a => a.status === "Published");
+      const ticker = document.getElementById("tickerContent");
+      if (!ticker) return;
+
+      const itemsHtml = articles.map(a => `
+        <a href="article.html?id=${a.id}" class="hover:underline hover:text-amber-300 mr-10 inline-flex items-center gap-2">
+          <span class="text-amber-500 font-bold">•</span>
+          <span class="text-zinc-400 font-mono text-[11px]">[${a.category.toUpperCase()}]</span>
+          <span class="text-zinc-200 font-medium">${a.title}</span>
+        </a>
+      `).join("");
+
+      // Duplicate to create seamless infinite marquee loop
+      ticker.innerHTML = itemsHtml + " &nbsp; &nbsp; " + itemsHtml;
+    }
+
+    // 30-Second Quick Peek Modal Handlers
+    window.openQuickPeek = function(e, articleId) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      const articles = getArticles();
+      const art = articles.find(a => a.id === articleId);
+      if (!art) return;
+
+      const modal = document.getElementById("quickPeekModal");
+      const content = document.getElementById("quickPeekContent");
+
+      content.innerHTML = `
+        <div class="mb-4">
+          <div class="flex items-center justify-between text-xs text-zinc-500 mb-2">
+            <span class="font-bold text-crimson-600 dark:text-red-400 uppercase tracking-widest">${art.category}</span>
+            <span>⚡ 30-Second Summary • ${art.readTime}</span>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-zinc-950 dark:text-zinc-50 leading-tight mb-3">
+            ${art.title}
+          </h3>
+          <p class="text-xs text-zinc-500">By ${art.author} • ${art.date}</p>
+        </div>
+
+        <div class="rounded-xl overflow-hidden mb-5 border border-zinc-200 dark:border-zinc-800 max-h-44">
+          <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover">
+        </div>
+
+        <div class="bg-amber-50/70 dark:bg-zinc-800/60 p-4 rounded-xl border border-amber-200/60 dark:border-zinc-700 mb-6">
+          <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-amber-900 dark:text-amber-300 mb-2">Key Core Takeaways</h4>
+          <p class="text-sm font-serif text-zinc-700 dark:text-zinc-300 mb-3">${art.excerpt}</p>
+          <ul class="text-xs space-y-1.5 text-zinc-600 dark:text-zinc-400 font-sans list-disc pl-4">
+            <li>Essential reading in the <strong>${art.category}</strong> archive.</li>
+            <li>Fully cited dispatch with reader discussions available on the wire.</li>
+          </ul>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 pt-2 border-t border-zinc-200 dark:border-zinc-800">
+          <button onclick="cardToggleBookmark(event, '${art.id}'); closeQuickPeek();" class="px-3.5 py-2 text-xs font-semibold rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
+            🔖 Bookmark
+          </button>
+          <a href="article.html?id=${art.id}" class="px-5 py-2 text-xs font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition">
+            Read Full Dispatch →
+          </a>
+        </div>
+      `;
+
+      modal.classList.remove("hidden");
+    };
+
+    window.closeQuickPeek = function() {
+      document.getElementById("quickPeekModal").classList.add("hidden");
+    };
+
+    // Close on click outside modal content
+    document.getElementById("quickPeekModal").addEventListener("click", (e) => {
+      if (e.target.id === "quickPeekModal") closeQuickPeek();
+    });
+
+    // Close on Escape key press
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeQuickPeek();
+    });
+
     // Bookmark Toggle on Card
     window.cardToggleBookmark = function(e, articleId) {
-      e.preventDefault();
-      e.stopPropagation();
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       const saved = toggleBookmark(articleId);
       updateBookmarksCount();
       renderApp();
@@ -439,23 +575,31 @@
           matchesCategory = art.category === currentCategory;
         }
 
-        const matchesTag = currentTag === "All" || 
-          art.title.toLowerCase().includes(currentTag.toLowerCase()) ||
-          art.excerpt.toLowerCase().includes(currentTag.toLowerCase()) ||
-          art.category.toLowerCase().includes(currentTag.toLowerCase());
+        let matchesEra = true;
+        if (currentEra === "Antiquity") {
+          matchesEra = art.category === "Ancient History" || art.id.includes("bronze");
+        } else if (currentEra === "Silk Road") {
+          matchesEra = art.category === "Stories & Lore" || art.id.includes("silk");
+        } else if (currentEra === "Present") {
+          matchesEra = art.category === "News & Dispatches" || art.id.includes("energy");
+        } else if (currentEra === "Tomorrow") {
+          matchesEra = art.category === "Business & Markets" || art.id.includes("commerce");
+        } else if (currentEra === "Deep Time") {
+          matchesEra = art.category === "In-Depth Reviews" || art.id.includes("time");
+        }
 
         const matchesSearch = !searchQuery || 
           art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           art.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
 
-        return matchesCategory && matchesTag && matchesSearch;
+        return matchesCategory && matchesEra && matchesSearch;
       });
 
       document.getElementById("articleCount").textContent = `${filtered.length} stories available`;
 
-      // Render Hero (if on All and no search/tag)
+      // Render Hero (if on All and no search/era)
       const heroContainer = document.getElementById("heroContainer");
-      if (currentCategory === "All" && currentTag === "All" && !searchQuery) {
+      if (currentCategory === "All" && currentEra === "All" && !searchQuery) {
         const featured = allArticles.find(a => a.featured) || allArticles[0];
         if (featured) {
           const isBookmarked = bookmarks.includes(featured.id);
@@ -492,10 +636,15 @@
                   </div>
                 </div>
               </a>
-              <!-- Direct Bookmark Button -->
-              <button onclick="cardToggleBookmark(event, '${featured.id}')" title="Bookmark story" class="absolute top-4 right-4 h-9 w-9 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-sm cursor-pointer z-10">
-                ${isBookmarked ? "★" : "🔖"}
-              </button>
+              <!-- Direct Action Buttons -->
+              <div class="absolute top-4 right-4 flex items-center gap-2 z-10">
+                <button onclick="openQuickPeek(event, '${featured.id}')" title="30-Sec Quick Peek" class="px-2.5 py-1 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow text-xs font-semibold hover:scale-105 transition cursor-pointer">
+                  ⚡ Quick Peek
+                </button>
+                <button onclick="cardToggleBookmark(event, '${featured.id}')" title="Bookmark story" class="h-8 w-8 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-xs cursor-pointer">
+                  ${isBookmarked ? "★" : "🔖"}
+                </button>
+              </div>
             </div>
           `;
           heroContainer.classList.remove("hidden");
@@ -530,10 +679,15 @@
               <a href="article.html?id=${art.id}" class="block h-48 overflow-hidden relative">
                 <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
               </a>
-              <!-- Direct Bookmark Button -->
-              <button onclick="cardToggleBookmark(event, '${art.id}')" title="Bookmark story" class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-xs cursor-pointer z-10">
-                ${isSaved ? "★" : "🔖"}
-              </button>
+              <!-- Direct Action Buttons on Card -->
+              <div class="absolute top-3 right-3 flex items-center gap-1.5 z-10">
+                <button onclick="openQuickPeek(event, '${art.id}')" title="30-Sec Quick Peek" class="px-2 py-0.5 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow text-[10px] font-bold hover:scale-105 transition cursor-pointer">
+                  ⚡ Peek
+                </button>
+                <button onclick="cardToggleBookmark(event, '${art.id}')" title="Bookmark story" class="h-7 w-7 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-xs cursor-pointer">
+                  ${isSaved ? "★" : "🔖"}
+                </button>
+              </div>
               
               <div class="p-5 flex-1 flex flex-col justify-between">
                 <div>
@@ -567,6 +721,14 @@
     // Category filter handler
     window.filterCategory = function(cat) {
       currentCategory = cat;
+      currentEra = "All"; // Reset era when picking category to avoid zero-match collisions
+      document.querySelectorAll(".era-btn").forEach(btn => {
+        btn.classList.remove("font-bold", "text-zinc-900", "dark:text-zinc-100", "bg-zinc-200", "dark:bg-zinc-800");
+        if (btn.textContent === "All Eras") {
+          btn.classList.add("font-bold", "text-zinc-900", "dark:text-zinc-100", "bg-zinc-200", "dark:bg-zinc-800");
+        }
+      });
+
       document.getElementById("feedTitle").textContent = cat === "All" ? "Latest Articles & Stories" : (cat === "Saved" ? "Your Saved Bookmarks" : cat);
       
       document.querySelectorAll(".category-btn").forEach(btn => {
@@ -584,13 +746,23 @@
       renderApp();
     };
 
-    // Tag filter handler
-    window.filterByTag = function(tag) {
-      currentTag = tag;
-      document.querySelectorAll(".tag-btn").forEach(btn => {
-        btn.classList.remove("font-bold", "underline", "text-crimson-600", "dark:text-red-400");
-        if (btn.textContent.includes(tag) || (tag === "All" && btn.textContent === "All")) {
-          btn.classList.add("font-bold", "underline", "text-crimson-600", "dark:text-red-400");
+    // Era filter handler
+    window.filterByEra = function(era) {
+      currentEra = era;
+      currentCategory = "All"; // Reset category when picking era to allow full chronological view
+      document.querySelectorAll(".category-btn").forEach(btn => {
+        btn.classList.remove("bg-zinc-900", "text-white", "dark:bg-zinc-100", "dark:text-zinc-900");
+        btn.classList.add("text-zinc-600", "dark:text-zinc-400");
+        if (btn.textContent.includes("All")) {
+          btn.classList.add("bg-zinc-900", "text-white", "dark:bg-zinc-100", "dark:text-zinc-900");
+          btn.classList.remove("text-zinc-600", "dark:text-zinc-400");
+        }
+      });
+
+      document.querySelectorAll(".era-btn").forEach(btn => {
+        btn.classList.remove("font-bold", "text-zinc-900", "dark:text-zinc-100", "bg-zinc-200", "dark:bg-zinc-800");
+        if (btn.textContent.includes(era) || (era === "All" && btn.textContent === "All Eras")) {
+          btn.classList.add("font-bold", "text-zinc-900", "dark:text-zinc-100", "bg-zinc-200", "dark:bg-zinc-800");
         }
       });
       renderApp();
@@ -603,6 +775,7 @@
     });
 
     // Initial render
+    renderTicker();
     renderApp();
   </script>
 </body>

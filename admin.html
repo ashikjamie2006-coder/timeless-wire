@@ -346,6 +346,8 @@
   <script>
     const STORAGE_KEY = "timeless_wire_articles_v1";
     const COMMENTS_KEY = "timeless_wire_comments_v1";
+    const BOOKMARKS_KEY = "timeless_wire_bookmarks_v1";
+    const REACTIONS_KEY = "timeless_wire_reactions_v1";
 
     const DEFAULT_ARTICLES = [
       {
@@ -516,6 +518,28 @@
       let articles = getArticles();
       articles = articles.filter((a) => a.id !== id);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+
+      // Cascade delete comments, reactions, and bookmarks for clean storage
+      try {
+        const rawComments = localStorage.getItem(COMMENTS_KEY);
+        if (rawComments) {
+          const allComments = JSON.parse(rawComments);
+          delete allComments[id];
+          localStorage.setItem(COMMENTS_KEY, JSON.stringify(allComments));
+        }
+        const rawBookmarks = localStorage.getItem(BOOKMARKS_KEY);
+        if (rawBookmarks) {
+          const bookmarks = JSON.parse(rawBookmarks);
+          localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarks.filter(bId => bId !== id)));
+        }
+        const rawReactions = localStorage.getItem(REACTIONS_KEY);
+        if (rawReactions) {
+          const reactions = JSON.parse(rawReactions);
+          delete reactions[id];
+          localStorage.setItem(REACTIONS_KEY, JSON.stringify(reactions));
+        }
+      } catch (e) {}
+
       return true;
     }
 
