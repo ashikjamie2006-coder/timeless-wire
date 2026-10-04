@@ -193,15 +193,21 @@
 
     // Load Article
     const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    const article = getArticleById(id);
+    let id = params.get("id");
+    const allArticles = getArticles();
+    let article = id ? getArticleById(id) : null;
+
+    // Smart Fallback: If no article ID is in URL, automatically load the featured lead story
+    if (!article && allArticles.length > 0) {
+      article = allArticles.find(a => a.featured) || allArticles[0];
+    }
 
     const container = document.getElementById("articleContent");
     if (!article) {
       container.innerHTML = `
         <div class="text-center py-20">
           <h1 class="font-serif text-3xl font-bold mb-3">Dispatch Not Found</h1>
-          <p class="text-zinc-500 mb-6">The article you requested could not be retrieved from the wire.</p>
+          <p class="text-zinc-500 mb-6">No dispatches are currently available on the wire.</p>
           <a href="index.html" class="px-5 py-2.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold text-sm">Return to Front Page</a>
         </div>
       `;
