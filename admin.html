@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeless Wire — Editorial Dashboard</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            masthead: ['Cinzel', 'serif'],
+            serif: ['Newsreader', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            crimson: { 600: '#991B1B', 700: '#7F1D1D' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans min-h-screen flex flex-col">
+
+  <!-- TOP BAR -->
+  <header class="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-6 py-4 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="font-masthead text-xl font-bold tracking-wider text-zinc-950 dark:text-white">
+          TIMELESS WIRE
+        </a>
+        <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-crimson-600 text-white">
+          Editorial CMS
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3 text-xs sm:text-sm">
+        <a href="index.html" class="px-3.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition">
+          👁 View Live Site
+        </a>
+        <button id="exportBtn" class="px-3.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition">
+          💾 Export JSON Backup
+        </button>
+        <button id="newStoryBtn" class="px-4 py-1.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold hover:bg-zinc-800 transition">
+          ✍️ New Dispatch
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DASHBOARD MAIN -->
+  <main class="max-w-7xl mx-auto px-6 py-8 flex-1 w-full">
+
+    <!-- STATS STRIP -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+        <span class="text-xs text-zinc-500 font-medium">Total Dispatches</span>
+        <div id="statTotal" class="text-2xl font-bold mt-1 text-zinc-900 dark:text-white">-</div>
+      </div>
+      <div class="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+        <span class="text-xs text-zinc-500 font-medium">Published</span>
+        <div id="statPublished" class="text-2xl font-bold mt-1 text-emerald-600 dark:text-emerald-400">-</div>
+      </div>
+      <div class="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+        <span class="text-xs text-zinc-500 font-medium">Active Categories</span>
+        <div class="text-2xl font-bold mt-1 text-blue-600 dark:text-blue-400">5 Channels</div>
+      </div>
+      <div class="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+        <span class="text-xs text-zinc-500 font-medium">Domain Status</span>
+        <div class="text-xs font-semibold mt-2 text-emerald-600 flex items-center gap-1.5">
+          <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Ready for Vercel Free
+        </div>
+      </div>
+    </div>
+
+    <!-- READER COMMENTARY STATS STRIP -->
+    <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 p-4 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-9 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-700 dark:text-emerald-400 font-bold">
+          💬
+        </div>
+        <div>
+          <h4 class="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100">Native Reader Commentary Engine</h4>
+          <p class="text-xs text-zinc-500">100% Private & In-House • Zero external third-party apps • Safe for all readers</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-400">
+          <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+          Active & Protected
+        </span>
+      </div>
+    </div>
+
+    <!-- POST MANAGEMENT TABLE VIEW -->
+    <div id="listView" class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+      <div class="p-4 sm:p-5 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-4">
+        <h3 class="font-masthead text-lg font-bold text-zinc-900 dark:text-white">
+          All Editorial Dispatches
+        </h3>
+        <input 
+          type="text" 
+          id="adminSearchInput" 
+          placeholder="Filter stories..." 
+          class="text-xs sm:text-sm px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900 w-64"
+        />
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead class="bg-zinc-50 dark:bg-zinc-800/50 text-zinc-500 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[11px]">
+            <tr>
+              <th class="py-3 px-4">Story</th>
+              <th class="py-3 px-4">Category</th>
+              <th class="py-3 px-4">Author</th>
+              <th class="py-3 px-4">Date</th>
+              <th class="py-3 px-4">Status</th>
+              <th class="py-3 px-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="articlesTableBody" class="divide-y divide-zinc-200 dark:divide-zinc-800">
+            <!-- Dynamically generated rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- VISUAL STORY EDITOR (Initially Hidden) -->
+    <div id="editorView" class="hidden bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-lg p-6 sm:p-8 max-w-4xl mx-auto">
+      <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4 mb-6">
+        <div>
+          <h2 id="editorHeading" class="font-serif text-2xl font-bold text-zinc-900 dark:text-white">
+            Write New Dispatch
+          </h2>
+          <p class="text-xs text-zinc-500 mt-0.5">Craft and publish stories directly to the live wire.</p>
+        </div>
+        <button id="cancelEditorBtn" class="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+          ✕ Close
+        </button>
+      </div>
+
+      <form id="storyForm" class="space-y-6">
+        <input type="hidden" id="storyId">
+
+        <!-- Title -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Headline</label>
+          <input 
+            type="text" 
+            id="storyTitle" 
+            required 
+            placeholder="Enter an evocative, editorial headline..." 
+            class="w-full text-lg sm:text-xl font-serif font-bold px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+          >
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Category -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Editorial Channel</label>
+            <select id="storyCategory" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
+              <option value="Ancient History">🏛 Ancient History</option>
+              <option value="Stories & Lore">📖 Stories & Lore</option>
+              <option value="News & Dispatches">🌍 News & Dispatches</option>
+              <option value="Business & Markets">📈 Business & Markets</option>
+              <option value="In-Depth Reviews">⭐ In-Depth Reviews</option>
+            </select>
+          </div>
+
+          <!-- Author -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Author Byline</label>
+            <input type="text" id="storyAuthor" value="Staff Correspondent" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
+          </div>
+
+          <!-- Read Time -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Read Time</label>
+            <input type="text" id="storyReadTime" value="5 min read" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
+          </div>
+        </div>
+
+        <!-- Cover Image URL & Quick Presets -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Cover Image URL</label>
+          <div class="flex gap-2 mb-2">
+            <input 
+              type="url" 
+              id="storyImage" 
+              required 
+              placeholder="https://images.unsplash.com/photo-..." 
+              class="flex-1 text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800"
+            >
+          </div>
+          <div class="flex flex-wrap items-center gap-1.5 text-xs text-zinc-500">
+            <span>Or quick preset:</span>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">🏛 Antiquity</button>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">📖 Desert Caravan</button>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">🌍 Global News</button>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">📈 Market Chart</button>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">⭐ Book Review</button>
+          </div>
+        </div>
+
+        <!-- Excerpt -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Excerpt / Standfirst</label>
+          <textarea 
+            id="storyExcerpt" 
+            rows="2" 
+            required 
+            placeholder="A compelling 2-sentence hook displayed on cards and search results..." 
+            class="w-full text-sm font-serif px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800"
+          ></textarea>
+        </div>
+
+        <!-- VISUAL FORMATTING TOOLBAR -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">Story Body (HTML / Visual Text)</label>
+            <div class="flex items-center gap-1 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-md text-xs">
+              <button type="button" onclick="insertTag('<p class=\'lead\'>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-semibold" title="Drop-Cap Lead Paragraph">Lead ¶</button>
+              <button type="button" onclick="insertTag('<h2>', '</h2>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold" title="Section Heading">H2</button>
+              <button type="button" onclick="insertTag('<blockquote>', '</blockquote>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic" title="Blockquote">Quote</button>
+              <button type="button" onclick="insertTag('<strong>', '</strong>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold">B</button>
+              <button type="button" onclick="insertTag('<em>', '</em>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic">I</button>
+              <button type="button" onclick="insertTag('<p>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded">¶</button>
+            </div>
+          </div>
+          <textarea 
+            id="storyContent" 
+            rows="10" 
+            required 
+            placeholder="Compose your dispatch here using formatting tags or paragraphs..." 
+            class="w-full text-sm font-serif px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 font-mono leading-relaxed"
+          ></textarea>
+        </div>
+
+        <!-- Status & Feature Toggles -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+          <div class="flex items-center gap-6 text-sm">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="storyFeatured" class="rounded text-crimson-600 h-4 w-4">
+              <span class="font-medium">Feature as Lead Story</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="storyPublished" checked class="rounded text-emerald-600 h-4 w-4">
+              <span class="font-medium">Publish Immediately</span>
+            </label>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button type="button" id="cancelFormBtn" class="px-4 py-2 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium">
+              Cancel
+            </button>
+            <button type="submit" class="px-6 py-2 text-sm font-semibold rounded-lg bg-crimson-600 hover:bg-crimson-700 text-white shadow-sm transition">
+              🚀 Publish to Wire
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script type="module">
+    import { getArticles, saveArticle, deleteArticle, toggleFeatured } from "./js/store.js";
+
+    window.setPresetImage = function(url) {
+      document.getElementById("storyImage").value = url;
+    };
+
+    window.insertTag = function(openTag, closeTag) {
+      const textarea = document.getElementById("storyContent");
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const selected = textarea.value.substring(start, end);
+      textarea.value = textarea.value.substring(0, start) + openTag + (selected || "Text here") + closeTag + textarea.value.substring(end);
+      textarea.focus();
+    };
+
+    function renderDashboard() {
+      const articles = getArticles();
+      
+      // Update Stats
+      document.getElementById("statTotal").textContent = articles.length;
+      document.getElementById("statPublished").textContent = articles.filter(a => a.status === "Published").length;
+
+      // Table Render
+      const tbody = document.getElementById("articlesTableBody");
+      const filter = document.getElementById("adminSearchInput").value.toLowerCase();
+      
+      const filtered = articles.filter(a => 
+        a.title.toLowerCase().includes(filter) || a.category.toLowerCase().includes(filter)
+      );
+
+      tbody.innerHTML = filtered.map(art => `
+        <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/40 transition">
+          <td class="py-3.5 px-4 font-serif font-bold text-zinc-900 dark:text-zinc-100 max-w-xs">
+            <div class="flex items-center gap-2">
+              <button onclick="handleToggleFeatured('${art.id}')" title="Toggle Featured" class="text-base">
+                ${art.featured ? "⭐" : "☆"}
+              </button>
+              <a href="article.html?id=${art.id}" target="_blank" class="hover:underline line-clamp-1">
+                ${art.title}
+              </a>
+            </div>
+          </td>
+          <td class="py-3.5 px-4">
+            <span class="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+              ${art.category}
+            </span>
+          </td>
+          <td class="py-3.5 px-4 text-zinc-600 dark:text-zinc-400">${art.author}</td>
+          <td class="py-3.5 px-4 text-zinc-500 whitespace-nowrap">${art.date}</td>
+          <td class="py-3.5 px-4">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold ${art.status === 'Published' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-400' : 'bg-amber-100 text-amber-800'}">
+              ${art.status}
+            </span>
+          </td>
+          <td class="py-3.5 px-4 text-right whitespace-nowrap">
+            <button onclick="handleEdit('${art.id}')" class="px-2.5 py-1 text-xs font-semibold rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 mr-1">
+              Edit
+            </button>
+            <button onclick="handleDelete('${art.id}')" class="px-2.5 py-1 text-xs font-semibold rounded text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50">
+              Delete
+            </button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    // Handlers
+    window.handleToggleFeatured = function(id) {
+      toggleFeatured(id);
+      renderDashboard();
+    };
+
+    window.handleDelete = function(id) {
+      if (confirm("Are you sure you want to delete this dispatch?")) {
+        deleteArticle(id);
+        renderDashboard();
+      }
+    };
+
+    window.handleEdit = function(id) {
+      const articles = getArticles();
+      const art = articles.find(a => a.id === id);
+      if (!art) return;
+
+      document.getElementById("storyId").value = art.id;
+      document.getElementById("storyTitle").value = art.title;
+      document.getElementById("storyCategory").value = art.category;
+      document.getElementById("storyAuthor").value = art.author;
+      document.getElementById("storyReadTime").value = art.readTime;
+      document.getElementById("storyImage").value = art.coverImage;
+      document.getElementById("storyExcerpt").value = art.excerpt;
+      document.getElementById("storyContent").value = art.content;
+      document.getElementById("storyFeatured").checked = !!art.featured;
+      document.getElementById("storyPublished").checked = art.status === "Published";
+
+      document.getElementById("editorHeading").textContent = "Edit Dispatch";
+      document.getElementById("listView").classList.add("hidden");
+      document.getElementById("editorView").classList.remove("hidden");
+    };
+
+    // Open New Story
+    document.getElementById("newStoryBtn").addEventListener("click", () => {
+      document.getElementById("storyForm").reset();
+      document.getElementById("storyId").value = "";
+      document.getElementById("storyAuthor").value = "Chief Editor";
+      document.getElementById("storyReadTime").value = "5 min read";
+      document.getElementById("storyImage").value = "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80";
+      document.getElementById("editorHeading").textContent = "Write New Dispatch";
+      document.getElementById("listView").classList.add("hidden");
+      document.getElementById("editorView").classList.remove("hidden");
+    });
+
+    // Close Editor
+    function closeEditor() {
+      document.getElementById("editorView").classList.add("hidden");
+      document.getElementById("listView").classList.remove("hidden");
+    }
+    document.getElementById("cancelEditorBtn").addEventListener("click", closeEditor);
+    document.getElementById("cancelFormBtn").addEventListener("click", closeEditor);
+
+    // Save Story Form
+    document.getElementById("storyForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const articleData = {
+        id: document.getElementById("storyId").value || undefined,
+        title: document.getElementById("storyTitle").value.trim(),
+        category: document.getElementById("storyCategory").value,
+        author: document.getElementById("storyAuthor").value.trim(),
+        readTime: document.getElementById("storyReadTime").value.trim(),
+        coverImage: document.getElementById("storyImage").value.trim(),
+        excerpt: document.getElementById("storyExcerpt").value.trim(),
+        content: document.getElementById("storyContent").value.trim(),
+        featured: document.getElementById("storyFeatured").checked,
+        status: document.getElementById("storyPublished").checked ? "Published" : "Draft"
+      };
+
+      saveArticle(articleData);
+      closeEditor();
+      renderDashboard();
+      alert("Dispatch published successfully!");
+    });
+
+    // Search input
+    document.getElementById("adminSearchInput").addEventListener("input", renderDashboard);
+
+    // Export Backup
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const data = JSON.stringify(getArticles(), null, 2);
+      const blob = new Blob([data], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `timeless-wire-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+    });
+
+    renderDashboard();
+  </script>
+</body>
+</html>
