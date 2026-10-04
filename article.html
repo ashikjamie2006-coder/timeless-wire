@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="pageTitle">Timeless Wire — Dispatch</title>
+  <title>Story — Timeless Wire</title>
   
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -21,7 +23,17 @@
             sans: ['Inter', 'sans-serif'],
           },
           colors: {
-            crimson: { 600: '#991B1B', 700: '#7F1D1D' }
+            parchment: {
+              50: '#FAF8F5',
+              100: '#F4EFEA',
+              200: '#E8DFC8',
+              800: '#2A241F',
+              900: '#171412'
+            },
+            crimson: {
+              600: '#991B1B',
+              700: '#7F1D1D',
+            }
           }
         }
       }
@@ -32,15 +44,22 @@
     .font-serif { font-family: 'Newsreader', Georgia, serif; }
     .font-sans { font-family: 'Inter', sans-serif; }
     
-    /* Editorial Typography & Drop Caps */
+    .article-body p.lead {
+      font-size: 1.35rem;
+      line-height: 1.75;
+      color: #27272A;
+      margin-bottom: 2rem;
+    }
+    .dark .article-body p.lead {
+      color: #E4E4E7;
+    }
     .article-body p.lead::first-letter {
-      float: left;
       font-family: 'Cinzel', serif;
-      font-size: 4rem;
-      line-height: 3.5rem;
-      padding-top: 4px;
-      padding-right: 12px;
-      padding-bottom: 4px;
+      font-size: 4.2rem;
+      float: left;
+      line-height: 0.85;
+      padding-right: 0.75rem;
+      padding-top: 0.25rem;
       font-weight: 700;
       color: #991B1B;
     }
@@ -83,14 +102,14 @@
   <!-- TOP BAR -->
   <div class="border-b border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#1A1816] text-xs py-2 px-4">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <a href="index.html" class="font-masthead font-bold tracking-wider hover:text-crimson-600 dark:hover:text-red-400 flex items-center gap-1.5">
-        ← TIMELESS WIRE
+      <a href="index.html" class="font-masthead font-bold tracking-wider hover:text-crimson-600 dark:text-red-400 flex items-center gap-1.5">
+        ← BACK TO WIRE
       </a>
       <div class="flex items-center gap-4">
         <button id="themeToggle" class="hover:text-zinc-900 dark:hover:text-white">
           <span id="themeIcon">🌙</span> Theme
         </button>
-        <a href="admin.html" class="text-zinc-500 hover:text-zinc-900 dark:hover:text-white">Dashboard</a>
+        <a href="admin.html" class="text-zinc-500 hover:text-zinc-900 dark:hover:text-white">Staff Dashboard</a>
       </div>
     </div>
   </div>
@@ -111,44 +130,59 @@
         <div>
           <span class="text-xs uppercase tracking-widest font-bold text-crimson-600 dark:text-red-400 block mb-1">Public Forum</span>
           <h3 class="font-masthead text-xl font-bold uppercase tracking-wide text-zinc-950 dark:text-zinc-50">
-            Reader Commentary (<span id="commentCount">0</span>)
+            Reader Discussion (<span id="commentCount">0</span>)
           </h3>
         </div>
-        <div class="text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800 flex items-center gap-1.5">
+        <div class="text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800 flex items-center gap-1.5 font-medium">
           <span>🔒 Safe & Private • No Login Required</span>
         </div>
       </div>
 
-      <!-- ADD COMMENT FORM -->
-      <form id="commentForm" class="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm mb-8 space-y-4">
-        <h4 class="font-serif text-base font-bold text-zinc-900 dark:text-zinc-100">Join the Conversation</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <input 
-            type="text" 
-            id="commentAuthor" 
-            required 
-            placeholder="Your Name / Handle" 
-            class="text-xs sm:text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900"
-          >
-          <input 
-            type="text" 
-            id="commentRole" 
-            placeholder="Affiliation / Title (optional)" 
-            class="text-xs sm:text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900"
-          >
+      <!-- Notification Toast -->
+      <div id="commentAlert" class="hidden mb-4 p-3 rounded-lg bg-emerald-100 dark:bg-emerald-950/70 border border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center justify-between">
+        <span>✓ Your comment has been posted!</span>
+        <button onclick="document.getElementById('commentAlert').classList.add('hidden')" class="text-emerald-700 dark:text-emerald-400 font-bold ml-2">✕</button>
+      </div>
+
+      <!-- COMMENT INPUT FORM -->
+      <form id="commentForm" class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 mb-8 shadow-xs">
+        <h4 class="font-serif font-bold text-sm text-zinc-900 dark:text-zinc-100 mb-4">Add your thoughts to this story</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Your Name / Pseudonym *</label>
+            <input 
+              type="text" 
+              id="commentAuthor" 
+              required 
+              placeholder="e.g., Prof. Kenji Sato" 
+              class="w-full text-xs px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Affiliation / Title (Optional)</label>
+            <input 
+              type="text" 
+              id="commentRole" 
+              placeholder="e.g., Archaeologist / Reader" 
+              class="w-full text-xs px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+            />
+          </div>
         </div>
-        <textarea 
-          id="commentContent" 
-          rows="3" 
-          required 
-          placeholder="Share your perspectives, historical notes, or commentary on this dispatch..." 
-          class="w-full text-xs sm:text-sm font-serif px-3.5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900"
-        ></textarea>
-        <div class="flex justify-between items-center pt-1">
-          <span class="text-[11px] text-zinc-400">Respectful discourse is preserved on the wire.</span>
+        <div class="mb-3">
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Your Perspective *</label>
+          <textarea 
+            id="commentContent" 
+            rows="3" 
+            required 
+            placeholder="Share your commentary, historical context, or question..." 
+            class="w-full text-xs px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+          ></textarea>
+        </div>
+        <div class="flex items-center justify-between pt-2">
+          <span class="text-[11px] text-zinc-400">Comments appear immediately. Stored securely in your browser.</span>
           <button 
             type="submit" 
-            class="px-5 py-2 text-xs font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition"
+            class="px-5 py-2 text-xs font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition cursor-pointer"
           >
             Post Comment
           </button>
@@ -161,9 +195,9 @@
       </div>
     </section>
 
-    <!-- RELATED DISPATCHES -->
+    <!-- RELATED STORIES -->
     <div class="border-t-2 border-zinc-900 dark:border-zinc-700 mt-16 pt-8">
-      <h3 class="font-masthead text-lg font-bold uppercase tracking-wider mb-6">Related Dispatches</h3>
+      <h3 class="font-masthead text-lg font-bold uppercase tracking-wider mb-6">More from Timeless Wire</h3>
       <div id="relatedGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></div>
     </div>
   </main>
@@ -171,11 +205,197 @@
   <!-- FOOTER -->
   <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#161413] py-8 px-4 text-xs text-center text-zinc-500">
     <p class="font-masthead font-semibold text-zinc-700 dark:text-zinc-300">TIMELESS WIRE</p>
-    <p class="mt-1">Stories, History, Markets & News © 2026</p>
+    <p class="mt-1">Stories, History, Markets & News © 2026. Free & Open Discourse.</p>
   </footer>
 
-  <script type="module">
-    import { getArticleById, getArticles, getComments, addComment } from "./js/store.js";
+  <!-- EMBEDDED ZERO-DEPENDENCY DATA STORE & APP LOGIC -->
+  <script>
+    const STORAGE_KEY = "timeless_wire_articles_v1";
+    const COMMENTS_KEY = "timeless_wire_comments_v1";
+
+    const DEFAULT_ARTICLES = [
+      {
+        id: "ancient-bronze-age-collapse",
+        title: "The Bronze Age Collapse: When Civilization Vanished in 50 Years",
+        slug: "bronze-age-collapse",
+        category: "Ancient History",
+        author: "Dr. Alistair Vance",
+        date: "October 4, 2026",
+        readTime: "7 min read",
+        featured: true,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "Around 1177 BCE, a dazzlingly interconnected network of Mediterranean empires suddenly fell into ruin. Archaeologists are piecing together how famine, drought, and enigmatic invaders brought an era to an abrupt end.",
+        content: `
+          <p class="lead">Between Greece, Egypt, the Levant, and Mesopotamia flourished one of the ancient world's most vibrant commercial and diplomatic networks. Scribes communicated in Akkadian cuneiform, trade ships laden with Cornish tin and Cypriot copper crossed Aegean waters, and royal courts exchanged diplomatic gifts. Then, in the span of less than two generations, virtually every major urban center between Greece and Gaza was burned to the ground.</p>
+          <h2>The Anatomy of a Systemic Shock</h2>
+          <p>For decades, historians attributed this cataclysm strictly to the mysterious 'Sea Peoples'—a shadowy confederation of seaborne raiders mentioned in Ramesses III's funerary temple at Medinet Habu. However, modern paleoclimatological data reveals a far more insidious culprit: a protracted mega-drought that triggered cascading agricultural collapse.</p>
+          <blockquote>"The collapse was not caused by a single asteroid-like blow, but by hyper-fragility. When one vital link in the Bronze Age globalized supply chain broke, the entire civilizational architecture folded."</blockquote>
+          <h2>Lessons for the 21st Century</h2>
+          <p>The lesson of 1177 BCE is not that bronze gave way to iron, but that complex, tightly coupled systems carry hidden systemic vulnerabilities. When climate distress, social rebellion, trade disruption, and external conflict strike simultaneously, even the mightiest empires can unravel with terrifying speed.</p>
+        `
+      },
+      {
+        id: "silk-road-caravan-master",
+        title: "The Caravan Master of the Taklamakan: Whispers of the Silk Road",
+        slug: "silk-road-caravan-master",
+        category: "Stories & Lore",
+        author: "Elena Zhao",
+        date: "October 3, 2026",
+        readTime: "5 min read",
+        featured: false,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "Along the northern rim of the Sea of Death, solitary Sogdian merchants guided hundreds of Bactrian camels loaded with lapis lazuli and raw silk, connecting cultures across thousands of leagues.",
+        content: `
+          <p class="lead">In the Sogdian tongue, the Taklamakan Desert was known simply as the place where 'you go in, but do not come out.' Yet for three centuries during the height of the Tang dynasty, it served as the bustling artery of Eurasian civilization.</p>
+          <h2>The Unwritten Codes of Desert Trade</h2>
+          <p>The caravan masters were more than logistics operators; they were diplomats, polyglots, and bankers. Caravans carried letters written on wooden slips, stamped with clay seals that were legally honored from Chang'an to Constantinople.</p>
+          <p>Through their arduous journeys, these resilient traders carried more than physical goods: they disseminated Buddhism, Nestorian Christianity, paper-making secrets, and astronomical tables that permanently altered the intellectual landscape of medieval Eurasia.</p>
+        `
+      },
+      {
+        id: "global-clean-energy-transition-2026",
+        title: "Global Clean Energy Transition: The Geopolitics of Critical Minerals",
+        slug: "global-clean-energy-transition",
+        category: "News & Dispatches",
+        author: "Marcus Lindqvist",
+        date: "October 2, 2026",
+        readTime: "6 min read",
+        featured: false,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "As nations speed up grid decarbonization, the battleground of international security has migrated from crude oil pipelines to rare earth processing, copper refineries, and lithium salt flats.",
+        content: `
+          <p class="lead">The worldwide shift from fossil-fuel combustion to electrified renewable power is often framed purely as a triumph of climate science. Yet beneath the technological surface lies an intense diplomatic and economic chess game.</p>
+          <h2>The New Resource Map</h2>
+          <p>Unlike oil, which can be pumped and refined in diverse geopolitical jurisdictions, battery-grade lithium, cobalt, and neodymium pass through heavily concentrated industrial bottlenecks. Over 65% of chemical refining capacity currently resides within East Asia.</p>
+          <p>Western economies and emerging nations in South Asia are now actively pursuing regional processing partnerships to safeguard high-capacity grid storage and electric mobility pipelines against international shocks.</p>
+        `
+      },
+      {
+        id: "autonomous-commerce-multi-vendor-2027",
+        title: "The Rise of Autonomous Commerce: How Digital Marketplaces Are Transforming",
+        slug: "autonomous-commerce-multi-vendor",
+        category: "Business & Markets",
+        author: "Samantha Torres",
+        date: "October 1, 2026",
+        readTime: "8 min read",
+        featured: false,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "Decentralized fulfillment, real-time escrow micro-settlements, and algorithmic take-rates are transforming traditional retail into intelligent, frictionless multi-seller ecosystems.",
+        content: `
+          <p class="lead">For twenty years, digital marketplaces operated on monolithic centralized databases with batch-processed merchant payouts. Today, next-generation platforms are adopting Domain-Driven event streaming to achieve instant, transparent commerce.</p>
+          <h2>Algorithmic Split Settlement</h2>
+          <p>By decomposing buyer carts into sovereign vendor consignments at the domain level, contemporary platforms can execute precise double-entry financial holds. Merchants gain immediate visibility into order allocation, escrow maturity timers, and automated disbursements.</p>
+          <p>The result is a radically more resilient marketplace structure that eliminates payment disputes, reduces platform overhead, and fosters seller loyalty through verifiable trust.</p>
+        `
+      },
+      {
+        id: "review-architecture-of-deep-time",
+        title: "Review: 'The Architecture of Deep Time' — A Masterclass in Long-Term Thinking",
+        slug: "review-architecture-deep-time",
+        category: "In-Depth Reviews",
+        author: "Julian Hayes",
+        date: "September 29, 2026",
+        readTime: "4 min read",
+        featured: false,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "In a world consumed by 24-hour news cycles and quarterly earnings, historian Elena Rostova presents an urgent defense of century-scale civilizational planning.",
+        content: `
+          <p class="lead">Few books arrive with the moral weight and intellectual rigor of Elena Rostova's latest monograph, <em>The Architecture of Deep Time</em>. It is simultaneously an archaeological treatise and a searing critique of modern short-termism.</p>
+          <h2>The Cathedral Mindset</h2>
+          <p>Rostova examines how medieval stonemasons laid foundations for cathedrals they knew they would never see completed within their lifespans. She contrasts this with our digital era's obsession with instant gratification, proposing concrete institutional reforms to protect public goods across generations.</p>
+          <p><strong>Verdict:</strong> 5 / 5 Stars. An indispensable read for policymakers, technologists, and anyone concerned with humanity's trajectory over the next millennium.</p>
+        `
+      }
+    ];
+
+    const DEFAULT_COMMENTS = {
+      "ancient-bronze-age-collapse": [
+        {
+          id: "c-1",
+          articleId: "ancient-bronze-age-collapse",
+          author: "Professor Kenji Sato",
+          content: "The multi-causal model combining climate distress with seismic activity in the Aegean basin is now strongly supported by archaeoseismological fieldwork. Brilliant synthesis.",
+          date: "October 4, 2026 at 4:15 PM"
+        },
+        {
+          id: "c-2",
+          articleId: "ancient-bronze-age-collapse",
+          author: "Sarah Jenkins",
+          content: "Fascinating parallels to our contemporary just-in-time global supply chains. A sobering reminder of the hidden fragility in hyper-connected civilizations.",
+          date: "October 4, 2026 at 6:40 PM"
+        }
+      ],
+      "autonomous-commerce-multi-vendor-2027": [
+        {
+          id: "c-3",
+          articleId: "autonomous-commerce-multi-vendor-2027",
+          author: "David Miller",
+          content: "Event-driven split payments and algorithmic escrow holds are genuinely transforming cross-border marketplace logistics. Excellent breakdown.",
+          date: "October 2, 2026 at 11:20 AM"
+        }
+      ]
+    };
+
+    function getArticles() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_ARTICLES));
+          return DEFAULT_ARTICLES;
+        }
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_ARTICLES;
+      } catch (e) {
+        return DEFAULT_ARTICLES;
+      }
+    }
+
+    function getArticleById(id) {
+      const articles = getArticles();
+      return articles.find((a) => a.id === id || a.slug === id);
+    }
+
+    function getAllComments() {
+      try {
+        const raw = localStorage.getItem(COMMENTS_KEY);
+        return raw ? JSON.parse(raw) : DEFAULT_COMMENTS;
+      } catch (e) {
+        return DEFAULT_COMMENTS;
+      }
+    }
+
+    function getComments(articleId) {
+      const store = getAllComments();
+      return store[articleId] || [];
+    }
+
+    function addComment(articleId, { author, content }) {
+      const all = getAllComments();
+      if (!all[articleId]) {
+        all[articleId] = [];
+      }
+      const newComment = {
+        id: "c-" + Date.now(),
+        articleId,
+        author: author || "Reader",
+        content,
+        date: new Date().toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          hour: "numeric",
+          minute: "2-digit"
+        })
+      };
+      all[articleId].unshift(newComment);
+      localStorage.setItem(COMMENTS_KEY, JSON.stringify(all));
+      return newComment;
+    }
 
     // Theme Toggle
     const themeToggle = document.getElementById("themeToggle");
@@ -191,13 +411,33 @@
       themeIcon.textContent = isDark ? "☀️" : "🌙";
     });
 
-    // Load Article
+    // Native Share / Copy Handler
+    window.shareArticle = function(title) {
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          url: window.location.href
+        }).catch(() => {});
+      } else {
+        copyArticleLink();
+      }
+    };
+
+    window.copyArticleLink = function() {
+      navigator.clipboard.writeText(window.location.href);
+      const alertBox = document.getElementById("commentAlert");
+      alertBox.querySelector("span").textContent = "✓ Link copied to clipboard!";
+      alertBox.classList.remove("hidden");
+      setTimeout(() => alertBox.classList.add("hidden"), 3500);
+    };
+
+    // Load Article Logic
     const params = new URLSearchParams(window.location.search);
     let id = params.get("id");
     const allArticles = getArticles();
     let article = id ? getArticleById(id) : null;
 
-    // Smart Fallback: If no article ID is in URL, automatically load the featured lead story
+    // Smart Fallback: Always show featured lead story if no ID or invalid ID
     if (!article && allArticles.length > 0) {
       article = allArticles.find(a => a.featured) || allArticles[0];
     }
@@ -206,8 +446,8 @@
     if (!article) {
       container.innerHTML = `
         <div class="text-center py-20">
-          <h1 class="font-serif text-3xl font-bold mb-3">Dispatch Not Found</h1>
-          <p class="text-zinc-500 mb-6">No dispatches are currently available on the wire.</p>
+          <h1 class="font-serif text-3xl font-bold mb-3">Story Not Found</h1>
+          <p class="text-zinc-500 mb-6">No articles are currently available.</p>
           <a href="index.html" class="px-5 py-2.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold text-sm">Return to Front Page</a>
         </div>
       `;
@@ -256,12 +496,15 @@
 
           <!-- Share Actions -->
           <div class="mt-12 p-4 rounded-xl bg-[#F4EFEA] dark:bg-[#1A1816] border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <span class="font-semibold text-zinc-700 dark:text-zinc-300">Share this dispatch:</span>
+            <span class="font-semibold text-zinc-700 dark:text-zinc-300">Share this story:</span>
             <div class="flex items-center gap-2">
-              <button onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!');" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition">
+              <button onclick="copyArticleLink()" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition cursor-pointer font-medium">
                 📋 Copy Link
               </button>
-              <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition">
+              <a href="https://wa.me/?text=${encodeURIComponent(article.title + ' ' + window.location.href)}" target="_blank" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition font-medium">
+                💬 WhatsApp
+              </a>
+              <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition font-medium">
                 𝕏 Post
               </a>
             </div>
@@ -269,7 +512,7 @@
         </article>
       `;
 
-      // Render Reader Comments (Native, Private, 100% Safe)
+      // Render Reader Comments Function
       function renderComments() {
         const comments = getComments(article.id);
         const countSpan = document.getElementById("commentCount");
@@ -279,8 +522,8 @@
 
         if (comments.length === 0) {
           list.innerHTML = `
-            <div class="text-center py-8 text-zinc-400 text-xs">
-              No comments yet on this dispatch. Be the first to share your perspective!
+            <div class="text-center py-8 text-zinc-400 text-xs bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800">
+              No comments yet on this story. Be the first to share your perspective!
             </div>
           `;
           return;
@@ -326,6 +569,12 @@
 
           commentForm.reset();
           renderComments();
+
+          // Show Success Toast
+          const alertBox = document.getElementById("commentAlert");
+          alertBox.querySelector("span").textContent = "✓ Your comment has been posted!";
+          alertBox.classList.remove("hidden");
+          setTimeout(() => alertBox.classList.add("hidden"), 4000);
         });
       }
 

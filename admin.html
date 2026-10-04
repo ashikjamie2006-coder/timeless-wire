@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -49,8 +49,8 @@
         <button id="exportBtn" class="px-3.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition">
           💾 Export JSON Backup
         </button>
-        <button id="newStoryBtn" class="px-4 py-1.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold hover:bg-zinc-800 transition">
-          ✍️ New Dispatch
+        <button id="newStoryBtn" class="px-4 py-1.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold hover:bg-zinc-800 transition cursor-pointer">
+          ✍️ New Story
         </button>
       </div>
     </div>
@@ -62,7 +62,7 @@
     <!-- STATS STRIP -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
       <div class="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
-        <span class="text-xs text-zinc-500 font-medium">Total Dispatches</span>
+        <span class="text-xs text-zinc-500 font-medium">Total Stories</span>
         <div id="statTotal" class="text-2xl font-bold mt-1 text-zinc-900 dark:text-white">-</div>
       </div>
       <div class="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
@@ -70,34 +70,15 @@
         <div id="statPublished" class="text-2xl font-bold mt-1 text-emerald-600 dark:text-emerald-400">-</div>
       </div>
       <div class="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
-        <span class="text-xs text-zinc-500 font-medium">Active Categories</span>
-        <div class="text-2xl font-bold mt-1 text-blue-600 dark:text-blue-400">5 Channels</div>
+        <span class="text-xs text-zinc-500 font-medium">Active Channels</span>
+        <div class="text-2xl font-bold mt-1 text-blue-600 dark:text-blue-400">5 Categories</div>
       </div>
       <div class="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
-        <span class="text-xs text-zinc-500 font-medium">Domain Status</span>
+        <span class="text-xs text-zinc-500 font-medium">Hosting Status</span>
         <div class="text-xs font-semibold mt-2 text-emerald-600 flex items-center gap-1.5">
           <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          Ready for Vercel Free
+          Live on Vercel Free
         </div>
-      </div>
-    </div>
-
-    <!-- READER COMMENTARY STATS STRIP -->
-    <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 p-4 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <div class="h-9 w-9 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-700 dark:text-emerald-400 font-bold">
-          💬
-        </div>
-        <div>
-          <h4 class="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100">Native Reader Commentary Engine</h4>
-          <p class="text-xs text-zinc-500">100% Private & In-House • Zero external third-party apps • Safe for all readers</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-400">
-          <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-          Active & Protected
-        </span>
       </div>
     </div>
 
@@ -105,7 +86,7 @@
     <div id="listView" class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
       <div class="p-4 sm:p-5 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-4">
         <h3 class="font-masthead text-lg font-bold text-zinc-900 dark:text-white">
-          All Editorial Dispatches
+          All Published & Draft Stories
         </h3>
         <input 
           type="text" 
@@ -139,11 +120,11 @@
       <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4 mb-6">
         <div>
           <h2 id="editorHeading" class="font-serif text-2xl font-bold text-zinc-900 dark:text-white">
-            Write New Dispatch
+            Write New Story
           </h2>
-          <p class="text-xs text-zinc-500 mt-0.5">Craft and publish stories directly to the live wire.</p>
+          <p class="text-xs text-zinc-500 mt-0.5">Craft and publish stories directly to your website.</p>
         </div>
-        <button id="cancelEditorBtn" class="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+        <button id="cancelEditorBtn" class="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white cursor-pointer">
           ✕ Close
         </button>
       </div>
@@ -203,11 +184,11 @@
           </div>
           <div class="flex flex-wrap items-center gap-1.5 text-xs text-zinc-500">
             <span>Or quick preset:</span>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">🏛 Antiquity</button>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">📖 Desert Caravan</button>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">🌍 Global News</button>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">📈 Market Chart</button>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300">⭐ Book Review</button>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">🏛 Antiquity</button>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">📖 Desert Caravan</button>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">🌍 Global News</button>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">📈 Market Chart</button>
+            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">⭐ Book Review</button>
           </div>
         </div>
 
@@ -228,19 +209,19 @@
           <div class="flex items-center justify-between mb-1">
             <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">Story Body (HTML / Visual Text)</label>
             <div class="flex items-center gap-1 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-md text-xs">
-              <button type="button" onclick="insertTag('<p class=\'lead\'>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-semibold" title="Drop-Cap Lead Paragraph">Lead ¶</button>
-              <button type="button" onclick="insertTag('<h2>', '</h2>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold" title="Section Heading">H2</button>
-              <button type="button" onclick="insertTag('<blockquote>', '</blockquote>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic" title="Blockquote">Quote</button>
-              <button type="button" onclick="insertTag('<strong>', '</strong>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold">B</button>
-              <button type="button" onclick="insertTag('<em>', '</em>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic">I</button>
-              <button type="button" onclick="insertTag('<p>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded">¶</button>
+              <button type="button" onclick="insertTag('<p class=\'lead\'>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-semibold cursor-pointer" title="Drop-Cap Lead Paragraph">Lead ¶</button>
+              <button type="button" onclick="insertTag('<h2>', '</h2>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold cursor-pointer" title="Section Heading">H2</button>
+              <button type="button" onclick="insertTag('<blockquote>', '</blockquote>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic cursor-pointer" title="Blockquote">Quote</button>
+              <button type="button" onclick="insertTag('<strong>', '</strong>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold cursor-pointer">B</button>
+              <button type="button" onclick="insertTag('<em>', '</em>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic cursor-pointer">I</button>
+              <button type="button" onclick="insertTag('<p>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded cursor-pointer">¶</button>
             </div>
           </div>
           <textarea 
             id="storyContent" 
             rows="10" 
             required 
-            placeholder="Compose your dispatch here using formatting tags or paragraphs..." 
+            placeholder="Compose your story here using formatting tags or paragraphs..." 
             class="w-full text-sm font-serif px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 font-mono leading-relaxed"
           ></textarea>
         </div>
@@ -248,22 +229,22 @@
         <!-- Status & Feature Toggles -->
         <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
           <div class="flex items-center gap-6 text-sm">
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" id="storyFeatured" class="rounded text-crimson-600 h-4 w-4">
-              <span class="font-medium">Feature as Lead Story</span>
+            <label class="flex items-center gap-2 cursor-pointer font-medium">
+              <input type="checkbox" id="storyFeatured" class="h-4 w-4 rounded border-zinc-300 text-crimson-600 focus:ring-crimson-600">
+              <span>⭐ Featured as Lead Story</span>
             </label>
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" id="storyPublished" checked class="rounded text-emerald-600 h-4 w-4">
-              <span class="font-medium">Publish Immediately</span>
+            <label class="flex items-center gap-2 cursor-pointer font-medium">
+              <input type="checkbox" id="storyPublished" checked class="h-4 w-4 rounded border-zinc-300 text-emerald-600 focus:ring-emerald-600">
+              <span class="text-emerald-700 dark:text-emerald-400 font-bold">Publish to Live Site</span>
             </label>
           </div>
 
-          <div class="flex items-center gap-3">
-            <button type="button" id="cancelFormBtn" class="px-4 py-2 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium">
+          <div class="flex items-center gap-2">
+            <button type="button" id="cancelFormBtn" class="px-4 py-2 text-xs font-semibold rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer">
               Cancel
             </button>
-            <button type="submit" class="px-6 py-2 text-sm font-semibold rounded-lg bg-crimson-600 hover:bg-crimson-700 text-white shadow-sm transition">
-              🚀 Publish to Wire
+            <button type="submit" class="px-6 py-2 text-xs font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 cursor-pointer">
+              Publish Story
             </button>
           </div>
         </div>
@@ -271,8 +252,163 @@
     </div>
   </main>
 
-  <script type="module">
-    import { getArticles, saveArticle, deleteArticle, toggleFeatured } from "./js/store.js";
+  <!-- EMBEDDED ZERO-DEPENDENCY DATA STORE & APP LOGIC -->
+  <script>
+    const STORAGE_KEY = "timeless_wire_articles_v1";
+
+    const DEFAULT_ARTICLES = [
+      {
+        id: "ancient-bronze-age-collapse",
+        title: "The Bronze Age Collapse: When Civilization Vanished in 50 Years",
+        slug: "bronze-age-collapse",
+        category: "Ancient History",
+        author: "Dr. Alistair Vance",
+        date: "October 4, 2026",
+        readTime: "7 min read",
+        featured: true,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "Around 1177 BCE, a dazzlingly interconnected network of Mediterranean empires suddenly fell into ruin. Archaeologists are piecing together how famine, drought, and enigmatic invaders brought an era to an abrupt end.",
+        content: `
+          <p class="lead">Between Greece, Egypt, the Levant, and Mesopotamia flourished one of the ancient world's most vibrant commercial and diplomatic networks. Scribes communicated in Akkadian cuneiform, trade ships laden with Cornish tin and Cypriot copper crossed Aegean waters, and royal courts exchanged diplomatic gifts. Then, in the span of less than two generations, virtually every major urban center between Greece and Gaza was burned to the ground.</p>
+          <h2>The Anatomy of a Systemic Shock</h2>
+          <p>For decades, historians attributed this cataclysm strictly to the mysterious 'Sea Peoples'—a shadowy confederation of seaborne raiders mentioned in Ramesses III's funerary temple at Medinet Habu. However, modern paleoclimatological data reveals a far more insidious culprit: a protracted mega-drought that triggered cascading agricultural collapse.</p>
+          <blockquote>"The collapse was not caused by a single asteroid-like blow, but by hyper-fragility. When one vital link in the Bronze Age globalized supply chain broke, the entire civilizational architecture folded."</blockquote>
+          <h2>Lessons for the 21st Century</h2>
+          <p>The lesson of 1177 BCE is not that bronze gave way to iron, but that complex, tightly coupled systems carry hidden systemic vulnerabilities. When climate distress, social rebellion, trade disruption, and external conflict strike simultaneously, even the mightiest empires can unravel with terrifying speed.</p>
+        `
+      },
+      {
+        id: "silk-road-caravan-master",
+        title: "The Caravan Master of the Taklamakan: Whispers of the Silk Road",
+        slug: "silk-road-caravan-master",
+        category: "Stories & Lore",
+        author: "Elena Zhao",
+        date: "October 3, 2026",
+        readTime: "5 min read",
+        featured: false,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "Along the northern rim of the Sea of Death, solitary Sogdian merchants guided hundreds of Bactrian camels loaded with lapis lazuli and raw silk, connecting cultures across thousands of leagues.",
+        content: `
+          <p class="lead">In the Sogdian tongue, the Taklamakan Desert was known simply as the place where 'you go in, but do not come out.' Yet for three centuries during the height of the Tang dynasty, it served as the bustling artery of Eurasian civilization.</p>
+          <h2>The Unwritten Codes of Desert Trade</h2>
+          <p>The caravan masters were more than logistics operators; they were diplomats, polyglots, and bankers. Caravans carried letters written on wooden slips, stamped with clay seals that were legally honored from Chang'an to Constantinople.</p>
+          <p>Through their arduous journeys, these resilient traders carried more than physical goods: they disseminated Buddhism, Nestorian Christianity, paper-making secrets, and astronomical tables that permanently altered the intellectual landscape of medieval Eurasia.</p>
+        `
+      },
+      {
+        id: "global-clean-energy-transition-2026",
+        title: "Global Clean Energy Transition: The Geopolitics of Critical Minerals",
+        slug: "global-clean-energy-transition",
+        category: "News & Dispatches",
+        author: "Marcus Lindqvist",
+        date: "October 2, 2026",
+        readTime: "6 min read",
+        featured: false,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "As nations speed up grid decarbonization, the battleground of international security has migrated from crude oil pipelines to rare earth processing, copper refineries, and lithium salt flats.",
+        content: `
+          <p class="lead">The worldwide shift from fossil-fuel combustion to electrified renewable power is often framed purely as a triumph of climate science. Yet beneath the technological surface lies an intense diplomatic and economic chess game.</p>
+          <h2>The New Resource Map</h2>
+          <p>Unlike oil, which can be pumped and refined in diverse geopolitical jurisdictions, battery-grade lithium, cobalt, and neodymium pass through heavily concentrated industrial bottlenecks. Over 65% of chemical refining capacity currently resides within East Asia.</p>
+          <p>Western economies and emerging nations in South Asia are now actively pursuing regional processing partnerships to safeguard high-capacity grid storage and electric mobility pipelines against international shocks.</p>
+        `
+      },
+      {
+        id: "autonomous-commerce-multi-vendor-2027",
+        title: "The Rise of Autonomous Commerce: How Digital Marketplaces Are Transforming",
+        slug: "autonomous-commerce-multi-vendor",
+        category: "Business & Markets",
+        author: "Samantha Torres",
+        date: "October 1, 2026",
+        readTime: "8 min read",
+        featured: false,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "Decentralized fulfillment, real-time escrow micro-settlements, and algorithmic take-rates are transforming traditional retail into intelligent, frictionless multi-seller ecosystems.",
+        content: `
+          <p class="lead">For twenty years, digital marketplaces operated on monolithic centralized databases with batch-processed merchant payouts. Today, next-generation platforms are adopting Domain-Driven event streaming to achieve instant, transparent commerce.</p>
+          <h2>Algorithmic Split Settlement</h2>
+          <p>By decomposing buyer carts into sovereign vendor consignments at the domain level, contemporary platforms can execute precise double-entry financial holds. Merchants gain immediate visibility into order allocation, escrow maturity timers, and automated disbursements.</p>
+          <p>The result is a radically more resilient marketplace structure that eliminates payment disputes, reduces platform overhead, and fosters seller loyalty through verifiable trust.</p>
+        `
+      },
+      {
+        id: "review-architecture-of-deep-time",
+        title: "Review: 'The Architecture of Deep Time' — A Masterclass in Long-Term Thinking",
+        slug: "review-architecture-deep-time",
+        category: "In-Depth Reviews",
+        author: "Julian Hayes",
+        date: "September 29, 2026",
+        readTime: "4 min read",
+        featured: false,
+        status: "Published",
+        coverImage: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80",
+        excerpt: "In a world consumed by 24-hour news cycles and quarterly earnings, historian Elena Rostova presents an urgent defense of century-scale civilizational planning.",
+        content: `
+          <p class="lead">Few books arrive with the moral weight and intellectual rigor of Elena Rostova's latest monograph, <em>The Architecture of Deep Time</em>. It is simultaneously an archaeological treatise and a searing critique of modern short-termism.</p>
+          <h2>The Cathedral Mindset</h2>
+          <p>Rostova examines how medieval stonemasons laid foundations for cathedrals they knew they would never see completed within their lifespans. She contrasts this with our digital era's obsession with instant gratification, proposing concrete institutional reforms to protect public goods across generations.</p>
+          <p><strong>Verdict:</strong> 5 / 5 Stars. An indispensable read for policymakers, technologists, and anyone concerned with humanity's trajectory over the next millennium.</p>
+        `
+      }
+    ];
+
+    function getArticles() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_ARTICLES));
+          return DEFAULT_ARTICLES;
+        }
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_ARTICLES;
+      } catch (err) {
+        return DEFAULT_ARTICLES;
+      }
+    }
+
+    function saveArticle(articleData) {
+      const articles = getArticles();
+      const existingIndex = articles.findIndex((a) => a.id === articleData.id);
+
+      if (existingIndex >= 0) {
+        articles[existingIndex] = { ...articles[existingIndex], ...articleData };
+      } else {
+        const newArticle = {
+          ...articleData,
+          id: articleData.id || "post-" + Date.now(),
+          slug: (articleData.title || "story")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, ""),
+          date: articleData.date || new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+        };
+        articles.unshift(newArticle);
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+      return true;
+    }
+
+    function deleteArticle(id) {
+      let articles = getArticles();
+      articles = articles.filter((a) => a.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+      return true;
+    }
+
+    function toggleFeatured(id) {
+      const articles = getArticles();
+      const article = articles.find((a) => a.id === id);
+      if (article) {
+        article.featured = !article.featured;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+      }
+      return true;
+    }
 
     window.setPresetImage = function(url) {
       document.getElementById("storyImage").value = url;
@@ -306,7 +442,7 @@
         <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/40 transition">
           <td class="py-3.5 px-4 font-serif font-bold text-zinc-900 dark:text-zinc-100 max-w-xs">
             <div class="flex items-center gap-2">
-              <button onclick="handleToggleFeatured('${art.id}')" title="Toggle Featured" class="text-base">
+              <button onclick="handleToggleFeatured('${art.id}')" title="Toggle Featured" class="text-base cursor-pointer">
                 ${art.featured ? "⭐" : "☆"}
               </button>
               <a href="article.html?id=${art.id}" target="_blank" class="hover:underline line-clamp-1">
@@ -327,10 +463,10 @@
             </span>
           </td>
           <td class="py-3.5 px-4 text-right whitespace-nowrap">
-            <button onclick="handleEdit('${art.id}')" class="px-2.5 py-1 text-xs font-semibold rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 mr-1">
+            <button onclick="handleEdit('${art.id}')" class="px-2.5 py-1 text-xs font-semibold rounded bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 mr-1 cursor-pointer">
               Edit
             </button>
-            <button onclick="handleDelete('${art.id}')" class="px-2.5 py-1 text-xs font-semibold rounded text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50">
+            <button onclick="handleDelete('${art.id}')" class="px-2.5 py-1 text-xs font-semibold rounded text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50 cursor-pointer">
               Delete
             </button>
           </td>
@@ -345,7 +481,7 @@
     };
 
     window.handleDelete = function(id) {
-      if (confirm("Are you sure you want to delete this dispatch?")) {
+      if (confirm("Are you sure you want to delete this story?")) {
         deleteArticle(id);
         renderDashboard();
       }
@@ -367,7 +503,7 @@
       document.getElementById("storyFeatured").checked = !!art.featured;
       document.getElementById("storyPublished").checked = art.status === "Published";
 
-      document.getElementById("editorHeading").textContent = "Edit Dispatch";
+      document.getElementById("editorHeading").textContent = "Edit Story";
       document.getElementById("listView").classList.add("hidden");
       document.getElementById("editorView").classList.remove("hidden");
     };
@@ -376,10 +512,10 @@
     document.getElementById("newStoryBtn").addEventListener("click", () => {
       document.getElementById("storyForm").reset();
       document.getElementById("storyId").value = "";
-      document.getElementById("storyAuthor").value = "Chief Editor";
+      document.getElementById("storyAuthor").value = "Staff Correspondent";
       document.getElementById("storyReadTime").value = "5 min read";
       document.getElementById("storyImage").value = "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80";
-      document.getElementById("editorHeading").textContent = "Write New Dispatch";
+      document.getElementById("editorHeading").textContent = "Write New Story";
       document.getElementById("listView").classList.add("hidden");
       document.getElementById("editorView").classList.remove("hidden");
     });
@@ -412,7 +548,7 @@
       saveArticle(articleData);
       closeEditor();
       renderDashboard();
-      alert("Dispatch published successfully!");
+      alert("Story saved successfully!");
     });
 
     // Search input
