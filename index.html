@@ -48,6 +48,11 @@
 </head>
 <body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col">
 
+  <!-- NOTIFICATION TOAST -->
+  <div id="appToast" class="fixed bottom-6 right-6 z-50 hidden bg-zinc-900 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-xl border border-zinc-700 flex items-center gap-2">
+    <span id="toastMsg">✓ Notification</span>
+  </div>
+
   <!-- TOP WIRE BAR -->
   <div class="border-b border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#1A1816] text-xs py-1.5 px-4">
     <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
@@ -60,7 +65,7 @@
         <span id="currentDate" class="text-zinc-600 dark:text-zinc-400"></span>
       </div>
       <div class="flex items-center gap-4 text-zinc-600 dark:text-zinc-300">
-        <button id="themeToggle" class="hover:text-zinc-900 dark:hover:text-white flex items-center gap-1">
+        <button id="themeToggle" class="hover:text-zinc-900 dark:hover:text-white flex items-center gap-1 cursor-pointer">
           <span id="themeIcon">🌙</span> <span class="hidden sm:inline">Theme</span>
         </button>
         <span>•</span>
@@ -94,22 +99,25 @@
   <nav class="sticky top-0 z-40 bg-[#FAF8F5]/95 dark:bg-[#121110]/95 backdrop-blur border-b border-zinc-200 dark:border-zinc-800 px-4">
     <div class="max-w-7xl mx-auto flex items-center justify-between overflow-x-auto py-2.5 gap-2 scrollbar-none">
       <div class="flex items-center gap-1 sm:gap-2">
-        <button onclick="filterCategory('All')" class="category-btn active-cat px-3 py-1 text-xs sm:text-sm font-medium rounded-full bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 transition">
+        <button onclick="filterCategory('All')" class="category-btn active-cat px-3 py-1 text-xs sm:text-sm font-medium rounded-full bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 transition cursor-pointer">
           All Stories
         </button>
-        <button onclick="filterCategory('Ancient History')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
+        <button onclick="filterCategory('Saved')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition cursor-pointer flex items-center gap-1">
+          <span>🔖 Saved (<span id="savedCount">0</span>)</span>
+        </button>
+        <button onclick="filterCategory('Ancient History')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition cursor-pointer">
           🏛 Ancient History
         </button>
-        <button onclick="filterCategory('Stories & Lore')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
+        <button onclick="filterCategory('Stories & Lore')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition cursor-pointer">
           📖 Stories & Lore
         </button>
-        <button onclick="filterCategory('News & Dispatches')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
+        <button onclick="filterCategory('News & Dispatches')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition cursor-pointer">
           🌍 News & Dispatches
         </button>
-        <button onclick="filterCategory('Business & Markets')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
+        <button onclick="filterCategory('Business & Markets')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition cursor-pointer">
           📈 Business & Markets
         </button>
-        <button onclick="filterCategory('In-Depth Reviews')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
+        <button onclick="filterCategory('In-Depth Reviews')" class="category-btn px-3 py-1 text-xs sm:text-sm font-medium rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition cursor-pointer">
           ⭐ Reviews
         </button>
       </div>
@@ -124,6 +132,22 @@
         />
         <span class="absolute left-2.5 top-1.5 text-zinc-400 text-xs">🔍</span>
       </div>
+    </div>
+
+    <!-- THEMATIC TOPIC TAGS -->
+    <div class="max-w-7xl mx-auto pb-2 flex items-center gap-1.5 text-[11px] overflow-x-auto scrollbar-none text-zinc-500">
+      <span class="font-semibold uppercase tracking-wider text-zinc-400">Topics:</span>
+      <button onclick="filterByTag('All')" class="tag-btn font-semibold text-zinc-800 dark:text-zinc-200 hover:underline">All</button>
+      <span>•</span>
+      <button onclick="filterByTag('Bronze Age')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#BronzeAge</button>
+      <span>•</span>
+      <button onclick="filterByTag('Silk Road')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#SilkRoad</button>
+      <span>•</span>
+      <button onclick="filterByTag('Minerals')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#CriticalMinerals</button>
+      <span>•</span>
+      <button onclick="filterByTag('Commerce')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#Marketplaces</button>
+      <span>•</span>
+      <button onclick="filterByTag('Deep Time')" class="tag-btn hover:text-crimson-600 dark:hover:text-red-400">#DeepTime</button>
     </div>
   </nav>
 
@@ -158,9 +182,9 @@
       <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-6 max-w-lg mx-auto">
         Join over 15,000 thinkers who receive our curated weekend briefings exploring forgotten history, macroeconomic transformations, and cultural criticism.
       </p>
-      <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to Timeless Wire!');" class="flex flex-col sm:flex-row gap-2 justify-center max-w-md mx-auto">
+      <form onsubmit="event.preventDefault(); showToast('✓ Thank you for subscribing to Timeless Wire!');" class="flex flex-col sm:flex-row gap-2 justify-center max-w-md mx-auto">
         <input type="email" required placeholder="Enter your email address" class="px-4 py-2 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 flex-1">
-        <button type="submit" class="px-5 py-2 text-sm font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition">
+        <button type="submit" class="px-5 py-2 text-sm font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition cursor-pointer">
           Subscribe Free
         </button>
       </form>
@@ -184,8 +208,10 @@
 
   <!-- EMBEDDED ZERO-DEPENDENCY DATA STORE & APP LOGIC -->
   <script>
-    // Built-in Article Database (Works 100% offline and standalone with zero 404 dependencies)
     const STORAGE_KEY = "timeless_wire_articles_v1";
+    const BOOKMARKS_KEY = "timeless_wire_bookmarks_v1";
+    const REACTIONS_KEY = "timeless_wire_reactions_v1";
+    const COMMENTS_KEY = "timeless_wire_comments_v1";
 
     const DEFAULT_ARTICLES = [
       {
@@ -287,6 +313,14 @@
       }
     ];
 
+    const DEFAULT_REACTIONS = {
+      "ancient-bronze-age-collapse": { claps: 42, hearts: 19 },
+      "silk-road-caravan-master": { claps: 28, hearts: 14 },
+      "global-clean-energy-transition-2026": { claps: 35, hearts: 12 },
+      "autonomous-commerce-multi-vendor-2027": { claps: 51, hearts: 23 },
+      "review-architecture-of-deep-time": { claps: 19, hearts: 9 }
+    };
+
     function getArticles() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -301,8 +335,57 @@
       }
     }
 
+    function getBookmarks() {
+      try {
+        const raw = localStorage.getItem(BOOKMARKS_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e) { return []; }
+    }
+
+    function toggleBookmark(articleId) {
+      const list = getBookmarks();
+      const idx = list.indexOf(articleId);
+      if (idx >= 0) {
+        list.splice(idx, 1);
+      } else {
+        list.push(articleId);
+      }
+      localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(list));
+      return idx < 0;
+    }
+
+    function getReactions(articleId) {
+      try {
+        const raw = localStorage.getItem(REACTIONS_KEY);
+        const store = raw ? JSON.parse(raw) : DEFAULT_REACTIONS;
+        return store[articleId] || { claps: 0, hearts: 0 };
+      } catch(e) {
+        return DEFAULT_REACTIONS[articleId] || { claps: 0, hearts: 0 };
+      }
+    }
+
+    function getCommentCount(articleId) {
+      try {
+        const raw = localStorage.getItem(COMMENTS_KEY);
+        if (raw) {
+          const all = JSON.parse(raw);
+          return (all[articleId] || []).length;
+        }
+      } catch(e) {}
+      return articleId === "ancient-bronze-age-collapse" ? 2 : (articleId === "autonomous-commerce-multi-vendor-2027" ? 1 : 0);
+    }
+
     let currentCategory = "All";
+    let currentTag = "All";
     let searchQuery = "";
+
+    // Toast
+    window.showToast = function(msg) {
+      const toast = document.getElementById("appToast");
+      document.getElementById("toastMsg").textContent = msg;
+      toast.classList.remove("hidden");
+      setTimeout(() => toast.classList.add("hidden"), 3000);
+    };
 
     // Dark Mode Controller
     const themeToggle = document.getElementById("themeToggle");
@@ -326,28 +409,62 @@
       day: "numeric"
     });
 
+    // Bookmark Toggle on Card
+    window.cardToggleBookmark = function(e, articleId) {
+      e.preventDefault();
+      e.stopPropagation();
+      const saved = toggleBookmark(articleId);
+      updateBookmarksCount();
+      renderApp();
+      showToast(saved ? "✓ Story added to bookmarks!" : "Story removed from bookmarks.");
+    };
+
+    function updateBookmarksCount() {
+      const count = getBookmarks().length;
+      const countEl = document.getElementById("savedCount");
+      if (countEl) countEl.textContent = count;
+    }
+
     // Render Function
     function renderApp() {
+      updateBookmarksCount();
       const allArticles = getArticles().filter(a => a.status === "Published");
+      const bookmarks = getBookmarks();
       
       const filtered = allArticles.filter(art => {
-        const matchesCategory = currentCategory === "All" || art.category === currentCategory;
+        let matchesCategory = true;
+        if (currentCategory === "Saved") {
+          matchesCategory = bookmarks.includes(art.id);
+        } else if (currentCategory !== "All") {
+          matchesCategory = art.category === currentCategory;
+        }
+
+        const matchesTag = currentTag === "All" || 
+          art.title.toLowerCase().includes(currentTag.toLowerCase()) ||
+          art.excerpt.toLowerCase().includes(currentTag.toLowerCase()) ||
+          art.category.toLowerCase().includes(currentTag.toLowerCase());
+
         const matchesSearch = !searchQuery || 
           art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           art.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
+
+        return matchesCategory && matchesTag && matchesSearch;
       });
 
       document.getElementById("articleCount").textContent = `${filtered.length} stories available`;
 
-      // Render Hero (if on All and no search)
+      // Render Hero (if on All and no search/tag)
       const heroContainer = document.getElementById("heroContainer");
-      if (currentCategory === "All" && !searchQuery) {
+      if (currentCategory === "All" && currentTag === "All" && !searchQuery) {
         const featured = allArticles.find(a => a.featured) || allArticles[0];
         if (featured) {
+          const isBookmarked = bookmarks.includes(featured.id);
+          const reactions = getReactions(featured.id);
+          const commentsCount = getCommentCount(featured.id);
+
           heroContainer.innerHTML = `
-            <a href="article.html?id=${featured.id}" class="group block bg-white dark:bg-zinc-800/80 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-md transition">
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+            <div class="group relative bg-white dark:bg-zinc-800/80 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-md transition">
+              <a href="article.html?id=${featured.id}" class="grid grid-cols-1 lg:grid-cols-12 gap-0 block">
                 <div class="lg:col-span-7 h-72 lg:h-[420px] overflow-hidden">
                   <img src="${featured.coverImage}" alt="${featured.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                 </div>
@@ -368,11 +485,18 @@
                   </div>
                   <div class="flex items-center justify-between pt-4 border-t border-zinc-100 dark:border-zinc-700/60 text-xs text-zinc-500">
                     <span class="font-medium text-zinc-700 dark:text-zinc-300">By ${featured.author}</span>
-                    <span>${featured.date}</span>
+                    <div class="flex items-center gap-3">
+                      <span>👏 ${reactions.claps}</span>
+                      <span>💬 ${commentsCount}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
+              <!-- Direct Bookmark Button -->
+              <button onclick="cardToggleBookmark(event, '${featured.id}')" title="Bookmark story" class="absolute top-4 right-4 h-9 w-9 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-sm cursor-pointer z-10">
+                ${isBookmarked ? "★" : "🔖"}
+              </button>
+            </div>
           `;
           heroContainer.classList.remove("hidden");
         }
@@ -387,50 +511,86 @@
       if (filtered.length === 0) {
         grid.innerHTML = "";
         emptyState.classList.remove("hidden");
+        if (currentCategory === "Saved") {
+          emptyState.querySelector("h3").textContent = "No saved stories yet";
+          emptyState.querySelector("p").textContent = "Tap the 🔖 bookmark icon on any article to save it to your reading list.";
+        } else {
+          emptyState.querySelector("h3").textContent = "No articles found";
+          emptyState.querySelector("p").textContent = "Try adjusting your search terms or category selection.";
+        }
       } else {
-        emptyState.classList.remove("hidden"); // safety reset
         emptyState.classList.add("hidden");
-        grid.innerHTML = filtered.map(art => `
-          <article class="bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition">
-            <a href="article.html?id=${art.id}" class="block h-48 overflow-hidden">
-              <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-            </a>
-            <div class="p-5 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between text-xs text-zinc-500 mb-2">
-                  <span class="font-semibold text-crimson-600 dark:text-red-400 uppercase tracking-wider">${art.category}</span>
-                  <span>${art.readTime}</span>
+        grid.innerHTML = filtered.map(art => {
+          const isSaved = bookmarks.includes(art.id);
+          const reactions = getReactions(art.id);
+          const commentCnt = getCommentCount(art.id);
+
+          return `
+            <article class="bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
+              <a href="article.html?id=${art.id}" class="block h-48 overflow-hidden relative">
+                <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              </a>
+              <!-- Direct Bookmark Button -->
+              <button onclick="cardToggleBookmark(event, '${art.id}')" title="Bookmark story" class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-xs cursor-pointer z-10">
+                ${isSaved ? "★" : "🔖"}
+              </button>
+              
+              <div class="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between text-xs text-zinc-500 mb-2">
+                    <span class="font-semibold text-crimson-600 dark:text-red-400 uppercase tracking-wider">${art.category}</span>
+                    <span>${art.readTime}</span>
+                  </div>
+                  <a href="article.html?id=${art.id}">
+                    <h3 class="font-serif text-xl font-bold text-zinc-900 dark:text-zinc-50 group-hover:text-crimson-600 dark:group-hover:text-red-400 transition leading-snug mb-2">
+                      ${art.title}
+                    </h3>
+                  </a>
+                  <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 font-serif line-clamp-3 mb-4">
+                    ${art.excerpt}
+                  </p>
                 </div>
-                <a href="article.html?id=${art.id}">
-                  <h3 class="font-serif text-xl font-bold text-zinc-900 dark:text-zinc-50 group-hover:text-crimson-600 dark:group-hover:text-red-400 transition leading-snug mb-2">
-                    ${art.title}
-                  </h3>
-                </a>
-                <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 font-serif line-clamp-3 mb-4">
-                  ${art.excerpt}
-                </p>
+                <div class="pt-3 border-t border-zinc-100 dark:border-zinc-700/60 flex items-center justify-between text-xs text-zinc-400">
+                  <span class="text-zinc-600 dark:text-zinc-300 font-medium">By ${art.author}</span>
+                  <div class="flex items-center gap-2">
+                    <span>👏 ${reactions.claps}</span>
+                    <span>💬 ${commentCnt}</span>
+                  </div>
+                </div>
               </div>
-              <div class="pt-3 border-t border-zinc-100 dark:border-zinc-700/60 flex items-center justify-between text-xs text-zinc-400">
-                <span class="text-zinc-600 dark:text-zinc-300 font-medium">By ${art.author}</span>
-                <span>${art.date}</span>
-              </div>
-            </div>
-          </article>
-        `).join("");
+            </article>
+          `;
+        }).join("");
       }
     }
 
     // Category filter handler
     window.filterCategory = function(cat) {
       currentCategory = cat;
-      document.getElementById("feedTitle").textContent = cat === "All" ? "Latest Articles & Stories" : cat;
+      document.getElementById("feedTitle").textContent = cat === "All" ? "Latest Articles & Stories" : (cat === "Saved" ? "Your Saved Bookmarks" : cat);
       
       document.querySelectorAll(".category-btn").forEach(btn => {
         btn.classList.remove("bg-zinc-900", "text-white", "dark:bg-zinc-100", "dark:text-zinc-900");
         btn.classList.add("text-zinc-600", "dark:text-zinc-400");
-        if (btn.textContent.includes(cat) || (cat === "All" && btn.textContent.includes("All"))) {
+        if (
+          (cat === "All" && btn.textContent.includes("All")) ||
+          (cat === "Saved" && btn.textContent.includes("Saved")) ||
+          btn.textContent.includes(cat)
+        ) {
           btn.classList.add("bg-zinc-900", "text-white", "dark:bg-zinc-100", "dark:text-zinc-900");
           btn.classList.remove("text-zinc-600", "dark:text-zinc-400");
+        }
+      });
+      renderApp();
+    };
+
+    // Tag filter handler
+    window.filterByTag = function(tag) {
+      currentTag = tag;
+      document.querySelectorAll(".tag-btn").forEach(btn => {
+        btn.classList.remove("font-bold", "underline", "text-crimson-600", "dark:text-red-400");
+        if (btn.textContent.includes(tag) || (tag === "All" && btn.textContent === "All")) {
+          btn.classList.add("font-bold", "underline", "text-crimson-600", "dark:text-red-400");
         }
       });
       renderApp();

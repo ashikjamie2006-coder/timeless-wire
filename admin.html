@@ -42,12 +42,22 @@
         </span>
       </div>
 
+      <!-- Navigation Tabs -->
+      <div class="flex items-center gap-2">
+        <button id="tabStoriesBtn" onclick="switchDashboardTab('stories')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 transition cursor-pointer">
+          📰 Stories (<span id="tabStoryCount">0</span>)
+        </button>
+        <button id="tabCommentsBtn" onclick="switchDashboardTab('comments')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
+          💬 Comments (<span id="tabCommentCount">0</span>)
+        </button>
+      </div>
+
       <div class="flex items-center gap-3 text-xs sm:text-sm">
         <a href="index.html" class="px-3.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition">
           👁 View Live Site
         </a>
-        <button id="exportBtn" class="px-3.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition">
-          💾 Export JSON Backup
+        <button id="exportBtn" class="px-3.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition cursor-pointer">
+          💾 Export Backup
         </button>
         <button id="newStoryBtn" class="px-4 py-1.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold hover:bg-zinc-800 transition cursor-pointer">
           ✍️ New Story
@@ -82,41 +92,77 @@
       </div>
     </div>
 
-    <!-- POST MANAGEMENT TABLE VIEW -->
-    <div id="listView" class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
-      <div class="p-4 sm:p-5 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-4">
-        <h3 class="font-masthead text-lg font-bold text-zinc-900 dark:text-white">
-          All Published & Draft Stories
-        </h3>
-        <input 
-          type="text" 
-          id="adminSearchInput" 
-          placeholder="Filter stories..." 
-          class="text-xs sm:text-sm px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900 w-64"
-        />
-      </div>
+    <!-- POST MANAGEMENT TABLE VIEW (TAB 1) -->
+    <div id="storiesTabSection" class="space-y-6">
+      <div id="listView" class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-4">
+          <h3 class="font-masthead text-lg font-bold text-zinc-900 dark:text-white">
+            All Editorial Stories
+          </h3>
+          <input 
+            type="text" 
+            id="adminSearchInput" 
+            placeholder="Filter stories..." 
+            class="text-xs sm:text-sm px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900 w-64"
+          />
+        </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead class="bg-zinc-50 dark:bg-zinc-800/50 text-zinc-500 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[11px]">
-            <tr>
-              <th class="py-3 px-4">Story</th>
-              <th class="py-3 px-4">Category</th>
-              <th class="py-3 px-4">Author</th>
-              <th class="py-3 px-4">Date</th>
-              <th class="py-3 px-4">Status</th>
-              <th class="py-3 px-4 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="articlesTableBody" class="divide-y divide-zinc-200 dark:divide-zinc-800">
-            <!-- Dynamically generated rows -->
-          </tbody>
-        </table>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-zinc-50 dark:bg-zinc-800/50 text-zinc-500 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3 px-4">Story</th>
+                <th class="py-3 px-4">Category</th>
+                <th class="py-3 px-4">Author</th>
+                <th class="py-3 px-4">Date</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="articlesTableBody" class="divide-y divide-zinc-200 dark:divide-zinc-800">
+              <!-- Dynamically generated rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMENT MODERATION DESK (TAB 2) -->
+    <div id="commentsTabSection" class="hidden space-y-6">
+      <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+          <div>
+            <h3 class="font-masthead text-lg font-bold text-zinc-900 dark:text-white">
+              Reader Commentary Moderation Desk
+            </h3>
+            <p class="text-xs text-zinc-500">Review, moderate, and delete reader comments across all articles.</p>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-400">
+            🔒 100% In-House & Safe
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-zinc-50 dark:bg-zinc-800/50 text-zinc-500 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3 px-4">Article</th>
+                <th class="py-3 px-4">Author / Role</th>
+                <th class="py-3 px-4">Comment Text</th>
+                <th class="py-3 px-4">Date</th>
+                <th class="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="commentsTableBody" class="divide-y divide-zinc-200 dark:divide-zinc-800">
+              <!-- Dynamically populated comments -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
     <!-- VISUAL STORY EDITOR (Initially Hidden) -->
-    <div id="editorView" class="hidden bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-lg p-6 sm:p-8 max-w-4xl mx-auto">
+    <div id="editorView" class="hidden bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-lg p-6 sm:p-8 max-w-7xl mx-auto">
       <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4 mb-6">
         <div>
           <h2 id="editorHeading" class="font-serif text-2xl font-bold text-zinc-900 dark:text-white">
@@ -124,137 +170,182 @@
           </h2>
           <p class="text-xs text-zinc-500 mt-0.5">Craft and publish stories directly to your website.</p>
         </div>
-        <button id="cancelEditorBtn" class="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white cursor-pointer">
-          ✕ Close
-        </button>
+        
+        <div class="flex items-center gap-3">
+          <!-- Side-by-side Live Preview Toggle -->
+          <button type="button" id="previewToggleBtn" onclick="toggleSideBySidePreview()" class="px-3.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-xs font-semibold hover:bg-zinc-200 cursor-pointer">
+            👁️ Toggle Live Preview
+          </button>
+          <button id="cancelEditorBtn" class="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white cursor-pointer">
+            ✕ Close
+          </button>
+        </div>
       </div>
 
-      <form id="storyForm" class="space-y-6">
-        <input type="hidden" id="storyId">
-
-        <!-- Title -->
+      <div id="editorGrid" class="grid grid-cols-1 gap-8">
+        <!-- LEFT COLUMN: Form Inputs -->
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Headline</label>
-          <input 
-            type="text" 
-            id="storyTitle" 
-            required 
-            placeholder="Enter an evocative, editorial headline..." 
-            class="w-full text-lg sm:text-xl font-serif font-bold px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
-          >
+          <form id="storyForm" class="space-y-6">
+            <input type="hidden" id="storyId">
+
+            <!-- Title -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Headline</label>
+              <input 
+                type="text" 
+                id="storyTitle" 
+                required 
+                oninput="updateLivePreview()" 
+                placeholder="Enter an evocative, editorial headline..." 
+                class="w-full text-lg sm:text-xl font-serif font-bold px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+              >
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <!-- Category -->
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Editorial Channel</label>
+                <select id="storyCategory" onchange="updateLivePreview()" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
+                  <option value="Ancient History">🏛 Ancient History</option>
+                  <option value="Stories & Lore">📖 Stories & Lore</option>
+                  <option value="News & Dispatches">🌍 News & Dispatches</option>
+                  <option value="Business & Markets">📈 Business & Markets</option>
+                  <option value="In-Depth Reviews">⭐ In-Depth Reviews</option>
+                </select>
+              </div>
+
+              <!-- Author -->
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Author Byline</label>
+                <input type="text" id="storyAuthor" oninput="updateLivePreview()" value="Staff Correspondent" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
+              </div>
+
+              <!-- Read Time -->
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Read Time</label>
+                <input type="text" id="storyReadTime" oninput="updateLivePreview()" value="5 min read" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
+              </div>
+            </div>
+
+            <!-- Cover Image URL & Quick Presets -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Cover Image URL</label>
+              <div class="flex gap-2 mb-2">
+                <input 
+                  type="url" 
+                  id="storyImage" 
+                  required 
+                  oninput="updateLivePreview()" 
+                  placeholder="https://images.unsplash.com/photo-..." 
+                  class="flex-1 text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800"
+                >
+              </div>
+              <div class="flex flex-wrap items-center gap-1.5 text-xs text-zinc-500">
+                <span>Or quick preset:</span>
+                <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">🏛 Antiquity</button>
+                <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">📖 Desert Caravan</button>
+                <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">🌍 Global News</button>
+                <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">📈 Market Chart</button>
+                <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">⭐ Book Review</button>
+              </div>
+            </div>
+
+            <!-- Excerpt -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Excerpt / Standfirst</label>
+              <textarea 
+                id="storyExcerpt" 
+                rows="2" 
+                required 
+                oninput="updateLivePreview()" 
+                placeholder="A compelling 2-sentence hook displayed on cards and search results..." 
+                class="w-full text-sm font-serif px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800"
+              ></textarea>
+            </div>
+
+            <!-- VISUAL FORMATTING & MARKDOWN TOOLBAR -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">Story Body (HTML or Markdown)</label>
+                <div class="flex items-center gap-1 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-md text-xs">
+                  <button type="button" onclick="convertMarkdownBody()" class="px-2 py-0.5 bg-crimson-600 text-white rounded font-semibold cursor-pointer" title="Auto-convert # and ** to HTML">✨ Markdown to HTML</button>
+                  <button type="button" onclick="insertTag('<p class=\'lead\'>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-semibold cursor-pointer" title="Drop-Cap Lead Paragraph">Lead ¶</button>
+                  <button type="button" onclick="insertTag('<h2>', '</h2>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold cursor-pointer" title="Section Heading">H2</button>
+                  <button type="button" onclick="insertTag('<blockquote>', '</blockquote>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic cursor-pointer" title="Blockquote">Quote</button>
+                  <button type="button" onclick="insertTag('<strong>', '</strong>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold cursor-pointer">B</button>
+                  <button type="button" onclick="insertTag('<em>', '</em>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic cursor-pointer">I</button>
+                  <button type="button" onclick="insertTag('<p>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded cursor-pointer">¶</button>
+                </div>
+              </div>
+              <textarea 
+                id="storyContent" 
+                rows="10" 
+                required 
+                oninput="updateLivePreview()" 
+                placeholder="Compose your story here... You can use standard formatting tags or simple Markdown like # Title, **bold**, and > quotes..." 
+                class="w-full text-sm font-serif px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 font-mono leading-relaxed"
+              ></textarea>
+            </div>
+
+            <!-- Status & Feature Toggles -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+              <div class="flex items-center gap-6 text-sm">
+                <label class="flex items-center gap-2 cursor-pointer font-medium">
+                  <input type="checkbox" id="storyFeatured" class="h-4 w-4 rounded border-zinc-300 text-crimson-600 focus:ring-crimson-600">
+                  <span>⭐ Featured as Lead Story</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer font-medium">
+                  <input type="checkbox" id="storyPublished" checked class="h-4 w-4 rounded border-zinc-300 text-emerald-600 focus:ring-emerald-600">
+                  <span class="text-emerald-700 dark:text-emerald-400 font-bold">Publish to Live Site</span>
+                </label>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button type="button" id="cancelFormBtn" class="px-4 py-2 text-xs font-semibold rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer">
+                  Cancel
+                </button>
+                <button type="submit" class="px-6 py-2 text-xs font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 cursor-pointer">
+                  Publish Story
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <!-- Category -->
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Editorial Channel</label>
-            <select id="storyCategory" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
-              <option value="Ancient History">🏛 Ancient History</option>
-              <option value="Stories & Lore">📖 Stories & Lore</option>
-              <option value="News & Dispatches">🌍 News & Dispatches</option>
-              <option value="Business & Markets">📈 Business & Markets</option>
-              <option value="In-Depth Reviews">⭐ In-Depth Reviews</option>
-            </select>
+        <!-- RIGHT COLUMN: Side-by-Side Live Broadsheet Preview (Hidden by default, toggled via button) -->
+        <div id="livePreviewPanel" class="hidden p-6 rounded-xl bg-[#FAF8F5] dark:bg-[#121110] border border-zinc-200 dark:border-zinc-800 overflow-y-auto max-h-[850px]">
+          <div class="border-b border-zinc-300 dark:border-zinc-800 pb-3 mb-4 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-zinc-500">
+            <span>📰 Live Broadsheet Preview</span>
+            <span class="text-emerald-600 font-semibold">● Updates as you type</span>
           </div>
 
-          <!-- Author -->
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Author Byline</label>
-            <input type="text" id="storyAuthor" value="Staff Correspondent" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
-          </div>
+          <div id="previewCard">
+            <span id="previewCategory" class="text-xs uppercase tracking-widest font-bold text-crimson-600 dark:text-red-400 block mb-2">Category</span>
+            <h1 id="previewTitle" class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 leading-tight mb-3">Headline Preview</h1>
+            <p id="previewExcerpt" class="text-sm font-serif italic text-zinc-600 dark:text-zinc-300 mb-4">Excerpt preview will appear here...</p>
+            
+            <div class="flex items-center justify-between py-2 border-y border-zinc-200 dark:border-zinc-800 text-xs text-zinc-500 mb-4">
+              <span id="previewAuthor" class="font-semibold text-zinc-800 dark:text-zinc-200">By Author</span>
+              <span id="previewReadTime">5 min read</span>
+            </div>
 
-          <!-- Read Time -->
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Read Time</label>
-            <input type="text" id="storyReadTime" value="5 min read" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
-          </div>
-        </div>
+            <div class="rounded-xl overflow-hidden mb-6 border border-zinc-200 dark:border-zinc-800">
+              <img id="previewImage" src="" alt="Preview Cover" class="w-full h-48 object-cover">
+            </div>
 
-        <!-- Cover Image URL & Quick Presets -->
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Cover Image URL</label>
-          <div class="flex gap-2 mb-2">
-            <input 
-              type="url" 
-              id="storyImage" 
-              required 
-              placeholder="https://images.unsplash.com/photo-..." 
-              class="flex-1 text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800"
-            >
-          </div>
-          <div class="flex flex-wrap items-center gap-1.5 text-xs text-zinc-500">
-            <span>Or quick preset:</span>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">🏛 Antiquity</button>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">📖 Desert Caravan</button>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">🌍 Global News</button>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">📈 Market Chart</button>
-            <button type="button" onclick="setPresetImage('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80')" class="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 cursor-pointer">⭐ Book Review</button>
-          </div>
-        </div>
-
-        <!-- Excerpt -->
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Excerpt / Standfirst</label>
-          <textarea 
-            id="storyExcerpt" 
-            rows="2" 
-            required 
-            placeholder="A compelling 2-sentence hook displayed on cards and search results..." 
-            class="w-full text-sm font-serif px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800"
-          ></textarea>
-        </div>
-
-        <!-- VISUAL FORMATTING TOOLBAR -->
-        <div>
-          <div class="flex items-center justify-between mb-1">
-            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">Story Body (HTML / Visual Text)</label>
-            <div class="flex items-center gap-1 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-md text-xs">
-              <button type="button" onclick="insertTag('<p class=\'lead\'>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-semibold cursor-pointer" title="Drop-Cap Lead Paragraph">Lead ¶</button>
-              <button type="button" onclick="insertTag('<h2>', '</h2>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold cursor-pointer" title="Section Heading">H2</button>
-              <button type="button" onclick="insertTag('<blockquote>', '</blockquote>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic cursor-pointer" title="Blockquote">Quote</button>
-              <button type="button" onclick="insertTag('<strong>', '</strong>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded font-bold cursor-pointer">B</button>
-              <button type="button" onclick="insertTag('<em>', '</em>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded italic cursor-pointer">I</button>
-              <button type="button" onclick="insertTag('<p>', '</p>')" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded cursor-pointer">¶</button>
+            <div id="previewBody" class="font-serif text-sm leading-relaxed space-y-3 text-zinc-800 dark:text-zinc-200">
+              Body preview...
             </div>
           </div>
-          <textarea 
-            id="storyContent" 
-            rows="10" 
-            required 
-            placeholder="Compose your story here using formatting tags or paragraphs..." 
-            class="w-full text-sm font-serif px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 font-mono leading-relaxed"
-          ></textarea>
         </div>
-
-        <!-- Status & Feature Toggles -->
-        <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
-          <div class="flex items-center gap-6 text-sm">
-            <label class="flex items-center gap-2 cursor-pointer font-medium">
-              <input type="checkbox" id="storyFeatured" class="h-4 w-4 rounded border-zinc-300 text-crimson-600 focus:ring-crimson-600">
-              <span>⭐ Featured as Lead Story</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer font-medium">
-              <input type="checkbox" id="storyPublished" checked class="h-4 w-4 rounded border-zinc-300 text-emerald-600 focus:ring-emerald-600">
-              <span class="text-emerald-700 dark:text-emerald-400 font-bold">Publish to Live Site</span>
-            </label>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <button type="button" id="cancelFormBtn" class="px-4 py-2 text-xs font-semibold rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer">
-              Cancel
-            </button>
-            <button type="submit" class="px-6 py-2 text-xs font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 cursor-pointer">
-              Publish Story
-            </button>
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
   </main>
 
   <!-- EMBEDDED ZERO-DEPENDENCY DATA STORE & APP LOGIC -->
   <script>
     const STORAGE_KEY = "timeless_wire_articles_v1";
+    const COMMENTS_KEY = "timeless_wire_comments_v1";
 
     const DEFAULT_ARTICLES = [
       {
@@ -356,6 +447,34 @@
       }
     ];
 
+    const DEFAULT_COMMENTS = {
+      "ancient-bronze-age-collapse": [
+        {
+          id: "c-1",
+          articleId: "ancient-bronze-age-collapse",
+          author: "Professor Kenji Sato",
+          content: "The multi-causal model combining climate distress with seismic activity in the Aegean basin is now strongly supported by archaeoseismological fieldwork. Brilliant synthesis.",
+          date: "October 4, 2026 at 4:15 PM"
+        },
+        {
+          id: "c-2",
+          articleId: "ancient-bronze-age-collapse",
+          author: "Sarah Jenkins",
+          content: "Fascinating parallels to our contemporary just-in-time global supply chains. A sobering reminder of the hidden fragility in hyper-connected civilizations.",
+          date: "October 4, 2026 at 6:40 PM"
+        }
+      ],
+      "autonomous-commerce-multi-vendor-2027": [
+        {
+          id: "c-3",
+          articleId: "autonomous-commerce-multi-vendor-2027",
+          author: "David Miller",
+          content: "Event-driven split payments and algorithmic escrow holds are genuinely transforming cross-border marketplace logistics. Excellent breakdown.",
+          date: "October 2, 2026 at 11:20 AM"
+        }
+      ]
+    };
+
     function getArticles() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -410,8 +529,113 @@
       return true;
     }
 
+    // Comment Moderation Helpers
+    function getAllComments() {
+      try {
+        const raw = localStorage.getItem(COMMENTS_KEY);
+        return raw ? JSON.parse(raw) : DEFAULT_COMMENTS;
+      } catch(e) {
+        return DEFAULT_COMMENTS;
+      }
+    }
+
+    function deleteComment(articleId, commentId) {
+      const all = getAllComments();
+      if (all[articleId]) {
+        all[articleId] = all[articleId].filter(c => c.id !== commentId);
+        localStorage.setItem(COMMENTS_KEY, JSON.stringify(all));
+      }
+      return true;
+    }
+
+    // Tab Navigation Switcher
+    window.switchDashboardTab = function(tab) {
+      const storiesSec = document.getElementById("storiesTabSection");
+      const commentsSec = document.getElementById("commentsTabSection");
+      const storiesBtn = document.getElementById("tabStoriesBtn");
+      const commentsBtn = document.getElementById("tabCommentsBtn");
+
+      if (tab === "stories") {
+        storiesSec.classList.remove("hidden");
+        commentsSec.classList.add("hidden");
+        storiesBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 transition cursor-pointer";
+        commentsBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer";
+      } else {
+        storiesSec.classList.add("hidden");
+        commentsSec.classList.remove("hidden");
+        commentsBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 transition cursor-pointer";
+        storiesBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer";
+        renderCommentsTable();
+      }
+    };
+
+    // Render Comments Table
+    function renderCommentsTable() {
+      const all = getAllComments();
+      const articles = getArticles();
+      const tbody = document.getElementById("commentsTableBody");
+      
+      let allCommentRows = [];
+      let totalCount = 0;
+
+      for (const [artId, comments] of Object.entries(all)) {
+        const art = articles.find(a => a.id === artId);
+        const artTitle = art ? art.title : artId;
+
+        comments.forEach(c => {
+          totalCount++;
+          allCommentRows.push(`
+            <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/40 transition">
+              <td class="py-3 px-4 font-serif font-bold text-zinc-900 dark:text-zinc-100 max-w-xs">
+                <a href="article.html?id=${artId}" target="_blank" class="hover:underline line-clamp-1">
+                  ${artTitle}
+                </a>
+              </td>
+              <td class="py-3 px-4 font-medium text-zinc-700 dark:text-zinc-300 whitespace-nowrap">
+                ${c.author}
+              </td>
+              <td class="py-3 px-4 font-serif text-zinc-600 dark:text-zinc-400 max-w-md">
+                <p class="line-clamp-2">${c.content}</p>
+              </td>
+              <td class="py-3 px-4 text-zinc-500 whitespace-nowrap text-xs">
+                ${c.date}
+              </td>
+              <td class="py-3 px-4 text-right whitespace-nowrap">
+                <button onclick="handleDeleteComment('${artId}', '${c.id}')" class="px-2.5 py-1 text-xs font-semibold rounded text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50 cursor-pointer">
+                  🗑 Delete
+                </button>
+              </td>
+            </tr>
+          `);
+        });
+      }
+
+      document.getElementById("tabCommentCount").textContent = totalCount;
+
+      if (allCommentRows.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 text-center text-zinc-400">
+              No reader comments found.
+            </td>
+          </tr>
+        `;
+      } else {
+        tbody.innerHTML = allCommentRows.join("");
+      }
+    }
+
+    window.handleDeleteComment = function(artId, commentId) {
+      if (confirm("Are you sure you want to delete this reader comment?")) {
+        deleteComment(artId, commentId);
+        renderCommentsTable();
+      }
+    };
+
+    // Preset & Tag Inserter
     window.setPresetImage = function(url) {
       document.getElementById("storyImage").value = url;
+      updateLivePreview();
     };
 
     window.insertTag = function(openTag, closeTag) {
@@ -421,6 +645,67 @@
       const selected = textarea.value.substring(start, end);
       textarea.value = textarea.value.substring(0, start) + openTag + (selected || "Text here") + closeTag + textarea.value.substring(end);
       textarea.focus();
+      updateLivePreview();
+    };
+
+    // Easy Markdown to HTML Converter
+    window.convertMarkdownBody = function() {
+      const textarea = document.getElementById("storyContent");
+      let text = textarea.value;
+
+      // Convert Markdown headings: ## Heading -> <h2>Heading</h2>
+      text = text.replace(/^##\s+(.*$)/gim, '<h2>$1</h2>');
+      text = text.replace(/^#\s+(.*$)/gim, '<h2>$1</h2>');
+      
+      // Convert blockquotes: > quote -> <blockquote>quote</blockquote>
+      text = text.replace(/^\>\s+(.*$)/gim, '<blockquote>$1</blockquote>');
+      
+      // Convert bold: **bold** -> <strong>bold</strong>
+      text = text.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+      
+      // Convert italic: *italic* -> <em>italic</em>
+      text = text.replace(/\*(.*?)\*/gim, '<em>$1</em>');
+
+      textarea.value = text;
+      updateLivePreview();
+      alert("✨ Markdown successfully converted into formatted HTML!");
+    };
+
+    // Side-by-Side Live Preview Controller
+    let isSideBySideActive = false;
+    window.toggleSideBySidePreview = function() {
+      isSideBySideActive = !isSideBySideActive;
+      const grid = document.getElementById("editorGrid");
+      const panel = document.getElementById("livePreviewPanel");
+      const btn = document.getElementById("previewToggleBtn");
+
+      if (isSideBySideActive) {
+        grid.className = "grid grid-cols-1 lg:grid-cols-2 gap-8";
+        panel.classList.remove("hidden");
+        btn.textContent = "👁️ Hide Preview";
+        btn.classList.add("bg-crimson-600", "text-white");
+        btn.classList.remove("bg-zinc-100", "dark:bg-zinc-800");
+        updateLivePreview();
+      } else {
+        grid.className = "grid grid-cols-1 gap-8";
+        panel.classList.add("hidden");
+        btn.textContent = "👁️ Toggle Live Preview";
+        btn.classList.remove("bg-crimson-600", "text-white");
+        btn.classList.add("bg-zinc-100", "dark:bg-zinc-800");
+      }
+    };
+
+    window.updateLivePreview = function() {
+      if (!isSideBySideActive) return;
+      document.getElementById("previewTitle").textContent = document.getElementById("storyTitle").value || "Headline Preview";
+      document.getElementById("previewCategory").textContent = document.getElementById("storyCategory").value;
+      document.getElementById("previewAuthor").textContent = `By ${document.getElementById("storyAuthor").value || "Staff"}`;
+      document.getElementById("previewReadTime").textContent = document.getElementById("storyReadTime").value || "5 min read";
+      document.getElementById("previewExcerpt").textContent = document.getElementById("storyExcerpt").value || "Excerpt preview...";
+      document.getElementById("previewImage").src = document.getElementById("storyImage").value || "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80";
+      
+      const content = document.getElementById("storyContent").value;
+      document.getElementById("previewBody").innerHTML = content || "<p>Compose your story body to see the live rendering here...</p>";
     };
 
     function renderDashboard() {
@@ -429,6 +714,7 @@
       // Update Stats
       document.getElementById("statTotal").textContent = articles.length;
       document.getElementById("statPublished").textContent = articles.filter(a => a.status === "Published").length;
+      document.getElementById("tabStoryCount").textContent = articles.length;
 
       // Table Render
       const tbody = document.getElementById("articlesTableBody");
@@ -472,6 +758,8 @@
           </td>
         </tr>
       `).join("");
+
+      renderCommentsTable();
     }
 
     // Handlers
@@ -504,8 +792,10 @@
       document.getElementById("storyPublished").checked = art.status === "Published";
 
       document.getElementById("editorHeading").textContent = "Edit Story";
-      document.getElementById("listView").classList.add("hidden");
+      document.getElementById("storiesTabSection").classList.add("hidden");
+      document.getElementById("commentsTabSection").classList.add("hidden");
       document.getElementById("editorView").classList.remove("hidden");
+      updateLivePreview();
     };
 
     // Open New Story
@@ -516,14 +806,16 @@
       document.getElementById("storyReadTime").value = "5 min read";
       document.getElementById("storyImage").value = "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80";
       document.getElementById("editorHeading").textContent = "Write New Story";
-      document.getElementById("listView").classList.add("hidden");
+      document.getElementById("storiesTabSection").classList.add("hidden");
+      document.getElementById("commentsTabSection").classList.add("hidden");
       document.getElementById("editorView").classList.remove("hidden");
+      updateLivePreview();
     });
 
     // Close Editor
     function closeEditor() {
       document.getElementById("editorView").classList.add("hidden");
-      document.getElementById("listView").classList.remove("hidden");
+      document.getElementById("storiesTabSection").classList.remove("hidden");
     }
     document.getElementById("cancelEditorBtn").addEventListener("click", closeEditor);
     document.getElementById("cancelFormBtn").addEventListener("click", closeEditor);
