@@ -70,6 +70,17 @@
     .font-serif { font-family: 'Newsreader', Georgia, serif; }
     .font-sans { font-family: 'Inter', sans-serif; }
     
+    /* High-Contrast Tactile Focus Rings for Keyboard Navigation */
+    :focus-visible {
+      outline: 2px solid #991B1B !important;
+      outline-offset: 3px !important;
+      border-radius: 4px;
+    }
+    .dark :focus-visible {
+      outline: 2px solid #EF4444 !important;
+      outline-offset: 3px !important;
+    }
+    
     .article-body.font-sans-mode {
       font-family: 'Inter', sans-serif !important;
     }
@@ -205,7 +216,7 @@
   <!-- TOP BAR -->
   <div class="border-b border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#1A1816] text-xs py-2 px-4 sticky top-0 z-40 backdrop-blur">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <a href="index.html" class="font-masthead font-bold tracking-wider hover:text-crimson-600 dark:text-red-400 flex items-center gap-1.5">
+      <a href="/" class="font-masthead font-bold tracking-wider hover:text-crimson-600 dark:text-red-400 flex items-center gap-1.5">
         ← BACK TO WIRE
       </a>
       
@@ -270,13 +281,74 @@
       </div>
     </div>
 
-    <!-- ARTICLE CONTENT DYNAMIC INJECTION -->
+    <!-- ARTICLE CONTENT (Pre-rendered for Instant Paint & SEO Crawlers) -->
     <div id="articleContent">
-      <div class="animate-pulse space-y-4">
-        <div class="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-1/4"></div>
-        <div class="h-10 bg-zinc-200 dark:bg-zinc-800 rounded w-3/4"></div>
-        <div class="h-64 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
-      </div>
+      <article>
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs uppercase tracking-widest font-bold px-2.5 py-1 rounded bg-red-100 dark:bg-red-950/60 text-crimson-600 dark:text-red-400">
+              Ancient History
+            </span>
+          </div>
+          <h1 class="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 leading-tight mb-4">
+            The Bronze Age Collapse: When Civilization Vanished in 50 Years
+          </h1>
+          <p class="text-base sm:text-lg font-serif italic text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6">
+            Around 1177 BCE, a dazzlingly interconnected network of Mediterranean empires suddenly fell into ruin. Archaeologists are piecing together how famine, drought, and enigmatic invaders brought an era to an abrupt end.
+          </p>
+          <div class="flex items-center justify-between py-3 border-y border-zinc-200 dark:border-zinc-800 text-xs text-zinc-500">
+            <div class="flex items-center gap-3">
+              <span class="h-8 w-8 rounded-full bg-crimson-600 text-white flex items-center justify-center font-bold text-xs">AV</span>
+              <div>
+                <div class="font-semibold text-zinc-800 dark:text-zinc-200">By Dr. Alistair Vance</div>
+                <div class="text-[11px] text-zinc-400">Senior Historical Fellow</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div>October 4, 2026</div>
+              <div class="text-xs text-zinc-400">7 min read</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden mb-10 shadow-sm border border-zinc-200 dark:border-zinc-800 aspect-[16/9] w-full">
+          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80" alt="The Bronze Age Collapse" class="w-full h-full object-cover" loading="eager" fetchpriority="high" decoding="async" width="1200" height="675">
+        </div>
+
+        <div class="article-body font-serif text-zinc-800 dark:text-zinc-200">
+          <p class="lead">Between Greece, Egypt, the Levant, and Mesopotamia flourished one of the ancient world's most vibrant commercial and diplomatic networks. Scribes communicated in Akkadian cuneiform, trade ships laden with Cornish tin and Cypriot copper crossed Aegean waters, and royal courts exchanged diplomatic gifts. Then, in the span of less than two generations, virtually every major urban center between Greece and Gaza was burned to the ground.</p>
+          <h2>The Anatomy of a Systemic Shock</h2>
+          <p>For decades, historians attributed this cataclysm strictly to the mysterious 'Sea Peoples'—a shadowy confederation of seaborne raiders mentioned in Ramesses III's funerary temple at Medinet Habu. However, modern paleoclimatological data reveals a far more insidious culprit: a protracted mega-drought that triggered cascading agricultural collapse.</p>
+          <blockquote>"The collapse was not caused by a single asteroid-like blow, but by hyper-fragility. When one vital link in the Bronze Age globalized supply chain broke, the entire civilizational architecture folded."</blockquote>
+          <h2>Lessons for the 21st Century</h2>
+          <p>The lesson of 1177 BCE is not that bronze gave way to iron, but that complex, tightly coupled systems carry hidden systemic vulnerabilities. When climate distress, social rebellion, trade disruption, and external conflict strike simultaneously, even the mightiest empires can unravel with terrifying speed.</p>
+        </div>
+
+        <!-- Share Actions -->
+        <div class="mt-10 p-4 rounded-xl bg-[#F4EFEA] dark:bg-[#1A1816] border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <span class="font-semibold text-zinc-700 dark:text-zinc-300">Broadcast this story:</span>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="copyArticleLink()" aria-label="Copy article link to clipboard" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition cursor-pointer font-medium flex items-center gap-1.5">
+              📋 <span>Copy Link</span>
+            </button>
+            <a href="https://wa.me/?text=The%20Bronze%20Age%20Collapse%20%E2%80%94%20Timeless%20Wire%3A%20https%3A%2F%2Ftimelesswire.vercel.app%2Farticle%2Fancient-bronze-age-collapse" target="_blank" rel="noopener noreferrer" aria-label="Share article on WhatsApp" class="px-3 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white transition font-medium flex items-center gap-1 shadow-xs">
+              💬 <span>WhatsApp</span>
+            </a>
+            <a href="https://twitter.com/intent/tweet?text=The%20Bronze%20Age%20Collapse&url=https%3A%2F%2Ftimelesswire.vercel.app%2Farticle%2Fancient-bronze-age-collapse" target="_blank" rel="noopener noreferrer" aria-label="Post article on X (Twitter)" class="px-3 py-1.5 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-white transition font-medium flex items-center gap-1 shadow-xs">
+              𝕏 <span>Post</span>
+            </a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftimelesswire.vercel.app%2Farticle%2Fancient-bronze-age-collapse" target="_blank" rel="noopener noreferrer" aria-label="Share article on LinkedIn" class="px-3 py-1.5 rounded-md bg-[#0A66C2] hover:bg-[#084e96] text-white transition font-medium flex items-center gap-1 shadow-xs">
+              💼 <span>LinkedIn</span>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftimelesswire.vercel.app%2Farticle%2Fancient-bronze-age-collapse" target="_blank" rel="noopener noreferrer" aria-label="Share article on Facebook" class="px-3 py-1.5 rounded-md bg-[#1877F2] hover:bg-[#1464cc] text-white transition font-medium flex items-center gap-1 shadow-xs">
+              📘 <span>Share</span>
+            </a>
+            <button onclick="triggerRandomArticle()" aria-label="Read another random dispatch" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition font-medium cursor-pointer flex items-center gap-1">
+              🎲 Next
+            </button>
+          </div>
+        </div>
+      </article>
     </div>
 
     <!-- COMMUNITY SIGNALS & STORY REACTIONS -->
@@ -381,9 +453,20 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#161413] py-8 px-4 text-xs text-center text-zinc-500">
-    <p class="font-masthead font-semibold text-zinc-700 dark:text-zinc-300">TIMELESS WIRE</p>
-    <p class="mt-1">Stories, History, Markets & News © 2026. Free & Open Discourse.</p>
+  <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#161413] py-8 px-4 text-xs text-zinc-500">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div>
+        <p class="font-masthead font-bold text-zinc-800 dark:text-zinc-200 text-sm">TIMELESS WIRE</p>
+        <p class="text-zinc-500 mt-0.5">Autonomous Digital Publication © 2026. Free &amp; Open Discourse.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+        <a href="/" class="hover:underline">Home</a>
+        <a href="/about" class="hover:underline">About</a>
+        <a href="/privacy" class="hover:underline">Privacy Policy</a>
+        <a href="/contact" class="hover:underline">Contact</a>
+        <a href="/admin" class="hover:underline">Editorial CMS</a>
+      </div>
+    </div>
   </footer>
 
   <!-- EMBEDDED ZERO-DEPENDENCY DATA STORE & APP LOGIC -->
@@ -716,9 +799,32 @@
       }
     };
 
-    // Load Article Logic
-    const params = new URLSearchParams(window.location.search);
-    let id = params.get("id");
+    // Routing helper for Clean URLs vs local file protocol
+    function getArticleUrl(id) {
+      if (window.location.protocol === 'file:') {
+        return `article.html?id=${encodeURIComponent(id)}`;
+      }
+      return `/article/${encodeURIComponent(id)}`;
+    }
+
+    // Load Article Logic: Dual-Mode Clean Path & Query Parameter Routing
+    let id = null;
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    const articleIdx = pathParts.indexOf("article");
+    if (articleIdx !== -1 && pathParts[articleIdx + 1] && !pathParts[articleIdx + 1].endsWith(".html")) {
+      id = decodeURIComponent(pathParts[articleIdx + 1]);
+    }
+    if (!id) {
+      const params = new URLSearchParams(window.location.search);
+      id = params.get("id");
+    }
+    // Address bar modernization to clean URL on live HTTP/HTTPS
+    if (id && window.location.search.includes("id=") && window.location.protocol !== 'file:') {
+      try {
+        window.history.replaceState({}, "", `/article/${encodeURIComponent(id)}`);
+      } catch (e) {}
+    }
+
     const allArticles = getArticles();
     let article = id ? getArticleById(id) : null;
 
@@ -733,21 +839,25 @@
         <div class="text-center py-20">
           <h1 class="font-serif text-3xl font-bold mb-3">Story Not Found</h1>
           <p class="text-zinc-500 mb-6">No articles are currently available.</p>
-          <a href="index.html" class="px-5 py-2.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold text-sm">Return to Front Page</a>
+          <a href="/" class="px-5 py-2.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold text-sm">Return to Front Page</a>
         </div>
       `;
     } else {
       document.title = `${article.title} — Timeless Wire`;
       recordArticleRead(article.id);
 
+      const canonicalHref = window.location.protocol === 'file:' 
+        ? window.location.href 
+        : `${window.location.origin}/article/${encodeURIComponent(article.id)}`;
+
       // Update Open Graph Social Previews for WhatsApp / Facebook / LinkedIn
       document.getElementById("ogTitle").setAttribute("content", article.title + " — Timeless Wire");
       document.getElementById("ogDesc").setAttribute("content", article.excerpt);
       document.getElementById("ogImage").setAttribute("content", article.coverImage);
-      document.getElementById("ogUrl").setAttribute("content", window.location.href);
+      document.getElementById("ogUrl").setAttribute("content", canonicalHref);
 
       const canonical = document.getElementById("canonicalUrl");
-      if (canonical) canonical.setAttribute("href", window.location.href);
+      if (canonical) canonical.setAttribute("href", canonicalHref);
 
       const twTitle = document.getElementById("twitterTitle");
       if (twTitle) twTitle.setAttribute("content", article.title + " — Timeless Wire");
@@ -780,7 +890,7 @@
       container.innerHTML = `
         <article>
           <div class="mb-6">
-            <a href="index.html" class="inline-block text-xs uppercase tracking-widest font-bold text-crimson-600 dark:text-red-400 mb-3 hover:underline">
+            <a href="/" class="inline-block text-xs uppercase tracking-widest font-bold text-crimson-600 dark:text-red-400 mb-3 hover:underline">
               ← ${article.category}
             </a>
             <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 leading-tight mb-4">
@@ -806,8 +916,8 @@
             </div>
           </div>
 
-          <div class="rounded-2xl overflow-hidden mb-10 shadow-sm border border-zinc-200 dark:border-zinc-800">
-            <img src="${article.coverImage}" alt="${article.title}" class="w-full max-h-[460px] object-cover" loading="eager" fetchpriority="high" decoding="async">
+          <div class="rounded-2xl overflow-hidden mb-10 shadow-sm border border-zinc-200 dark:border-zinc-800 aspect-[16/9] w-full bg-zinc-100 dark:bg-zinc-800">
+            <img src="${article.coverImage}" alt="${article.title}" width="1200" height="675" class="w-full h-full object-cover" loading="eager" fetchpriority="high" decoding="async">
           </div>
 
           <div class="article-body font-serif text-zinc-800 dark:text-zinc-200">
@@ -957,7 +1067,7 @@
         .slice(0, 2);
 
       document.getElementById("relatedGrid").innerHTML = related.map(rel => `
-        <a href="article.html?id=${rel.id}" class="group block p-4 rounded-xl bg-white dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-800 hover:shadow-md transition">
+        <a href="${getArticleUrl(rel.id)}" class="group block p-4 rounded-xl bg-white dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-800 hover:shadow-md transition">
           <span class="text-xs uppercase tracking-wider font-semibold text-crimson-600 dark:text-red-400 block mb-1">${rel.category}</span>
           <h4 class="font-serif font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-crimson-600 dark:group-hover:text-red-400 transition mb-2">
             ${rel.title}
@@ -1103,7 +1213,7 @@
       const candidates = otherArticles.length > 0 ? otherArticles : allArticles;
       if (candidates.length === 0) return;
       const random = candidates[Math.floor(Math.random() * candidates.length)];
-      window.location.href = `article.html?id=${random.id}`;
+      window.location.href = getArticleUrl(random.id);
     };
 
     // Clean up speech synthesis on tab close or page navigation

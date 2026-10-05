@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About The Wire • Masthead & Editorial Standards - Timeless Wire</title>
+  <meta name="description" content="Discover the mission, editorial board, and standards of Timeless Wire: an independent living broadsheet dedicated to deep-time history, macroeconomic shifts, and cultural inquiry.">
+  <link rel="canonical" href="https://timelesswire.vercel.app/about">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Timeless Wire">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About The Wire • Masthead & Editorial Standards">
+  <meta property="og:description" content="An independent living broadsheet bridging ancient civilizations with modern geopolitical frontiers.">
+  <meta property="og:url" content="https://timelesswire.vercel.app/about">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            masthead: ['Cinzel', 'serif'],
+            serif: ['Newsreader', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            crimson: { 600: '#991B1B', 700: '#7F1D1D' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :focus-visible {
+      outline: 2px solid #991B1B !important;
+      outline-offset: 3px !important;
+      border-radius: 4px;
+    }
+    .dark :focus-visible {
+      outline: 2px solid #EF4444 !important;
+      outline-offset: 3px !important;
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: 'Cinzel', serif;
+      font-size: 3.5rem;
+      line-height: 0.85;
+      padding-top: 4px;
+      padding-right: 8px;
+      padding-bottom: 2px;
+      color: #991B1B;
+      font-weight: 700;
+    }
+    .dark .drop-cap::first-letter {
+      color: #EF4444;
+    }
+
+    /* Reading Themes */
+    html.theme-sepia, html.theme-sepia body {
+      background-color: #F4EAD4 !important;
+      color: #382717 !important;
+    }
+    html.theme-sepia .bg-\[\#FAF8F5\],
+    html.theme-sepia .bg-\[\#F4EFEA\],
+    html.theme-sepia .bg-white {
+      background-color: #EBDDC2 !important;
+      border-color: #D6C4A5 !important;
+    }
+
+    html.theme-midnight, html.theme-midnight body {
+      background-color: #0A0908 !important;
+      color: #EAE6DF !important;
+    }
+    html.theme-midnight .bg-\[\#FAF8F5\],
+    html.theme-midnight .bg-\[\#F4EFEA\],
+    html.theme-midnight .bg-white {
+      background-color: #151413 !important;
+      border-color: #262422 !important;
+    }
+  </style>
+
+  <script>
+    const savedTheme = localStorage.getItem("theme");
+    const savedMood = localStorage.getItem("timeless_wire_mood_v1");
+    if (savedTheme === "dark" || savedMood === "midnight" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+    if (savedMood === "sepia") {
+      document.documentElement.classList.add("theme-sepia");
+    } else if (savedMood === "midnight") {
+      document.documentElement.classList.add("theme-midnight");
+    }
+  </script>
+</head>
+<body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col overflow-x-hidden">
+
+  <!-- TOP WIRE BAR -->
+  <div class="border-b border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#1A1816] text-xs py-2 px-4 sticky top-0 z-40 backdrop-blur">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <a href="/" class="font-masthead font-bold tracking-wider hover:text-crimson-600 dark:text-red-400 flex items-center gap-1.5">
+        ← BACK TO THE WIRE
+      </a>
+      <div class="flex items-center gap-4 text-xs text-zinc-500">
+        <span class="hidden sm:inline">The Independent Living Broadsheet</span>
+        <a href="/admin" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition font-medium">Editorial CMS</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE HEADER & MASTHEAD -->
+  <header class="border-b border-zinc-200 dark:border-zinc-800 py-10 px-4 text-center bg-[#FAF8F5] dark:bg-[#121110]">
+    <div class="max-w-4xl mx-auto">
+      <span class="text-xs uppercase tracking-widest font-bold text-crimson-600 dark:text-red-400 block mb-2">Editorial Manifesto &amp; Masthead</span>
+      <h1 class="font-masthead text-3xl sm:text-5xl font-black tracking-tight text-zinc-950 dark:text-zinc-50 mb-3">
+        THE TIMELESS WIRE
+      </h1>
+      <p class="font-serif italic text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+        A journal dedicated to century-scale thinking, civilizational history, macroeconomic architecture, and the ethics of technological expansion.
+      </p>
+    </div>
+  </header>
+
+  <!-- MAIN BODY -->
+  <main class="max-w-3xl mx-auto px-4 py-12 flex-1 w-full space-y-12">
+    
+    <!-- MISSION SECTION -->
+    <section class="space-y-4">
+      <h2 class="font-masthead text-xl font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        I. Our Mission
+      </h2>
+      <p class="font-serif text-base sm:text-lg leading-relaxed text-zinc-800 dark:text-zinc-200 drop-cap">
+        Modern digital discourse is plagued by extreme short-termism: the twenty-four-hour news cycle, the quarterly earnings call, the transient viral controversy. At <strong class="font-semibold text-zinc-950 dark:text-white">Timeless Wire</strong>, we believe the issues defining our century can only be deciphered when cast against millennia of human precedent.
+      </p>
+      <p class="font-serif text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
+        Whether examining the fragility of globalized supply chains through the lens of the 1177 BCE Bronze Age Collapse, analyzing modern semiconductor corridors against ancient Sogdian caravan routes, or studying autonomous settlement protocols, our dispatches prioritize depth, primary research, and enduring clarity over fleeting sensation.
+      </p>
+    </section>
+
+    <!-- EDITORIAL BOARD -->
+    <section class="space-y-6">
+      <h2 class="font-masthead text-xl font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        II. Editorial Board &amp; Senior Fellows
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        
+        <div class="p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xs">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-2xl" aria-hidden="true">🏛️</span>
+            <div>
+              <h3 class="font-serif font-bold text-zinc-900 dark:text-white text-base">Dr. Alistair Vance</h3>
+              <span class="text-xs text-crimson-600 dark:text-red-400 font-medium">Ancient History &amp; Archaeology</span>
+            </div>
+          </div>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-serif">
+            Former researcher at the Oxford Mediterranean Antiquities Institute. Focuses on Bronze Age systemic vulnerabilities, paleoclimatology, and societal resilience.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xs">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-2xl" aria-hidden="true">🐪</span>
+            <div>
+              <h3 class="font-serif font-bold text-zinc-900 dark:text-white text-base">Elena Zhao</h3>
+              <span class="text-xs text-crimson-600 dark:text-red-400 font-medium">Silk Road &amp; Cultural Exchange</span>
+            </div>
+          </div>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-serif">
+            Historian of Eurasian commercial networks and translator of Sogdian and Middle Persian manuscripts. Chronicler of transcontinental trade and philosophy.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xs">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-2xl" aria-hidden="true">⚡</span>
+            <div>
+              <h3 class="font-serif font-bold text-zinc-900 dark:text-white text-base">Marcus Lindqvist</h3>
+              <span class="text-xs text-crimson-600 dark:text-red-400 font-medium">Energy Systems &amp; Geopolitics</span>
+            </div>
+          </div>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-serif">
+            Energy policy analyst examining critical minerals, extraction geopolitics, and infrastructure transitions spanning the Atacama, Scandinavia, and Sub-Saharan Africa.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xs">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-2xl" aria-hidden="true">📈</span>
+            <div>
+              <h3 class="font-serif font-bold text-zinc-900 dark:text-white text-base">Samantha Torres</h3>
+              <span class="text-xs text-crimson-600 dark:text-red-400 font-medium">Markets &amp; Autonomous Commerce</span>
+            </div>
+          </div>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-serif">
+            Fintech architect investigating programmatic split settlements, sovereign merchant consignments, and decentralized market mechanics.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDITORIAL ETHICS & E-E-A-T STANDARDS -->
+    <section class="space-y-4">
+      <h2 class="font-masthead text-xl font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        III. Editorial Standards &amp; Verification
+      </h2>
+      <div class="space-y-3 font-serif text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
+        <p>
+          <strong>1. Primary Source Attribution:</strong> All historical narratives and quantitative economic claims cite peer-reviewed academic literature, archival cuneiform/papyrus registries, or primary corporate and governmental filings.
+        </p>
+        <p>
+          <strong>2. Separation of News &amp; Commentary:</strong> Analytical perspectives and literary essays are clearly designated with category markers to ensure reader distinction from factual dispatches.
+        </p>
+        <p>
+          <strong>3. Corrections &amp; Public Transparency:</strong> Substantive factual errors brought to the attention of our editorial desk are promptly corrected with a dated notation at the foot of the dispatch. Readers may submit corrections via our <a href="/contact" class="text-crimson-600 dark:text-red-400 underline hover:no-underline">Inquiries Desk</a>.
+        </p>
+        <p>
+          <strong>4. Human Stewardship &amp; Artificial Intelligence Policy:</strong> We employ algorithmic tools for indexing, accessibility narration, and research synthesis, but every dispatch is conceptualized, curated, and held to the highest human standards of intellectual integrity.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#161413] mt-12 py-8 px-4 text-xs text-zinc-500">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div>
+        <p class="font-masthead font-bold text-zinc-800 dark:text-zinc-200 text-sm">TIMELESS WIRE</p>
+        <p class="text-zinc-500 mt-0.5">Autonomous Digital Publication © 2026. Free &amp; Open Discourse.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+        <a href="/" class="hover:underline">Home</a>
+        <a href="/about" class="hover:underline font-semibold text-zinc-800 dark:text-zinc-200">About</a>
+        <a href="/privacy" class="hover:underline">Privacy Policy</a>
+        <a href="/contact" class="hover:underline">Contact</a>
+        <a href="/admin" class="hover:underline">Editorial CMS</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dispatch Missing in the Archives • 404 - Timeless Wire</title>
+  <meta name="description" content="The dispatch or archive record you requested could not be located in the Timeless Wire broadsheet records.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            masthead: ['Cinzel', 'serif'],
+            serif: ['Newsreader', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            crimson: { 600: '#991B1B', 700: '#7F1D1D' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :focus-visible {
+      outline: 2px solid #991B1B !important;
+      outline-offset: 3px !important;
+      border-radius: 4px;
+    }
+    .dark :focus-visible {
+      outline: 2px solid #EF4444 !important;
+      outline-offset: 3px !important;
+    }
+
+    /* Reading Themes */
+    html.theme-sepia, html.theme-sepia body {
+      background-color: #F4EAD4 !important;
+      color: #382717 !important;
+    }
+    html.theme-sepia .bg-\[\#FAF8F5\],
+    html.theme-sepia .bg-\[\#F4EFEA\],
+    html.theme-sepia .bg-white {
+      background-color: #EBDDC2 !important;
+      border-color: #D6C4A5 !important;
+    }
+
+    html.theme-midnight, html.theme-midnight body {
+      background-color: #0A0908 !important;
+      color: #EAE6DF !important;
+    }
+    html.theme-midnight .bg-\[\#FAF8F5\],
+    html.theme-midnight .bg-\[\#F4EFEA\],
+    html.theme-midnight .bg-white {
+      background-color: #151413 !important;
+      border-color: #262422 !important;
+    }
+  </style>
+
+  <script>
+    const savedTheme = localStorage.getItem("theme");
+    const savedMood = localStorage.getItem("timeless_wire_mood_v1");
+    if (savedTheme === "dark" || savedMood === "midnight" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+    if (savedMood === "sepia") {
+      document.documentElement.classList.add("theme-sepia");
+    } else if (savedMood === "midnight") {
+      document.documentElement.classList.add("theme-midnight");
+    }
+  </script>
+</head>
+<body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+  <!-- TOP WIRE BAR -->
+  <div class="border-b border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#1A1816] text-xs py-2 px-4 sticky top-0 z-40 backdrop-blur">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <a href="/" class="font-masthead font-bold tracking-wider hover:text-crimson-600 dark:text-red-400 flex items-center gap-1.5">
+        ← FRONT PAGE
+      </a>
+      <div class="flex items-center gap-4 text-xs text-zinc-500">
+        <span class="hidden sm:inline">The Independent Living Broadsheet</span>
+        <a href="/about" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition font-medium">About The Wire</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 404 HERO CONTENT -->
+  <main class="max-w-2xl mx-auto px-4 py-16 text-center flex-1 flex flex-col justify-center items-center">
+    
+    <div class="inline-flex items-center justify-center h-20 w-20 rounded-full bg-crimson-600/10 text-crimson-600 dark:text-red-400 font-masthead text-3xl font-bold mb-6 border border-crimson-600/20 shadow-xs">
+      404
+    </div>
+
+    <span class="text-xs uppercase tracking-widest font-bold text-crimson-600 dark:text-red-400 block mb-2">Notice of Uncatalogued Archive</span>
+    <h1 class="font-masthead text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4">
+      DISPATCH MISSING IN THE WIRE
+    </h1>
+
+    <p class="font-serif italic text-base text-zinc-600 dark:text-zinc-400 mb-8 max-w-lg leading-relaxed">
+      "The loss of papyrus scrolls in antiquity reminds us that even grand libraries occasionally misplace a chapter."
+    </p>
+
+    <!-- SEARCH RECOVERY FORM -->
+    <div class="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-2xl p-4 shadow-sm mb-8">
+      <label for="recoverySearch" class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Search the Archives for this Topic:</label>
+      <form onsubmit="handleRecoverySearch(event)" class="flex gap-2">
+        <input 
+          type="text" 
+          id="recoverySearch" 
+          placeholder="e.g. Bronze Age, Silk Road, Energy..." 
+          class="flex-1 text-xs px-3.5 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-crimson-600 text-zinc-900 dark:text-zinc-100"
+        />
+        <button 
+          type="submit" 
+          class="px-4 py-2.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold text-xs hover:bg-zinc-800 transition cursor-pointer"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+
+    <!-- DIRECT RECOVERY BUTTONS -->
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      <a href="/" class="px-5 py-2.5 rounded-full bg-crimson-600 hover:bg-crimson-700 text-white font-semibold text-xs transition shadow-xs flex items-center gap-1.5">
+        <span>📰 Return to Front Page</span>
+      </a>
+      <a href="/article/ancient-bronze-age-collapse" class="px-5 py-2.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 font-semibold text-xs text-zinc-800 dark:text-zinc-200 transition shadow-xs flex items-center gap-1.5">
+        <span>⭐ Explore Lead Dispatch</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#161413] py-8 px-4 text-xs text-zinc-500">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div>
+        <p class="font-masthead font-bold text-zinc-800 dark:text-zinc-200 text-sm">TIMELESS WIRE</p>
+        <p class="text-zinc-500 mt-0.5">Autonomous Digital Publication © 2026. Free &amp; Open Discourse.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+        <a href="/" class="hover:underline">Home</a>
+        <a href="/about" class="hover:underline">About</a>
+        <a href="/privacy" class="hover:underline">Privacy Policy</a>
+        <a href="/contact" class="hover:underline">Contact</a>
+        <a href="/admin" class="hover:underline">Editorial CMS</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function handleRecoverySearch(e) {
+      e.preventDefault();
+      const q = document.getElementById("recoverySearch").value.trim();
+      if (q) {
+        window.location.href = `/?q=${encodeURIComponent(q)}`;
+      } else {
+        window.location.href = "/";
+      }
+    }
+  </script>
+
+</body>
+</html>

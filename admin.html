@@ -35,6 +35,13 @@
       document.documentElement.classList.add("dark");
     }
   </script>
+  <style>
+    /* Broadsheet Tactile Keyboard Focus Rings */
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 2px solid #991B1B !important;
+      outline-offset: 2px !important;
+    }
+  </style>
 </head>
 <body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans min-h-screen flex flex-col overflow-x-hidden">
 
@@ -125,7 +132,7 @@
   <header class="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-6 py-4 sticky top-0 z-30 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <a href="index.html" class="font-masthead text-xl font-bold tracking-wider text-zinc-950 dark:text-white">
+        <a href="/" class="font-masthead text-xl font-bold tracking-wider text-zinc-950 dark:text-white">
           TIMELESS WIRE
         </a>
         <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-crimson-600 text-white">
@@ -147,7 +154,7 @@
       </div>
 
       <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
-        <a href="index.html" class="px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition hidden md:inline-block">
+        <a href="/" class="px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition hidden md:inline-block">
           👁 View Live Site
         </a>
         <button onclick="openSyncModal()" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition cursor-pointer shadow-xs flex items-center gap-1.5">
@@ -485,8 +492,8 @@
               <span id="previewReadTime">5 min read</span>
             </div>
 
-            <div class="rounded-xl overflow-hidden mb-6 border border-zinc-200 dark:border-zinc-800">
-              <img id="previewImage" src="" alt="Preview Cover" loading="lazy" decoding="async" class="w-full h-48 object-cover">
+            <div class="rounded-xl overflow-hidden mb-6 border border-zinc-200 dark:border-zinc-800 aspect-[16/9] w-full bg-zinc-100 dark:bg-zinc-800">
+              <img id="previewImage" src="" alt="Preview Cover" loading="lazy" decoding="async" width="1200" height="675" class="w-full h-full object-cover">
             </div>
 
             <div id="previewBody" class="font-serif text-sm leading-relaxed space-y-3 text-zinc-800 dark:text-zinc-200">
@@ -504,6 +511,13 @@
     const COMMENTS_KEY = "timeless_wire_comments_v1";
     const BOOKMARKS_KEY = "timeless_wire_bookmarks_v1";
     const REACTIONS_KEY = "timeless_wire_reactions_v1";
+
+    function getArticleUrl(id) {
+      if (window.location.protocol === 'file:') {
+        return `article.html?id=${encodeURIComponent(id)}`;
+      }
+      return `/article/${encodeURIComponent(id)}`;
+    }
 
     const DEFAULT_ARTICLES = [
       {
@@ -861,7 +875,7 @@
           allCommentRows.push(`
             <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/40 transition">
               <td class="py-3 px-4 font-serif font-bold text-zinc-900 dark:text-zinc-100 max-w-xs">
-                <a href="article.html?id=${artId}" target="_blank" class="hover:underline line-clamp-1">
+                <a href="${getArticleUrl(artId)}" target="_blank" class="hover:underline line-clamp-1">
                   ${artTitle}
                 </a>
               </td>
@@ -1006,7 +1020,7 @@
               <button onclick="handleToggleFeatured('${art.id}')" title="Toggle Featured" aria-label="Toggle Featured status" class="text-base cursor-pointer">
                 ${art.featured ? "⭐" : "☆"}
               </button>
-              <a href="article.html?id=${art.id}" target="_blank" class="hover:underline line-clamp-1">
+              <a href="${getArticleUrl(art.id)}" target="_blank" class="hover:underline line-clamp-1">
                 ${art.title}
               </a>
             </div>

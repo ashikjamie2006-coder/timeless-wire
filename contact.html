@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact &amp; Letters to the Editor - Timeless Wire</title>
+  <meta name="description" content="Send letters to the editor, report corrections, or submit historical essays to the Timeless Wire newsroom.">
+  <link rel="canonical" href="https://timelesswire.vercel.app/contact">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Timeless Wire">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact &amp; Letters to the Editor • Timeless Wire">
+  <meta property="og:description" content="Inquiries, manuscript submissions, and corrections desk for the independent living broadsheet.">
+  <meta property="og:url" content="https://timelesswire.vercel.app/contact">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            masthead: ['Cinzel', 'serif'],
+            serif: ['Newsreader', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            crimson: { 600: '#991B1B', 700: '#7F1D1D' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :focus-visible {
+      outline: 2px solid #991B1B !important;
+      outline-offset: 3px !important;
+      border-radius: 4px;
+    }
+    .dark :focus-visible {
+      outline: 2px solid #EF4444 !important;
+      outline-offset: 3px !important;
+    }
+
+    /* Reading Themes */
+    html.theme-sepia, html.theme-sepia body {
+      background-color: #F4EAD4 !important;
+      color: #382717 !important;
+    }
+    html.theme-sepia .bg-\[\#FAF8F5\],
+    html.theme-sepia .bg-\[\#F4EFEA\],
+    html.theme-sepia .bg-white {
+      background-color: #EBDDC2 !important;
+      border-color: #D6C4A5 !important;
+    }
+
+    html.theme-midnight, html.theme-midnight body {
+      background-color: #0A0908 !important;
+      color: #EAE6DF !important;
+    }
+    html.theme-midnight .bg-\[\#FAF8F5\],
+    html.theme-midnight .bg-\[\#F4EFEA\],
+    html.theme-midnight .bg-white {
+      background-color: #151413 !important;
+      border-color: #262422 !important;
+    }
+  </style>
+
+  <script>
+    const savedTheme = localStorage.getItem("theme");
+    const savedMood = localStorage.getItem("timeless_wire_mood_v1");
+    if (savedTheme === "dark" || savedMood === "midnight" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+    if (savedMood === "sepia") {
+      document.documentElement.classList.add("theme-sepia");
+    } else if (savedMood === "midnight") {
+      document.documentElement.classList.add("theme-midnight");
+    }
+  </script>
+</head>
+<body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col overflow-x-hidden">
+
+  <!-- TOP WIRE BAR -->
+  <div class="border-b border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#1A1816] text-xs py-2 px-4 sticky top-0 z-40 backdrop-blur">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <a href="/" class="font-masthead font-bold tracking-wider hover:text-crimson-600 dark:text-red-400 flex items-center gap-1.5">
+        ← BACK TO THE WIRE
+      </a>
+      <div class="flex items-center gap-4 text-xs text-zinc-500">
+        <span class="hidden sm:inline">The Independent Living Broadsheet</span>
+        <a href="/about" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition font-medium">About</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="border-b border-zinc-200 dark:border-zinc-800 py-10 px-4 text-center bg-[#FAF8F5] dark:bg-[#121110]">
+    <div class="max-w-4xl mx-auto">
+      <span class="text-xs uppercase tracking-widest font-bold text-crimson-600 dark:text-red-400 block mb-2">Newsroom Inquiries &amp; Submissions</span>
+      <h1 class="font-masthead text-3xl sm:text-5xl font-black tracking-tight text-zinc-950 dark:text-zinc-50 mb-3">
+        LETTERS TO THE EDITOR
+      </h1>
+      <p class="font-serif italic text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+        We welcome scholarly commentary, rigorous critique, corrections, and essay proposals from thinkers across the globe.
+      </p>
+    </div>
+  </header>
+
+  <!-- MAIN BODY -->
+  <main class="max-w-4xl mx-auto px-4 py-12 flex-1 w-full grid grid-cols-1 md:grid-cols-12 gap-10">
+    
+    <!-- LEFT: CONTACT DIRECTORY & BUREAUS -->
+    <div class="md:col-span-5 space-y-6">
+      
+      <div class="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xs space-y-4">
+        <h2 class="font-masthead text-base font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100">
+          Newsroom Desks
+        </h2>
+        
+        <div class="space-y-3 text-xs font-serif text-zinc-600 dark:text-zinc-400">
+          <div>
+            <span class="font-bold text-zinc-900 dark:text-zinc-100 block">Editorial Board &amp; Essays</span>
+            <span class="font-mono text-crimson-600 dark:text-red-400">editor@timelesswire.org</span>
+          </div>
+          <div>
+            <span class="font-bold text-zinc-900 dark:text-zinc-100 block">Corrections &amp; Fact Verification</span>
+            <span class="font-mono text-zinc-700 dark:text-zinc-300">corrections@timelesswire.org</span>
+          </div>
+          <div>
+            <span class="font-bold text-zinc-900 dark:text-zinc-100 block">Press &amp; Syndication Inquiries</span>
+            <span class="font-mono text-zinc-700 dark:text-zinc-300">syndicate@timelesswire.org</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#1A1816] space-y-3">
+        <h3 class="font-masthead text-sm font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
+          <span>📜</span> Submission Guidelines
+        </h3>
+        <p class="font-serif text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Letters intended for publication should be concise (300–800 words), focused on a specific dispatch or historical thesis, and supported by primary sources. We do not publish ad-hominem polemics or unverified claims.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: INTERACTIVE LETTER SUBMISSION FORM -->
+    <div class="md:col-span-7">
+      <div class="p-6 sm:p-8 rounded-2xl border border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm">
+        
+        <h2 class="font-masthead text-lg font-bold text-zinc-900 dark:text-white mb-2">
+          Dispatch Your Letter
+        </h2>
+        <p class="text-xs text-zinc-500 mb-6">
+          Your transmission will be routed directly to the appropriate desk review queue.
+        </p>
+
+        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="senderName" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Your Name *</label>
+              <input 
+                type="text" 
+                id="senderName" 
+                required 
+                placeholder="e.g., Jonathan Mercer" 
+                class="w-full text-xs px-3.5 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-crimson-600 text-zinc-900 dark:text-zinc-100"
+              />
+            </div>
+            <div>
+              <label for="senderEmail" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Email Address *</label>
+              <input 
+                type="email" 
+                id="senderEmail" 
+                required 
+                placeholder="e.g., j.mercer@oxford.ac.uk" 
+                class="w-full text-xs px-3.5 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-crimson-600 text-zinc-900 dark:text-zinc-100"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="deskTopic" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Target Desk *</label>
+            <select 
+              id="deskTopic" 
+              class="w-full text-xs px-3.5 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-crimson-600 text-zinc-900 dark:text-zinc-100 cursor-pointer"
+            >
+              <option value="editorial">Editorial Critique / Commentary</option>
+              <option value="correction">Factual Correction / Errata</option>
+              <option value="essay">Historical Essay Proposal</option>
+              <option value="general">General Inquiries</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="letterSubject" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Subject / Dispatch Reference *</label>
+            <input 
+              type="text" 
+              id="letterSubject" 
+              required 
+              placeholder="e.g., Regarding 'The Bronze Age Collapse' & Sea Peoples" 
+              class="w-full text-xs px-3.5 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-crimson-600 text-zinc-900 dark:text-zinc-100"
+            />
+          </div>
+
+          <div>
+            <label for="letterMessage" class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Your Letter / Perspective *</label>
+            <textarea 
+              id="letterMessage" 
+              rows="5" 
+              required 
+              placeholder="Compose your letter, including relevant citations or evidence..." 
+              class="w-full text-xs px-3.5 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-crimson-600 text-zinc-900 dark:text-zinc-100"
+            ></textarea>
+          </div>
+
+          <button 
+            type="submit" 
+            id="letterSubmitBtn"
+            class="w-full py-3 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold text-xs hover:bg-zinc-800 transition cursor-pointer flex items-center justify-center gap-2 shadow-xs"
+          >
+            <span>📜 Transmit Letter to Newsroom</span>
+          </button>
+        </form>
+
+        <!-- CONFIRMATION RECEIPT -->
+        <div id="contactReceipt" class="hidden mt-6 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 text-xs">
+          <div class="flex items-center gap-2 font-bold mb-1">
+            <span>✓</span> Transmission Received by Editorial Desk
+          </div>
+          <p class="font-serif leading-relaxed" id="receiptText">
+            Your letter has been recorded with verification code <strong class="font-mono" id="receiptCode">TW-2026-X</strong>. If selected for the public gazette, our editors will reach out prior to publication.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#161413] mt-12 py-8 px-4 text-xs text-zinc-500">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div>
+        <p class="font-masthead font-bold text-zinc-800 dark:text-zinc-200 text-sm">TIMELESS WIRE</p>
+        <p class="text-zinc-500 mt-0.5">Autonomous Digital Publication © 2026. Free &amp; Open Discourse.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+        <a href="/" class="hover:underline">Home</a>
+        <a href="/about" class="hover:underline">About</a>
+        <a href="/privacy" class="hover:underline">Privacy Policy</a>
+        <a href="/contact" class="hover:underline font-semibold text-zinc-800 dark:text-zinc-200">Contact</a>
+        <a href="/admin" class="hover:underline">Editorial CMS</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById("letterSubmitBtn");
+      const name = document.getElementById("senderName").value.trim();
+      const code = "TW-" + Math.floor(1000 + Math.random() * 9000);
+
+      btn.disabled = true;
+      btn.innerHTML = "<span>⏳ Routing through wire...</span>";
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = "<span>✓ Letter Recorded</span>";
+        document.getElementById("receiptCode").textContent = code;
+        document.getElementById("contactReceipt").classList.remove("hidden");
+        document.getElementById("contactForm").reset();
+
+        // Optional notification reset after 8 seconds
+        setTimeout(() => {
+          btn.innerHTML = "<span>📜 Transmit Another Letter</span>";
+        }, 3000);
+      }, 600);
+    }
+  </script>
+
+</body>
+</html>

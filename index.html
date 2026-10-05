@@ -26,6 +26,47 @@
   <meta name="twitter:description" content="From antiquity to tomorrow — deep historical narratives, breaking news, market dispatches, and in-depth cultural reviews.">
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80">
   
+  <!-- Schema.org JSON-LD Structured Data for Googlebot & SEO Crawlers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://timelesswire.vercel.app/#website",
+        "url": "https://timelesswire.vercel.app/",
+        "name": "Timeless Wire",
+        "description": "An independent living broadsheet chronicling deep-time history, global geopolitics, and cultural criticism.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Timeless Wire Editorial Desk",
+          "url": "https://timelesswire.vercel.app/"
+        }
+      },
+      {
+        "@type": "NewsArticle",
+        "@id": "https://timelesswire.vercel.app/article/ancient-bronze-age-collapse#article",
+        "isPartOf": {
+          "@id": "https://timelesswire.vercel.app/#website"
+        },
+        "headline": "The Bronze Age Collapse: When Civilization Vanished in 50 Years",
+        "description": "Around 1177 BCE, a dazzlingly interconnected network of Mediterranean empires suddenly fell into ruin.",
+        "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80",
+        "datePublished": "2026-10-04T08:00:00+00:00",
+        "dateModified": "2026-10-05T08:00:00+00:00",
+        "author": {
+          "@type": "Person",
+          "name": "Dr. Alistair Vance"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Timeless Wire"
+        }
+      }
+    ]
+  }
+  </script>
+  
   <!-- Google Fonts: Editorial Serif + Crisp Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,6 +105,17 @@
     .font-masthead { font-family: 'Cinzel', serif; }
     .font-serif { font-family: 'Newsreader', Georgia, serif; }
     .font-sans { font-family: 'Inter', sans-serif; }
+ 
+    /* High-Contrast Tactile Focus Rings for Keyboard Navigation */
+    :focus-visible {
+      outline: 2px solid #991B1B !important;
+      outline-offset: 3px !important;
+      border-radius: 4px;
+    }
+    .dark :focus-visible {
+      outline: 2px solid #EF4444 !important;
+      outline-offset: 3px !important;
+    }
 
     /* Continuous Telegraph Marquee */
     @keyframes marquee {
@@ -281,7 +333,7 @@
         <span class="uppercase tracking-widest font-semibold text-zinc-600 dark:text-zinc-400">Morning Edition</span>
       </div>
 
-      <a href="index.html" class="inline-block group">
+      <a href="/" class="inline-block group">
         <h1 class="font-masthead text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 uppercase group-hover:tracking-wider transition-all duration-500">
           Timeless Wire
         </h1>
@@ -361,27 +413,54 @@
   <!-- MAIN CONTENT CONTAINER -->
   <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full">
     
-    <!-- FEATURED HERO STORY (Dynamically Rendered / Neo-Broadsheet Skeleton on initial paint) -->
+    <!-- FEATURED HERO STORY (Pre-rendered for Instant Paint & Googlebot Crawlers) -->
     <div id="heroContainer" class="mb-12">
-      <div id="heroSkeleton" class="broadsheet-card rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-[#FAF8F5] dark:bg-[#1A1816] p-6 lg:p-8 animate-pulse">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div class="lg:col-span-7 space-y-4">
-            <div class="h-4 w-32 bg-zinc-200 dark:bg-zinc-800 rounded-full"></div>
-            <div class="h-8 sm:h-10 w-4/5 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
-            <div class="h-8 sm:h-10 w-3/5 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
-            <div class="space-y-2 pt-2">
-              <div class="h-3.5 w-full bg-zinc-200 dark:bg-zinc-800 rounded"></div>
-              <div class="h-3.5 w-5/6 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
-              <div class="h-3.5 w-4/6 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+      <div class="broadsheet-card group relative bg-white dark:bg-zinc-800/80 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-md transition">
+        <a href="/article/ancient-bronze-age-collapse" class="grid grid-cols-1 lg:grid-cols-12 gap-0 block">
+          <div class="lg:col-span-7 h-72 lg:h-[420px] overflow-hidden aspect-[16/10] lg:aspect-auto">
+            <img 
+              src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80" 
+              alt="The Bronze Age Collapse" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+              loading="eager" 
+              fetchpriority="high" 
+              decoding="async"
+              width="1200"
+              height="750"
+            >
+          </div>
+          <div class="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs uppercase tracking-widest font-bold px-2.5 py-1 rounded-md bg-red-100 dark:bg-red-950/60 text-crimson-600 dark:text-red-400">
+                  ⭐ Lead Story • Ancient History
+                </span>
+                <span class="text-xs text-zinc-400">• 7 min read</span>
+              </div>
+              <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 group-hover:text-crimson-600 dark:group-hover:text-red-400 transition mb-4">
+                The Bronze Age Collapse: When Civilization Vanished in 50 Years
+              </h2>
+              <p class="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 font-serif drop-cap line-clamp-4 mb-6">
+                Around 1177 BCE, a dazzlingly interconnected network of Mediterranean empires suddenly fell into ruin. Archaeologists are piecing together how famine, drought, and enigmatic invaders brought an era to an abrupt end.
+              </p>
             </div>
-            <div class="flex items-center gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
-              <div class="h-3 w-24 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
-              <div class="h-3 w-20 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+            <div class="flex items-center justify-between pt-4 border-t border-zinc-100 dark:border-zinc-700/60 text-xs text-zinc-500">
+              <span class="font-medium text-zinc-700 dark:text-zinc-300">By Dr. Alistair Vance</span>
+              <div class="flex items-center gap-3">
+                <span>👏 42</span>
+                <span>💬 0</span>
+              </div>
             </div>
           </div>
-          <div class="lg:col-span-5">
-            <div class="w-full h-64 sm:h-80 bg-zinc-200 dark:bg-zinc-800 rounded-xl"></div>
-          </div>
+        </a>
+        <!-- Direct Action Buttons -->
+        <div class="absolute top-4 right-4 flex items-center gap-2 z-10">
+          <button onclick="openQuickPeek(event, 'ancient-bronze-age-collapse')" aria-label="30-Second Quick Peek for The Bronze Age Collapse" title="30-Sec Quick Peek" class="px-2.5 py-1 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow text-xs font-semibold hover:scale-105 transition cursor-pointer">
+            ⚡ Quick Peek
+          </button>
+          <button onclick="cardToggleBookmark(event, 'ancient-bronze-age-collapse')" aria-label="Bookmark The Bronze Age Collapse" title="Bookmark story" class="h-8 w-8 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-xs cursor-pointer">
+            🔖
+          </button>
         </div>
       </div>
     </div>
@@ -400,8 +479,8 @@
     <!-- ARTICLE GRID (Pre-rendered for Instant Paint & SEO Crawlers) -->
     <div id="articleGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
-        <a href="article.html?id=ancient-bronze-age-collapse" class="block h-48 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80" alt="The Bronze Age Collapse" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async">
+        <a href="/article/ancient-bronze-age-collapse" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
+          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80" alt="The Bronze Age Collapse" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async" width="1200" height="675">
         </a>
         <div class="p-5 flex-1 flex flex-col justify-between">
           <div>
@@ -410,7 +489,7 @@
               <span class="text-zinc-400">• 7 min read</span>
             </div>
             <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2">
-              <a href="article.html?id=ancient-bronze-age-collapse" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
+              <a href="/article/ancient-bronze-age-collapse" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
                 The Bronze Age Collapse: When Civilization Vanished in 50 Years
               </a>
             </h3>
@@ -426,8 +505,8 @@
       </article>
 
       <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
-        <a href="article.html?id=silk-road-caravan-master" class="block h-48 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80" alt="The Caravan Master of the Taklamakan" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async">
+        <a href="/article/silk-road-caravan-master" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
+          <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80" alt="The Caravan Master of the Taklamakan" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async" width="1200" height="675">
         </a>
         <div class="p-5 flex-1 flex flex-col justify-between">
           <div>
@@ -436,7 +515,7 @@
               <span class="text-zinc-400">• 5 min read</span>
             </div>
             <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2">
-              <a href="article.html?id=silk-road-caravan-master" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
+              <a href="/article/silk-road-caravan-master" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
                 The Caravan Master of the Taklamakan: Whispers of the Silk Road
               </a>
             </h3>
@@ -452,8 +531,8 @@
       </article>
 
       <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
-        <a href="article.html?id=global-clean-energy-transition-2026" class="block h-48 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80" alt="Global Clean Energy Transition" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async">
+        <a href="/article/global-clean-energy-transition-2026" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
+          <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80" alt="Global Clean Energy Transition" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async" width="1200" height="675">
         </a>
         <div class="p-5 flex-1 flex flex-col justify-between">
           <div>
@@ -462,7 +541,7 @@
               <span class="text-zinc-400">• 6 min read</span>
             </div>
             <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2">
-              <a href="article.html?id=global-clean-energy-transition-2026" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
+              <a href="/article/global-clean-energy-transition-2026" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
                 Global Clean Energy Transition: The Geopolitics of Critical Minerals
               </a>
             </h3>
@@ -522,11 +601,14 @@
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
       <div>
         <p class="font-masthead font-bold text-zinc-800 dark:text-zinc-200 text-sm">TIMELESS WIRE</p>
-        <p class="text-zinc-500 mt-0.5">Autonomous Digital Publication © 2026. Free & Open Discourse.</p>
+        <p class="text-zinc-500 mt-0.5">Autonomous Digital Publication © 2026. Free &amp; Open Discourse.</p>
       </div>
-      <div class="flex items-center gap-6">
-        <a href="index.html" class="hover:underline">Home</a>
-        <a href="https://vercel.com" target="_blank" class="hover:underline text-emerald-600 dark:text-emerald-400">Hosted Free on Vercel</a>
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+        <a href="/" class="hover:underline font-semibold text-zinc-800 dark:text-zinc-200">Home</a>
+        <a href="/about" class="hover:underline">About</a>
+        <a href="/privacy" class="hover:underline">Privacy Policy</a>
+        <a href="/contact" class="hover:underline">Contact</a>
+        <a href="/admin" class="hover:underline">Editorial CMS</a>
       </div>
     </div>
   </footer>
@@ -700,6 +782,10 @@
       return articleId === "ancient-bronze-age-collapse" ? 2 : (articleId === "autonomous-commerce-multi-vendor-2027" ? 1 : 0);
     }
 
+    function getArticleUrl(articleId) {
+      return window.location.protocol === 'file:' ? `article.html?id=${articleId}` : `/article/${articleId}`;
+    }
+
     const HISTORY_KEY = "timeless_wire_history_v1";
 
     function getReadHistory() {
@@ -789,7 +875,7 @@
       if (articles.length === 0) return;
       const random = articles[Math.floor(Math.random() * articles.length)];
       setTimeout(() => {
-        window.location.href = `article.html?id=${random.id}`;
+        window.location.href = getArticleUrl(random.id);
       }, 450);
     };
 
@@ -839,9 +925,9 @@
       }
 
       container.innerHTML = matches.map(art => `
-        <a href="article.html?id=${art.id}" class="group block p-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/70 transition flex items-center justify-between gap-4">
+        <a href="${getArticleUrl(art.id)}" class="group block p-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/70 transition flex items-center justify-between gap-4">
           <div class="flex items-center gap-3 min-w-0">
-            <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-800 shrink-0" loading="lazy" decoding="async">
+            <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-800 shrink-0" loading="lazy" decoding="async" width="48" height="48">
             <div class="min-w-0">
               <div class="flex items-center gap-2 text-[10px] text-zinc-500 mb-0.5">
                 <span class="font-bold text-crimson-600 dark:text-red-400 uppercase tracking-wider">${highlight(art.category, query)}</span>
@@ -943,17 +1029,17 @@
       container.innerHTML = savedArticles.map(art => `
         <div class="p-3 rounded-xl bg-white dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center justify-between gap-3">
           <div class="flex items-center gap-3 min-w-0">
-            <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-700 shrink-0" loading="lazy" decoding="async">
+            <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-700 shrink-0" loading="lazy" decoding="async" width="48" height="48">
             <div class="min-w-0">
               <span class="text-[10px] font-bold text-crimson-600 dark:text-red-400 uppercase tracking-wider block mb-0.5">${art.category}</span>
-              <a href="article.html?id=${art.id}" class="font-serif font-bold text-xs sm:text-sm text-zinc-900 dark:text-zinc-100 hover:text-crimson-600 dark:hover:text-red-400 transition line-clamp-1">
+              <a href="${getArticleUrl(art.id)}" class="font-serif font-bold text-xs sm:text-sm text-zinc-900 dark:text-zinc-100 hover:text-crimson-600 dark:hover:text-red-400 transition line-clamp-1">
                 ${art.title}
               </a>
               <span class="text-[11px] text-zinc-400 block">${art.readTime}</span>
             </div>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <a href="article.html?id=${art.id}" class="px-2.5 py-1 text-xs font-semibold rounded bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition">
+            <a href="${getArticleUrl(art.id)}" class="px-2.5 py-1 text-xs font-semibold rounded bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition">
               Read
             </a>
             <button onclick="cardToggleBookmark(event, '${art.id}'); renderDrawerBookmarks();" aria-label="Remove ${art.title} from saved bookmarks" title="Remove bookmark" class="h-7 w-7 rounded flex items-center justify-center text-xs text-zinc-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition cursor-pointer">
@@ -989,19 +1075,19 @@
         return `
           <div class="p-3 rounded-xl bg-white dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center justify-between gap-3">
             <div class="flex items-center gap-3 min-w-0">
-              <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-700 shrink-0" loading="lazy" decoding="async">
+              <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-700 shrink-0" loading="lazy" decoding="async" width="48" height="48">
               <div class="min-w-0">
                 <div class="flex items-center gap-2 mb-0.5">
                   <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">${art.category}</span>
                   <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">• Read ${dateFormatted}</span>
                 </div>
-                <a href="article.html?id=${art.id}" class="font-serif font-bold text-xs sm:text-sm text-zinc-900 dark:text-zinc-100 hover:text-crimson-600 dark:hover:text-red-400 transition line-clamp-1">
+                <a href="${getArticleUrl(art.id)}" class="font-serif font-bold text-xs sm:text-sm text-zinc-900 dark:text-zinc-100 hover:text-crimson-600 dark:hover:text-red-400 transition line-clamp-1">
                   ${art.title}
                 </a>
                 <span class="text-[11px] text-zinc-400 block">${art.readTime}</span>
               </div>
             </div>
-            <a href="article.html?id=${art.id}" class="px-2.5 py-1 text-xs font-semibold rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition shrink-0">
+            <a href="${getArticleUrl(art.id)}" class="px-2.5 py-1 text-xs font-semibold rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition shrink-0">
               Open
             </a>
           </div>
@@ -1034,7 +1120,7 @@
       if (!ticker) return;
 
       const itemsHtml = articles.map(a => `
-        <a href="article.html?id=${a.id}" class="hover:underline hover:text-amber-300 mr-10 inline-flex items-center gap-2">
+        <a href="${getArticleUrl(a.id)}" class="hover:underline hover:text-amber-300 mr-10 inline-flex items-center gap-2">
           <span class="text-amber-500 font-bold">•</span>
           <span class="text-zinc-400 font-mono text-[11px]">[${a.category.toUpperCase()}]</span>
           <span class="text-zinc-200 font-medium">${a.title}</span>
@@ -1070,8 +1156,8 @@
           <p class="text-xs text-zinc-500">By ${art.author} • ${art.date}</p>
         </div>
 
-        <div class="rounded-xl overflow-hidden mb-5 border border-zinc-200 dark:border-zinc-800 max-h-44">
-          <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover" loading="lazy" decoding="async">
+        <div class="rounded-xl overflow-hidden mb-5 border border-zinc-200 dark:border-zinc-800 max-h-44 aspect-[16/9] w-full">
+          <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover" loading="lazy" decoding="async" width="600" height="338">
         </div>
 
         <div class="bg-amber-50/70 dark:bg-zinc-800/60 p-4 rounded-xl border border-amber-200/60 dark:border-zinc-700 mb-6">
@@ -1087,7 +1173,7 @@
           <button onclick="cardToggleBookmark(event, '${art.id}'); closeQuickPeek();" aria-label="Bookmark ${art.title}" class="px-3.5 py-2 text-xs font-semibold rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
             🔖 Bookmark
           </button>
-          <a href="article.html?id=${art.id}" class="px-5 py-2 text-xs font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition">
+          <a href="${getArticleUrl(art.id)}" class="px-5 py-2 text-xs font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition">
             Read Full Dispatch →
           </a>
         </div>
@@ -1184,9 +1270,9 @@
 
           heroContainer.innerHTML = `
             <div class="broadsheet-card group relative bg-white dark:bg-zinc-800/80 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-md transition">
-              <a href="article.html?id=${featured.id}" class="grid grid-cols-1 lg:grid-cols-12 gap-0 block">
-                <div class="lg:col-span-7 h-72 lg:h-[420px] overflow-hidden">
-                  <img src="${featured.coverImage}" alt="${featured.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="eager" fetchpriority="high" decoding="async">
+              <a href="${getArticleUrl(featured.id)}" class="grid grid-cols-1 lg:grid-cols-12 gap-0 block">
+                <div class="lg:col-span-7 h-72 lg:h-[420px] overflow-hidden aspect-[16/10] lg:aspect-auto">
+                  <img src="${featured.coverImage}" alt="${featured.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="eager" fetchpriority="high" decoding="async" width="1200" height="750">
                 </div>
                 <div class="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
                   <div>
@@ -1254,8 +1340,8 @@
 
           return `
             <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
-              <a href="article.html?id=${art.id}" class="block h-48 overflow-hidden relative">
-                <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async">
+              <a href="${getArticleUrl(art.id)}" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
+                <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async" width="1200" height="675">
               </a>
               <!-- Direct Action Buttons on Card -->
               <div class="absolute top-3 right-3 flex items-center gap-1.5 z-10">
@@ -1276,7 +1362,7 @@
                     </div>
                     <span>${art.readTime}</span>
                   </div>
-                  <a href="article.html?id=${art.id}">
+                  <a href="${getArticleUrl(art.id)}">
                     <h3 class="font-serif text-xl font-bold text-zinc-900 dark:text-zinc-50 group-hover:text-crimson-600 dark:group-hover:text-red-400 transition leading-snug mb-2">
                       ${art.title}
                     </h3>
@@ -1443,6 +1529,18 @@
     // Initial render
     renderTicker();
     renderApp();
+
+    // Check for search query in URL (e.g. from 404 recovery search)
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialQuery = urlParams.get("q");
+    if (initialQuery) {
+      const searchBox = document.getElementById("searchInput");
+      if (searchBox) {
+        searchBox.value = initialQuery;
+        searchQuery = initialQuery;
+        renderApp();
+      }
+    }
   </script>
 
   <!-- FLOATING WIRE COMMAND DOCK (Bottom Center) -->

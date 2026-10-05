@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy • Local-First Architecture - Timeless Wire</title>
+  <meta name="description" content="Timeless Wire operates on a local-first, zero-tracking philosophy. Read our complete privacy declaration: zero surveillance cookies, zero data broker sales.">
+  <link rel="canonical" href="https://timelesswire.vercel.app/privacy">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Timeless Wire">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Privacy Policy • Zero-Surveillance Architecture">
+  <meta property="og:description" content="Local-first privacy declaration: no surveillance cookies, no third-party tracking, 100% reader autonomy.">
+  <meta property="og:url" content="https://timelesswire.vercel.app/privacy">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            masthead: ['Cinzel', 'serif'],
+            serif: ['Newsreader', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            crimson: { 600: '#991B1B', 700: '#7F1D1D' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :focus-visible {
+      outline: 2px solid #991B1B !important;
+      outline-offset: 3px !important;
+      border-radius: 4px;
+    }
+    .dark :focus-visible {
+      outline: 2px solid #EF4444 !important;
+      outline-offset: 3px !important;
+    }
+
+    /* Reading Themes */
+    html.theme-sepia, html.theme-sepia body {
+      background-color: #F4EAD4 !important;
+      color: #382717 !important;
+    }
+    html.theme-sepia .bg-\[\#FAF8F5\],
+    html.theme-sepia .bg-\[\#F4EFEA\],
+    html.theme-sepia .bg-white {
+      background-color: #EBDDC2 !important;
+      border-color: #D6C4A5 !important;
+    }
+
+    html.theme-midnight, html.theme-midnight body {
+      background-color: #0A0908 !important;
+      color: #EAE6DF !important;
+    }
+    html.theme-midnight .bg-\[\#FAF8F5\],
+    html.theme-midnight .bg-\[\#F4EFEA\],
+    html.theme-midnight .bg-white {
+      background-color: #151413 !important;
+      border-color: #262422 !important;
+    }
+  </style>
+
+  <script>
+    const savedTheme = localStorage.getItem("theme");
+    const savedMood = localStorage.getItem("timeless_wire_mood_v1");
+    if (savedTheme === "dark" || savedMood === "midnight" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+    if (savedMood === "sepia") {
+      document.documentElement.classList.add("theme-sepia");
+    } else if (savedMood === "midnight") {
+      document.documentElement.classList.add("theme-midnight");
+    }
+  </script>
+</head>
+<body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col overflow-x-hidden">
+
+  <!-- TOP WIRE BAR -->
+  <div class="border-b border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#1A1816] text-xs py-2 px-4 sticky top-0 z-40 backdrop-blur">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <a href="/" class="font-masthead font-bold tracking-wider hover:text-crimson-600 dark:text-red-400 flex items-center gap-1.5">
+        ← BACK TO THE WIRE
+      </a>
+      <div class="flex items-center gap-4 text-xs text-zinc-500">
+        <span class="hidden sm:inline">The Independent Living Broadsheet</span>
+        <a href="/about" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition font-medium">About The Wire</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="border-b border-zinc-200 dark:border-zinc-800 py-10 px-4 text-center bg-[#FAF8F5] dark:bg-[#121110]">
+    <div class="max-w-4xl mx-auto">
+      <span class="text-xs uppercase tracking-widest font-bold text-crimson-600 dark:text-red-400 block mb-2">Legal &amp; Data Ethics</span>
+      <h1 class="font-masthead text-3xl sm:text-5xl font-black tracking-tight text-zinc-950 dark:text-zinc-50 mb-3">
+        PRIVACY POLICY
+      </h1>
+      <p class="font-serif italic text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+        Effective: October 5, 2026. Our local-first covenant with readers: zero surveillance advertising, zero third-party tracking cookies.
+      </p>
+    </div>
+  </header>
+
+  <!-- MAIN BODY -->
+  <main class="max-w-3xl mx-auto px-4 py-12 flex-1 w-full space-y-10">
+    
+    <div class="p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 flex items-start gap-4 text-emerald-900 dark:text-emerald-200 text-sm">
+      <span class="text-2xl mt-0.5" aria-hidden="true">🛡️</span>
+      <div class="leading-relaxed">
+        <strong>The Timeless Wire Privacy Guarantee:</strong> We do not track you across the web. We do not maintain user surveillance databases, fingerprint devices, or sell data to advertisers. Your reading history and bookmarks reside entirely in your personal web browser.
+      </div>
+    </div>
+
+    <!-- 1. LOCAL-FIRST ARCHITECTURE -->
+    <section class="space-y-4">
+      <h2 class="font-masthead text-lg sm:text-xl font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        1. Local Storage Architecture
+      </h2>
+      <p class="font-serif text-sm sm:text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
+        Timeless Wire utilizes your browser's native <code class="font-mono text-xs bg-zinc-200 dark:bg-zinc-800 px-1 py-0.5 rounded">localStorage</code> to deliver personalization without cloud tracking:
+      </p>
+      <ul class="list-disc pl-6 space-y-2 font-serif text-sm text-zinc-700 dark:text-zinc-300">
+        <li><strong>Reading Bookmarks:</strong> Saved article IDs so you can resume stories later in your Archive Drawer.</li>
+        <li><strong>Reading Log:</strong> Timestamps of articles you opened to mark them as <span class="font-semibold text-emerald-700 dark:text-emerald-400">✓ Read</span> on your local screen.</li>
+        <li><strong>Atmospheric Preferences:</strong> Your selected reading atmosphere (Parchment, Sepia, or Midnight) and typography size choices.</li>
+        <li><strong>Editorial Passcode &amp; Drafts:</strong> Editorial drafts and PIN credentials for the newsroom desk stay isolated in browser sandbox storage.</li>
+      </ul>
+      <p class="font-serif text-xs text-zinc-500 italic">
+        None of these records are transmitted to an external database. You can clear this data at any moment by clicking "Clear Current Tab" in the Archive Drawer or clearing your browser cookies/storage.
+      </p>
+    </section>
+
+    <!-- 2. ANALYTICS & COOKIES -->
+    <section class="space-y-4">
+      <h2 class="font-masthead text-lg sm:text-xl font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        2. Cookies &amp; Third-Party Trackers
+      </h2>
+      <p class="font-serif text-sm sm:text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
+        Timeless Wire has <strong>zero third-party advertising cookies</strong>. We do not integrate surveillance pixels from ad networks or cross-site tracking brokers. Our static delivery through Vercel provides basic edge-level DDoS protection and server access logging (such as anonymized IP addresses and HTTP response codes) strictly to ensure site uptime and security.
+      </p>
+    </section>
+
+    <!-- 3. NEWSLETTER & CORRESPONDENCE -->
+    <section class="space-y-4">
+      <h2 class="font-masthead text-lg sm:text-xl font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        3. Gazette Subscriptions &amp; Reader Inquiries
+      </h2>
+      <p class="font-serif text-sm sm:text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
+        If you subscribe to <em>The Timeless Wire Gazette</em> or submit a letter to our editors, we store your email address solely to send dispatches or editorial correspondence. We will never sell, rent, or trade your contact details with external marketers. You may unsubscribe or request data deletion at any time.
+      </p>
+    </section>
+
+    <!-- 4. GDPR & CCPA COMPLIANCE -->
+    <section class="space-y-4">
+      <h2 class="font-masthead text-lg sm:text-xl font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        4. GDPR &amp; CCPA Rights
+      </h2>
+      <p class="font-serif text-sm sm:text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
+        Because our core application operates locally in your client environment, you maintain complete sovereignty over your data under the European General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA). You have the right to access, rectify, export, or delete any data stored locally or submitted via our contact forms.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#161413] mt-12 py-8 px-4 text-xs text-zinc-500">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div>
+        <p class="font-masthead font-bold text-zinc-800 dark:text-zinc-200 text-sm">TIMELESS WIRE</p>
+        <p class="text-zinc-500 mt-0.5">Autonomous Digital Publication © 2026. Free &amp; Open Discourse.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+        <a href="/" class="hover:underline">Home</a>
+        <a href="/about" class="hover:underline">About</a>
+        <a href="/privacy" class="hover:underline font-semibold text-zinc-800 dark:text-zinc-200">Privacy Policy</a>
+        <a href="/contact" class="hover:underline">Contact</a>
+        <a href="/admin" class="hover:underline">Editorial CMS</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
