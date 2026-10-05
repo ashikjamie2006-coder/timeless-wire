@@ -38,6 +38,89 @@
 </head>
 <body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans min-h-screen flex flex-col">
 
+  <!-- EDITORIAL PASSCODE LOCK SCREEN -->
+  <div id="pinLockScreen" class="fixed inset-0 z-50 bg-[#18181B] flex items-center justify-center p-4">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
+      <div class="h-12 w-12 rounded-full bg-crimson-600/20 text-crimson-500 mx-auto flex items-center justify-center text-xl mb-4 font-masthead font-bold border border-crimson-600/30">
+        TW
+      </div>
+      <h2 class="font-masthead text-xl font-bold text-white tracking-wider mb-1">Editorial CMS</h2>
+      <p class="text-xs text-zinc-400 mb-6">Enter your 4-digit PIN to access the newsroom desk.</p>
+      
+      <form onsubmit="handlePinSubmit(event)" class="space-y-4">
+        <input 
+          type="password" 
+          id="pinInput" 
+          maxlength="6" 
+          pattern="[0-9]*" 
+          inputmode="numeric" 
+          placeholder="••••" 
+          autofocus 
+          class="w-full text-center text-2xl tracking-[0.5em] font-mono py-3 rounded-xl bg-zinc-800 border border-zinc-700 text-white focus:outline-none focus:ring-2 focus:ring-crimson-600"
+        >
+        <p id="pinErrorMsg" class="hidden text-xs text-red-400 font-medium">Incorrect PIN. Try again.</p>
+        
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-crimson-600 hover:bg-crimson-700 text-white font-semibold text-sm transition cursor-pointer shadow-md">
+          Unlock Dashboard
+        </button>
+      </form>
+      
+      <div class="mt-6 pt-4 border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-500">
+        <span>Default PIN: <strong class="text-zinc-300 font-mono">2026</strong></span>
+        <button onclick="handleResetPinPrompt()" class="hover:text-zinc-300 underline cursor-pointer">Change PIN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GITHUB LIVE SYNC MODAL -->
+  <div id="syncGitHubModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 sm:p-8 max-w-xl w-full shadow-2xl relative">
+      <button onclick="closeSyncModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 text-sm cursor-pointer">✕</button>
+      
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-2xl">🚀</span>
+        <div>
+          <h3 class="font-masthead text-lg font-bold text-zinc-900 dark:text-white">Publish Stories to Live Website</h3>
+          <p class="text-xs text-zinc-500">Push your current articles so readers worldwide on any device can see them.</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 mb-6 text-xs text-amber-800 dark:text-amber-200">
+        💡 <strong>How it works:</strong> Your browser currently holds <strong id="syncArticleCount">0</strong> articles. To make them live for all visitors on Vercel, upload the updated <code class="font-mono bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded">index.html</code> directly to your GitHub repository!
+      </div>
+
+      <div class="space-y-4">
+        <!-- Option 1: Download updated JSON / Code -->
+        <div class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-sm text-zinc-900 dark:text-white">Option 1: One-Click Articles Backup</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">Fast</span>
+          </div>
+          <p class="text-xs text-zinc-500 mb-3">Download all your stories as a JSON file backup to save on your computer.</p>
+          <button onclick="downloadUpdatedIndexHtml()" class="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition cursor-pointer shadow-xs flex items-center justify-center gap-2">
+            📥 <span>Download Articles JSON Backup</span>
+          </button>
+        </div>
+
+        <!-- Option 2: Copy Code Array -->
+        <div class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-sm text-zinc-900 dark:text-white">Option 2: Copy Articles Code (for index.html)</span>
+          </div>
+          <p class="text-xs text-zinc-500 mb-3">Copies the exact JavaScript array ready to replace <code class="font-mono">DEFAULT_ARTICLES</code> in <code class="font-mono">index.html</code>.</p>
+          <button onclick="copyArticlesCode()" class="w-full py-2 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-semibold text-xs transition cursor-pointer flex items-center justify-center gap-2">
+            📋 <span>Copy Articles JavaScript Code</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-500 flex items-center justify-between">
+        <span>Upload file on <a href="https://github.com" target="_blank" class="underline text-crimson-600 font-semibold">GitHub</a> $\rightarrow$ Vercel deploys in 15 seconds.</span>
+        <button onclick="closeSyncModal()" class="font-semibold hover:underline cursor-pointer">Done</button>
+      </div>
+    </div>
+  </div>
+
   <!-- TOP BAR -->
   <header class="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-6 py-4 sticky top-0 z-30 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
@@ -63,15 +146,24 @@
         </button>
       </div>
 
-      <div class="flex items-center gap-3 text-xs sm:text-sm">
-        <a href="index.html" class="px-3.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition">
+      <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition hidden md:inline-block">
           👁 View Live Site
         </a>
-        <button id="exportBtn" class="px-3.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition cursor-pointer">
-          💾 Export Backup
+        <button onclick="openSyncModal()" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition cursor-pointer shadow-xs flex items-center gap-1.5">
+          🚀 <span>Publish to Live Site</span>
         </button>
-        <button id="newStoryBtn" class="px-4 py-1.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold hover:bg-zinc-800 transition cursor-pointer">
+        <button id="exportBtn" class="px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition cursor-pointer hidden lg:inline-block">
+          💾 Backup
+        </button>
+        <button onclick="handleRestoreDefaults()" class="px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium transition cursor-pointer hidden xl:inline-block" title="Restore original 5 default articles">
+          🔄 Restore
+        </button>
+        <button id="newStoryBtn" class="px-3.5 py-1.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold hover:bg-zinc-800 transition cursor-pointer">
           ✍️ New Story
+        </button>
+        <button onclick="lockDashboard()" title="Lock Editorial CMS" class="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition cursor-pointer">
+          🔒
         </button>
       </div>
     </div>
@@ -272,22 +364,29 @@
               <!-- Read Time -->
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Read Time</label>
-                <input type="text" id="storyReadTime" oninput="updateLivePreview()" value="5 min read" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
+                <input type="text" id="storyReadTime" data-manual-override="false" oninput="this.dataset.manualOverride='true'; updateLivePreview();" value="5 min read" class="w-full text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
               </div>
             </div>
 
-            <!-- Cover Image URL & Quick Presets -->
+            <!-- Cover Image URL, Local Upload & Quick Presets -->
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Cover Image URL</label>
-              <div class="flex gap-2 mb-2">
+              <div class="flex items-center justify-between mb-1">
+                <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">Cover Image</label>
+                <span class="text-[11px] text-zinc-400">Paste web URL or upload from device</span>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-2 mb-2">
                 <input 
                   type="url" 
                   id="storyImage" 
                   required 
                   oninput="updateLivePreview()" 
-                  placeholder="https://images.unsplash.com/photo-..." 
+                  placeholder="Paste image URL (https://...) or click Upload Photo..." 
                   class="flex-1 text-sm px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800"
                 >
+                <input type="file" id="localImageFileInput" accept="image/*" class="hidden" onchange="handleLocalImageUpload(event)">
+                <button type="button" onclick="document.getElementById('localImageFileInput').click()" class="px-3.5 py-2 rounded-lg bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0">
+                  📁 <span>Upload Photo</span>
+                </button>
               </div>
               <div class="flex flex-wrap items-center gap-1.5 text-xs text-zinc-500">
                 <span>Or quick preset:</span>
@@ -301,12 +400,16 @@
 
             <!-- Excerpt -->
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Excerpt / Standfirst</label>
+              <div class="flex items-center justify-between mb-1">
+                <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">Excerpt / Standfirst</label>
+                <span id="excerptCharCount" class="text-[11px] text-zinc-400">0 / 220 chars</span>
+              </div>
               <textarea 
                 id="storyExcerpt" 
                 rows="2" 
                 required 
-                oninput="updateLivePreview()" 
+                maxlength="260"
+                oninput="updateLivePreview(); updateExcerptCount();" 
                 placeholder="A compelling 2-sentence hook displayed on cards and search results..." 
                 class="w-full text-sm font-serif px-3.5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800"
               ></textarea>
@@ -330,10 +433,14 @@
                 id="storyContent" 
                 rows="10" 
                 required 
-                oninput="updateLivePreview()" 
+                oninput="updateLivePreview(); updateWordCountAndReadTime();" 
                 placeholder="Compose your story here... You can use standard formatting tags or simple Markdown like # Title, **bold**, and > quotes..." 
                 class="w-full text-sm font-serif px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 font-mono leading-relaxed"
               ></textarea>
+              <div class="flex items-center justify-between text-xs text-zinc-500 mt-1 px-1">
+                <span id="wordCountDisplay">0 words • ~1 min read</span>
+                <span class="text-[11px] text-zinc-400">Reading time auto-calculated (200 wpm)</span>
+              </div>
             </div>
 
             <!-- Status & Feature Toggles -->
@@ -1013,19 +1120,146 @@
       alert("Story saved successfully!");
     });
 
-    // Search input
-    document.getElementById("adminSearchInput").addEventListener("input", renderDashboard);
+    // Local Image Upload Handler with Canvas Auto-Compression
+    window.handleLocalImageUpload = function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        alert("Please select a valid image file.");
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+          const MAX_WIDTH = 1200;
+          if (width > MAX_WIDTH) {
+            height = Math.round(height * (MAX_WIDTH / width));
+            width = MAX_WIDTH;
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.82);
+          document.getElementById("storyImage").value = compressedDataUrl;
+          updateLivePreview();
+          alert("✓ Photo uploaded and compressed successfully!");
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
 
-    // Export Backup
-    document.getElementById("exportBtn").addEventListener("click", () => {
-      const data = JSON.stringify(getArticles(), null, 2);
-      const blob = new Blob([data], { type: "application/json" });
+    // Live Word Count & Reading Time Auto-Calculator
+    window.updateWordCountAndReadTime = function() {
+      const content = document.getElementById("storyContent").value;
+      const clean = content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+      const words = clean ? clean.split(/\s+/).length : 0;
+      const mins = Math.max(1, Math.ceil(words / 200));
+      
+      const wordDisplay = document.getElementById("wordCountDisplay");
+      if (wordDisplay) wordDisplay.textContent = `${words} words • ~${mins} min read`;
+      
+      const readTimeInput = document.getElementById("storyReadTime");
+      if (readTimeInput && (!readTimeInput.dataset.manualOverride || readTimeInput.dataset.manualOverride === "false")) {
+        readTimeInput.value = `${mins} min read`;
+      }
+    };
+
+    window.updateExcerptCount = function() {
+      const len = document.getElementById("storyExcerpt").value.length;
+      const badge = document.getElementById("excerptCharCount");
+      if (badge) badge.textContent = `${len} / 220 chars`;
+    };
+
+    // Editorial Passcode PIN Controller
+    const DEFAULT_PIN = "2026";
+    window.handlePinSubmit = function(e) {
+      e.preventDefault();
+      const entered = document.getElementById("pinInput").value.trim();
+      const savedPin = localStorage.getItem("timeless_wire_admin_pin") || DEFAULT_PIN;
+      
+      if (entered === savedPin) {
+        sessionStorage.setItem("timeless_wire_admin_auth", "unlocked");
+        document.getElementById("pinLockScreen").classList.add("hidden");
+        document.getElementById("pinErrorMsg").classList.add("hidden");
+      } else {
+        document.getElementById("pinErrorMsg").classList.remove("hidden");
+        document.getElementById("pinInput").value = "";
+        document.getElementById("pinInput").focus();
+      }
+    };
+
+    window.lockDashboard = function() {
+      sessionStorage.removeItem("timeless_wire_admin_auth");
+      document.getElementById("pinLockScreen").classList.remove("hidden");
+      document.getElementById("pinInput").value = "";
+      document.getElementById("pinInput").focus();
+    };
+
+    window.handleResetPinPrompt = function() {
+      const currentPin = localStorage.getItem("timeless_wire_admin_pin") || DEFAULT_PIN;
+      const verify = prompt("Enter current PIN to change:");
+      if (verify !== currentPin) {
+        alert("Incorrect PIN.");
+        return;
+      }
+      const newPin = prompt("Enter new 4-digit PIN (numbers only):");
+      if (newPin && newPin.trim().length >= 4) {
+        localStorage.setItem("timeless_wire_admin_pin", newPin.trim());
+        alert("✓ PIN updated successfully! Your new PIN is: " + newPin.trim());
+      }
+    };
+
+    // GitHub Live Sync Modal Controller
+    window.openSyncModal = function() {
+      const articles = getArticles();
+      document.getElementById("syncArticleCount").textContent = articles.length;
+      document.getElementById("syncGitHubModal").classList.remove("hidden");
+    };
+
+    window.closeSyncModal = function() {
+      document.getElementById("syncGitHubModal").classList.add("hidden");
+    };
+
+    window.downloadUpdatedIndexHtml = function() {
+      const articles = getArticles();
+      const rawArticlesJson = JSON.stringify(articles, null, 2);
+      const blob = new Blob([rawArticlesJson], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `timeless-wire-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.download = `timeless-wire-articles-${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
-    });
+      alert("✓ Articles JSON backup downloaded! You can also copy the code using Option 2.");
+    };
+
+    window.copyArticlesCode = function() {
+      const articles = getArticles();
+      const code = "const DEFAULT_ARTICLES = " + JSON.stringify(articles, null, 2) + ";";
+      navigator.clipboard.writeText(code);
+      alert("✓ Articles code copied to clipboard! You can paste it into index.html to update the default stories.");
+    };
+
+    // Restore Original Defaults
+    window.handleRestoreDefaults = function() {
+      if (confirm("Reset articles to the original 5 default stories? Any custom articles created in this browser will be replaced.")) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_ARTICLES));
+        renderDashboard();
+        alert("✓ Original 5 default stories restored successfully!");
+      }
+    };
+
+    // Auth Check on load
+    if (sessionStorage.getItem("timeless_wire_admin_auth") === "unlocked") {
+      document.getElementById("pinLockScreen").classList.add("hidden");
+    }
 
     renderDashboard();
   </script>
