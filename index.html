@@ -6,6 +6,26 @@
   <title>Timeless Wire — Stories, History, Markets & News</title>
   <meta name="description" content="From antiquity to tomorrow — deep historical narratives, breaking news, market dispatches, and in-depth cultural reviews.">
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- SEO & Canonical Link -->
+  <link rel="canonical" href="https://timelesswire.vercel.app/">
+
+  <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Timeless Wire">
+  <meta property="og:url" content="https://timelesswire.vercel.app/">
+  <meta property="og:title" content="Timeless Wire — Stories, History, Markets & News">
+  <meta property="og:description" content="From antiquity to tomorrow — deep historical narratives, breaking news, market dispatches, and in-depth cultural reviews.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Timeless Wire — Stories, History, Markets & News">
+  <meta name="twitter:description" content="From antiquity to tomorrow — deep historical narratives, breaking news, market dispatches, and in-depth cultural reviews.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80">
+  
   <!-- Google Fonts: Editorial Serif + Crisp Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -350,8 +370,86 @@
       <span id="articleCount" class="text-xs text-zinc-500 font-medium">Loading stories...</span>
     </div>
 
-    <!-- ARTICLE GRID -->
-    <div id="articleGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    <!-- ARTICLE GRID (Pre-rendered for Instant Paint & SEO Crawlers) -->
+    <div id="articleGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
+        <a href="article.html?id=ancient-bronze-age-collapse" class="block h-48 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80" alt="The Bronze Age Collapse" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        </a>
+        <div class="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-2 text-xs">
+              <span class="font-bold text-crimson-600 dark:text-red-400 uppercase tracking-wider">Ancient History</span>
+              <span class="text-zinc-400">• 7 min read</span>
+            </div>
+            <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2">
+              <a href="article.html?id=ancient-bronze-age-collapse" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
+                The Bronze Age Collapse: When Civilization Vanished in 50 Years
+              </a>
+            </h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 font-serif line-clamp-3 mb-4">
+              Around 1177 BCE, a dazzlingly interconnected network of Mediterranean empires suddenly fell into ruin. Archaeologists are piecing together how famine, drought, and enigmatic invaders brought an era to an abrupt end.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-700/60 text-xs text-zinc-500">
+            <span>By Sarah Jenkins</span>
+            <span>October 4, 2026</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
+        <a href="article.html?id=silk-road-caravan-master" class="block h-48 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80" alt="The Caravan Master of the Taklamakan" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        </a>
+        <div class="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-2 text-xs">
+              <span class="font-bold text-crimson-600 dark:text-red-400 uppercase tracking-wider">Stories &amp; Lore</span>
+              <span class="text-zinc-400">• 5 min read</span>
+            </div>
+            <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2">
+              <a href="article.html?id=silk-road-caravan-master" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
+                The Caravan Master of the Taklamakan: Whispers of the Silk Road
+              </a>
+            </h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 font-serif line-clamp-3 mb-4">
+              Along the northern rim of the Sea of Death, solitary Sogdian merchants guided hundreds of Bactrian camels loaded with lapis lazuli and raw silk, connecting cultures across thousands of leagues.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-700/60 text-xs text-zinc-500">
+            <span>By Elena Zhao</span>
+            <span>October 3, 2026</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
+        <a href="article.html?id=global-clean-energy-transition-2026" class="block h-48 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80" alt="Global Clean Energy Transition" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        </a>
+        <div class="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-2 text-xs">
+              <span class="font-bold text-crimson-600 dark:text-red-400 uppercase tracking-wider">News &amp; Dispatches</span>
+              <span class="text-zinc-400">• 6 min read</span>
+            </div>
+            <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2">
+              <a href="article.html?id=global-clean-energy-transition-2026" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
+                Global Clean Energy Transition: The Geopolitics of Critical Minerals
+              </a>
+            </h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 font-serif line-clamp-3 mb-4">
+              From the Atacama lithium brine fields to cobalt extraction in Katanga, the clean energy revolution is redrawing global trade routes and strategic alliances.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-700/60 text-xs text-zinc-500">
+            <span>By Marcus Lindqvist</span>
+            <span>October 2, 2026</span>
+          </div>
+        </div>
+      </article>
+    </div>
 
     <!-- EMPTY SEARCH STATE -->
     <div id="emptyState" class="hidden text-center py-16">
@@ -367,8 +465,8 @@
       <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-6 max-w-lg mx-auto">
         Join over 15,000 thinkers who receive our curated weekend briefings exploring forgotten history, macroeconomic transformations, and cultural criticism.
       </p>
-      <form onsubmit="event.preventDefault(); showToast('✓ Thank you for subscribing to Timeless Wire!');" class="flex flex-col sm:flex-row gap-2 justify-center max-w-md mx-auto">
-        <input type="email" required placeholder="Enter your email address" class="px-4 py-2 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 flex-1">
+      <form onsubmit="handleNewsletterSubscribe(event)" class="flex flex-col sm:flex-row gap-2 justify-center max-w-md mx-auto">
+        <input type="email" id="newsletterEmail" required placeholder="Enter your email address" class="px-4 py-2 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 flex-1">
         <button type="submit" class="px-5 py-2 text-sm font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition cursor-pointer">
           Subscribe Free
         </button>
@@ -1239,6 +1337,33 @@
     document.getElementById("spotlightSearchModal").addEventListener("click", (e) => {
       if (e.target.id === "spotlightSearchModal") closeSpotlightSearch();
     });
+
+    // Newsletter Subscriber Handler
+    const SUBSCRIBERS_KEY = "timeless_wire_subscribers_v1";
+    window.handleNewsletterSubscribe = function(e) {
+      e.preventDefault();
+      const input = document.getElementById("newsletterEmail") || e.target.querySelector('input[type="email"]');
+      const email = (input ? input.value : "").trim().toLowerCase();
+      if (!email || !email.includes("@")) {
+        showToast("⚠️ Please enter a valid email address.");
+        return;
+      }
+      let subscribers = [];
+      try {
+        const raw = localStorage.getItem(SUBSCRIBERS_KEY);
+        subscribers = raw ? JSON.parse(raw) : [];
+      } catch(err) { subscribers = []; }
+      
+      const existing = subscribers.find(s => s.email === email);
+      if (existing) {
+        showToast("ℹ️ You are already subscribed to the Gazette!");
+      } else {
+        subscribers.unshift({ email, date: new Date().toISOString() });
+        localStorage.setItem(SUBSCRIBERS_KEY, JSON.stringify(subscribers));
+        showToast("✓ Subscribed! Welcome to The Timeless Wire Gazette.");
+      }
+      if (input) input.value = "";
+    };
 
     // Initial render
     renderTicker();

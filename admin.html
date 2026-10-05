@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Timeless Wire — Editorial Dashboard</title>
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
@@ -54,6 +57,9 @@
         </button>
         <button id="tabCommentsBtn" onclick="switchDashboardTab('comments')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
           💬 Comments (<span id="tabCommentCount">0</span>)
+        </button>
+        <button id="tabSubscribersBtn" onclick="switchDashboardTab('subscribers')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
+          📬 Subscribers (<span id="tabSubscriberCount">0</span>)
         </button>
       </div>
 
@@ -160,6 +166,44 @@
             </thead>
             <tbody id="commentsTableBody" class="divide-y divide-zinc-200 dark:divide-zinc-800">
               <!-- Dynamically populated comments -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAZETTE SUBSCRIBERS DESK (TAB 3) -->
+    <div id="subscribersTabSection" class="hidden space-y-6">
+      <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 class="font-masthead text-lg font-bold text-zinc-900 dark:text-white">
+              The Timeless Wire Gazette — Reader Subscribers
+            </h3>
+            <p class="text-xs text-zinc-500">Readers who signed up via the front page weekly journal newsletter box.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="exportSubscribersCSV()" class="px-3.5 py-1.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs font-semibold hover:bg-zinc-800 transition flex items-center gap-1.5 cursor-pointer shadow-xs">
+              📥 Export CSV
+            </button>
+            <button onclick="clearAllSubscribers()" class="px-3 py-1.5 rounded-lg border border-red-300 dark:border-red-900/60 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 text-xs font-semibold transition cursor-pointer">
+              🗑 Clear All
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-zinc-50 dark:bg-zinc-800/50 text-zinc-500 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3 px-4">#</th>
+                <th class="py-3 px-4">Subscriber Email</th>
+                <th class="py-3 px-4">Subscribed Date</th>
+                <th class="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="subscribersTableBody" class="divide-y divide-zinc-200 dark:divide-zinc-800">
+              <!-- Dynamically populated subscribers -->
             </tbody>
           </table>
         </div>
@@ -581,21 +625,115 @@
     window.switchDashboardTab = function(tab) {
       const storiesSec = document.getElementById("storiesTabSection");
       const commentsSec = document.getElementById("commentsTabSection");
+      const subscribersSec = document.getElementById("subscribersTabSection");
       const storiesBtn = document.getElementById("tabStoriesBtn");
       const commentsBtn = document.getElementById("tabCommentsBtn");
+      const subscribersBtn = document.getElementById("tabSubscribersBtn");
+
+      const activeBtnClass = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 transition cursor-pointer";
+      const inactiveBtnClass = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer";
+
+      storiesSec.classList.add("hidden");
+      commentsSec.classList.add("hidden");
+      subscribersSec.classList.add("hidden");
+      storiesBtn.className = inactiveBtnClass;
+      commentsBtn.className = inactiveBtnClass;
+      subscribersBtn.className = inactiveBtnClass;
 
       if (tab === "stories") {
         storiesSec.classList.remove("hidden");
-        commentsSec.classList.add("hidden");
-        storiesBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 transition cursor-pointer";
-        commentsBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer";
-      } else {
-        storiesSec.classList.add("hidden");
+        storiesBtn.className = activeBtnClass;
+      } else if (tab === "comments") {
         commentsSec.classList.remove("hidden");
-        commentsBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 transition cursor-pointer";
-        storiesBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer";
+        commentsBtn.className = activeBtnClass;
         renderCommentsTable();
+      } else if (tab === "subscribers") {
+        subscribersSec.classList.remove("hidden");
+        subscribersBtn.className = activeBtnClass;
+        renderSubscribersTable();
       }
+    };
+
+    // Subscribers Management
+    const SUBSCRIBERS_KEY = "timeless_wire_subscribers_v1";
+    function getSubscribers() {
+      try {
+        const raw = localStorage.getItem(SUBSCRIBERS_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e) {
+        return [];
+      }
+    }
+
+    function renderSubscribersTable() {
+      const subs = getSubscribers();
+      const countEl = document.getElementById("tabSubscriberCount");
+      if (countEl) countEl.textContent = subs.length;
+      const tbody = document.getElementById("subscribersTableBody");
+      if (!tbody) return;
+
+      if (subs.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" class="py-12 text-center text-zinc-400">
+              <span class="text-3xl block mb-2">📬</span>
+              <p class="font-serif text-sm text-zinc-600 dark:text-zinc-400">No subscribers recorded yet.</p>
+              <p class="text-xs text-zinc-500 mt-1">Visitors who enter their email on the homepage weekly journal form will appear here.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = subs.map((s, idx) => `
+        <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/40 transition">
+          <td class="py-3 px-4 text-zinc-400 font-mono text-xs">${idx + 1}</td>
+          <td class="py-3 px-4 font-mono font-semibold text-zinc-900 dark:text-zinc-100">
+            ${s.email}
+          </td>
+          <td class="py-3 px-4 text-zinc-500 text-xs whitespace-nowrap">
+            ${new Date(s.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+          </td>
+          <td class="py-3 px-4 text-right whitespace-nowrap">
+            <button onclick="handleDeleteSubscriber('${s.email}')" class="px-2.5 py-1 text-xs font-semibold rounded text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50 cursor-pointer">
+              🗑 Delete
+            </button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    window.handleDeleteSubscriber = function(email) {
+      if (confirm(`Remove ${email} from subscriber list?`)) {
+        let subs = getSubscribers().filter(s => s.email !== email);
+        localStorage.setItem(SUBSCRIBERS_KEY, JSON.stringify(subs));
+        renderSubscribersTable();
+      }
+    };
+
+    window.clearAllSubscribers = function() {
+      if (confirm("Are you sure you want to clear all subscribers? This cannot be undone.")) {
+        localStorage.setItem(SUBSCRIBERS_KEY, JSON.stringify([]));
+        renderSubscribersTable();
+      }
+    };
+
+    window.exportSubscribersCSV = function() {
+      const subs = getSubscribers();
+      if (subs.length === 0) {
+        alert("No subscribers to export yet!");
+        return;
+      }
+      let csv = "Email,SubscribedDate\n";
+      subs.forEach(s => {
+        csv += `"${s.email}","${s.date}"\n`;
+      });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `timeless-wire-subscribers-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
     };
 
     // Render Comments Table
@@ -744,6 +882,7 @@
       document.getElementById("statTotal").textContent = articles.length;
       document.getElementById("statPublished").textContent = articles.filter(a => a.status === "Published").length;
       document.getElementById("tabStoryCount").textContent = articles.length;
+      document.getElementById("tabSubscriberCount").textContent = getSubscribers().length;
 
       // Table Render
       const tbody = document.getElementById("articlesTableBody");
@@ -823,6 +962,7 @@
       document.getElementById("editorHeading").textContent = "Edit Story";
       document.getElementById("storiesTabSection").classList.add("hidden");
       document.getElementById("commentsTabSection").classList.add("hidden");
+      document.getElementById("subscribersTabSection").classList.add("hidden");
       document.getElementById("editorView").classList.remove("hidden");
       updateLivePreview();
     };
@@ -837,6 +977,7 @@
       document.getElementById("editorHeading").textContent = "Write New Story";
       document.getElementById("storiesTabSection").classList.add("hidden");
       document.getElementById("commentsTabSection").classList.add("hidden");
+      document.getElementById("subscribersTabSection").classList.add("hidden");
       document.getElementById("editorView").classList.remove("hidden");
       updateLivePreview();
     });
