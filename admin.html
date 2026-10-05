@@ -36,7 +36,7 @@
     }
   </script>
 </head>
-<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans min-h-screen flex flex-col">
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans min-h-screen flex flex-col overflow-x-hidden">
 
   <!-- EDITORIAL PASSCODE LOCK SCREEN -->
   <div id="pinLockScreen" class="fixed inset-0 z-50 bg-[#18181B] flex items-center justify-center p-4">
@@ -75,7 +75,7 @@
   <!-- GITHUB LIVE SYNC MODAL -->
   <div id="syncGitHubModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 sm:p-8 max-w-xl w-full shadow-2xl relative">
-      <button onclick="closeSyncModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 text-sm cursor-pointer">✕</button>
+      <button onclick="closeSyncModal()" aria-label="Close publish modal" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 text-sm cursor-pointer">✕</button>
       
       <div class="flex items-center gap-3 mb-4">
         <span class="text-2xl">🚀</span>
@@ -162,7 +162,7 @@
         <button id="newStoryBtn" class="px-3.5 py-1.5 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold hover:bg-zinc-800 transition cursor-pointer">
           ✍️ New Story
         </button>
-        <button onclick="lockDashboard()" title="Lock Editorial CMS" class="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition cursor-pointer">
+        <button onclick="lockDashboard()" title="Lock Editorial CMS" aria-label="Lock Editorial CMS" class="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition cursor-pointer">
           🔒
         </button>
       </div>
@@ -486,7 +486,7 @@
             </div>
 
             <div class="rounded-xl overflow-hidden mb-6 border border-zinc-200 dark:border-zinc-800">
-              <img id="previewImage" src="" alt="Preview Cover" class="w-full h-48 object-cover">
+              <img id="previewImage" src="" alt="Preview Cover" loading="lazy" decoding="async" class="w-full h-48 object-cover">
             </div>
 
             <div id="previewBody" class="font-serif text-sm leading-relaxed space-y-3 text-zinc-800 dark:text-zinc-200">
@@ -1003,7 +1003,7 @@
         <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/40 transition">
           <td class="py-3.5 px-4 font-serif font-bold text-zinc-900 dark:text-zinc-100 max-w-xs">
             <div class="flex items-center gap-2">
-              <button onclick="handleToggleFeatured('${art.id}')" title="Toggle Featured" class="text-base cursor-pointer">
+              <button onclick="handleToggleFeatured('${art.id}')" title="Toggle Featured" aria-label="Toggle Featured status" class="text-base cursor-pointer">
                 ${art.featured ? "⭐" : "☆"}
               </button>
               <a href="article.html?id=${art.id}" target="_blank" class="hover:underline line-clamp-1">

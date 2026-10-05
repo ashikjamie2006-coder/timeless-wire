@@ -9,14 +9,17 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <!-- SEO & Canonical Link -->
-  <link rel="canonical" href="https://timelesswire.vercel.app/article.html">
+  <link id="canonicalUrl" rel="canonical" href="https://timelesswire.vercel.app/article.html">
 
   <!-- Open Graph & Social Preview Meta Tags (For WhatsApp, Facebook, LinkedIn, iMessage) -->
   <meta property="og:site_name" content="Timeless Wire">
   <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
   <meta id="ogTitle" property="og:title" content="Timeless Wire Dispatch">
   <meta id="ogDesc" property="og:description" content="Independent chronicle of history, ideas, and contemporary affairs.">
   <meta id="ogImage" property="og:image" content="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
   <meta id="ogUrl" property="og:url" content="https://timelesswire.vercel.app/article.html">
 
   <!-- Twitter / X Card -->
@@ -181,7 +184,7 @@
     }
   </style>
 </head>
-<body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col">
+<body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col overflow-x-hidden">
 
   <!-- SCROLL READING PROGRESS BAR (FIXED TOP) -->
   <div class="fixed top-0 left-0 w-full h-[3px] bg-zinc-200 dark:bg-zinc-800 z-50">
@@ -193,7 +196,7 @@
     <button onclick="copySelectedQuote()" class="hover:text-amber-400 flex items-center gap-1 font-semibold cursor-pointer">
       📋 Copy Quote
     </button>
-    <span class="text-zinc-500">|</span>
+    <span class="text-zinc-500" aria-hidden="true">|</span>
     <button onclick="shareQuoteWhatsApp()" class="hover:text-emerald-400 flex items-center gap-1 font-semibold cursor-pointer">
       💬 WhatsApp
     </button>
@@ -210,26 +213,26 @@
       <div class="flex items-center gap-2 sm:gap-4">
         <!-- Font Size Controls -->
         <div class="flex items-center bg-zinc-200/80 dark:bg-zinc-800 rounded-md px-1 py-0.5 text-[11px] font-bold">
-          <button onclick="adjustFontSize(-1)" title="Smaller Text" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded transition cursor-pointer">A-</button>
-          <span class="text-zinc-400 px-0.5">•</span>
-          <button onclick="adjustFontSize(1)" title="Larger Text" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded transition cursor-pointer">A+</button>
+          <button onclick="adjustFontSize(-1)" aria-label="Decrease text size" title="Smaller Text" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded transition cursor-pointer">A-</button>
+          <span class="text-zinc-400 px-0.5" aria-hidden="true">•</span>
+          <button onclick="adjustFontSize(1)" aria-label="Increase text size" title="Larger Text" class="px-2 py-0.5 hover:bg-white dark:hover:bg-zinc-700 rounded transition cursor-pointer">A+</button>
         </div>
 
         <!-- Font Style Toggle -->
-        <button id="fontToggle" onclick="toggleFontStyle()" class="text-[11px] font-semibold px-2 py-1 rounded bg-zinc-200/80 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition cursor-pointer" title="Toggle Serif / Sans">
+        <button id="fontToggle" onclick="toggleFontStyle()" aria-label="Toggle Serif or Sans font" class="text-[11px] font-semibold px-2 py-1 rounded bg-zinc-200/80 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition cursor-pointer" title="Toggle Serif / Sans">
           Serif
         </button>
 
         <!-- Time Travel Random Story Button -->
-        <button onclick="triggerRandomArticle()" title="Jump to another random dispatch" class="text-[11px] font-semibold px-2 py-1 rounded bg-zinc-200/80 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition flex items-center gap-1 cursor-pointer">
-          🎲 <span>Random</span>
+        <button onclick="triggerRandomArticle()" aria-label="Jump to another random dispatch" title="Jump to another random dispatch" class="text-[11px] font-semibold px-2 py-1 rounded bg-zinc-200/80 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition flex items-center gap-1 cursor-pointer">
+          <span aria-hidden="true">🎲</span> <span>Random</span>
         </button>
 
-        <span class="text-zinc-300 dark:text-zinc-700 hidden sm:inline">|</span>
+        <span class="text-zinc-300 dark:text-zinc-700 hidden sm:inline" aria-hidden="true">|</span>
 
         <!-- Theme / Mood Toggle -->
-        <button onclick="cycleReadingMood()" id="themeToggle" title="Cycle Reading Mood: Parchment, Sepia, Midnight" class="hover:text-zinc-900 dark:hover:text-white flex items-center gap-1.5 cursor-pointer px-2 py-0.5 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
-          <span id="themeIcon">📜</span> <span class="hidden sm:inline font-medium">Mood</span>
+        <button onclick="cycleReadingMood()" id="themeToggle" aria-label="Cycle reading mood: Parchment, Sepia, Midnight" title="Cycle Reading Mood: Parchment, Sepia, Midnight" class="hover:text-zinc-900 dark:hover:text-white flex items-center gap-1.5 cursor-pointer px-2 py-0.5 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
+          <span id="themeIcon" aria-hidden="true">📜</span> <span class="hidden sm:inline font-medium">Mood</span>
         </button>
       </div>
     </div>
@@ -241,13 +244,13 @@
     <!-- NATIVE AUDIO PLAYER (ZERO 3RD-PARTY APIS, 100% IN-BROWSER) -->
     <div id="audioBar" class="mb-8 p-3.5 rounded-xl bg-amber-50 dark:bg-[#1C1814] border border-amber-200 dark:border-amber-900/40 flex flex-wrap items-center justify-between gap-3 shadow-xs">
       <div class="flex items-center gap-3">
-        <button id="audioPlayBtn" onclick="toggleAudio()" class="h-9 w-9 rounded-full bg-crimson-600 hover:bg-crimson-700 text-white flex items-center justify-center transition shadow cursor-pointer text-sm font-bold">
+        <button id="audioPlayBtn" onclick="toggleAudio()" aria-label="Play or pause audio reading of this article" class="h-9 w-9 rounded-full bg-crimson-600 hover:bg-crimson-700 text-white flex items-center justify-center transition shadow cursor-pointer text-sm font-bold">
           ▶
         </button>
         <div>
           <div class="flex items-center gap-2">
             <span class="font-serif font-bold text-xs sm:text-sm text-zinc-900 dark:text-zinc-100">Listen to this Story</span>
-            <div id="audioWave" class="hidden flex items-center gap-1 h-4">
+            <div id="audioWave" class="hidden flex items-center gap-1 h-4" aria-hidden="true">
               <span class="bar w-1 bg-crimson-600 rounded-full h-2"></span>
               <span class="bar w-1 bg-crimson-600 rounded-full h-3"></span>
               <span class="bar w-1 bg-crimson-600 rounded-full h-1"></span>
@@ -258,10 +261,10 @@
       </div>
 
       <div class="flex items-center gap-2 text-xs">
-        <button id="speedBtn" onclick="cycleAudioSpeed()" class="px-2.5 py-1 rounded bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 font-semibold hover:bg-zinc-100 cursor-pointer">
+        <button id="speedBtn" onclick="cycleAudioSpeed()" aria-label="Change audio narration speed" class="px-2.5 py-1 rounded bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 font-semibold hover:bg-zinc-100 cursor-pointer">
           1.0x Speed
         </button>
-        <button onclick="stopAudio()" class="px-2 py-1 rounded text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 cursor-pointer">
+        <button onclick="stopAudio()" aria-label="Stop audio narration" class="px-2 py-1 rounded text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 cursor-pointer">
           Stop ⏹
         </button>
       </div>
@@ -282,21 +285,21 @@
         <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">React to this story:</span>
         <div class="relative inline-flex items-center gap-2">
           <!-- Clap Button -->
-          <button onclick="triggerReaction('claps')" class="relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:border-crimson-600 shadow-xs hover:scale-105 active:scale-95 transition cursor-pointer text-xs font-semibold">
-            <span>👏</span>
+          <button onclick="triggerReaction('claps')" aria-label="Clap for this story" class="relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:border-crimson-600 shadow-xs hover:scale-105 active:scale-95 transition cursor-pointer text-xs font-semibold">
+            <span aria-hidden="true">👏</span>
             <span id="reactionClaps">0</span>
           </button>
           <!-- Heart Button -->
-          <button onclick="triggerReaction('hearts')" class="relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:border-red-500 shadow-xs hover:scale-105 active:scale-95 transition cursor-pointer text-xs font-semibold">
-            <span>❤️</span>
+          <button onclick="triggerReaction('hearts')" aria-label="Heart this story" class="relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:border-red-500 shadow-xs hover:scale-105 active:scale-95 transition cursor-pointer text-xs font-semibold">
+            <span aria-hidden="true">❤️</span>
             <span id="reactionHearts">0</span>
           </button>
         </div>
       </div>
 
       <!-- Bookmark Action -->
-      <button id="bookmarkBtn" onclick="handleBookmarkToggle()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-xs font-semibold transition cursor-pointer">
-        <span id="bookmarkIcon">🔖</span>
+      <button id="bookmarkBtn" onclick="handleBookmarkToggle()" aria-label="Save this story to personal archive" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-xs font-semibold transition cursor-pointer">
+        <span id="bookmarkIcon" aria-hidden="true">🔖</span>
         <span id="bookmarkText">Save for Later</span>
       </button>
     </div>
@@ -743,6 +746,9 @@
       document.getElementById("ogImage").setAttribute("content", article.coverImage);
       document.getElementById("ogUrl").setAttribute("content", window.location.href);
 
+      const canonical = document.getElementById("canonicalUrl");
+      if (canonical) canonical.setAttribute("href", window.location.href);
+
       const twTitle = document.getElementById("twitterTitle");
       if (twTitle) twTitle.setAttribute("content", article.title + " — Timeless Wire");
       const twDesc = document.getElementById("twitterDesc");
@@ -801,7 +807,7 @@
           </div>
 
           <div class="rounded-2xl overflow-hidden mb-10 shadow-sm border border-zinc-200 dark:border-zinc-800">
-            <img src="${article.coverImage}" alt="${article.title}" class="w-full max-h-[460px] object-cover">
+            <img src="${article.coverImage}" alt="${article.title}" class="w-full max-h-[460px] object-cover" loading="eager" fetchpriority="high" decoding="async">
           </div>
 
           <div class="article-body font-serif text-zinc-800 dark:text-zinc-200">
@@ -812,22 +818,22 @@
           <div class="mt-10 p-4 rounded-xl bg-[#F4EFEA] dark:bg-[#1A1816] border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3 text-xs">
             <span class="font-semibold text-zinc-700 dark:text-zinc-300">Broadcast this story:</span>
             <div class="flex flex-wrap items-center gap-2">
-              <button onclick="copyArticleLink()" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition cursor-pointer font-medium flex items-center gap-1.5">
+              <button onclick="copyArticleLink()" aria-label="Copy article link to clipboard" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition cursor-pointer font-medium flex items-center gap-1.5">
                 📋 <span>Copy Link</span>
               </button>
-              <a href="https://wa.me/?text=${encodeURIComponent(article.title + ' — Timeless Wire: ' + window.location.href)}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white transition font-medium flex items-center gap-1 shadow-xs">
+              <a href="https://wa.me/?text=${encodeURIComponent(article.title + ' — Timeless Wire: ' + window.location.href)}" target="_blank" rel="noopener noreferrer" aria-label="Share article on WhatsApp" class="px-3 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white transition font-medium flex items-center gap-1 shadow-xs">
                 💬 <span>WhatsApp</span>
               </a>
-              <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-white transition font-medium flex items-center gap-1 shadow-xs">
+              <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" aria-label="Post article on X (Twitter)" class="px-3 py-1.5 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-white transition font-medium flex items-center gap-1 shadow-xs">
                 𝕏 <span>Post</span>
               </a>
-              <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-md bg-[#0A66C2] hover:bg-[#084e96] text-white transition font-medium flex items-center gap-1 shadow-xs">
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" aria-label="Share article on LinkedIn" class="px-3 py-1.5 rounded-md bg-[#0A66C2] hover:bg-[#084e96] text-white transition font-medium flex items-center gap-1 shadow-xs">
                 💼 <span>LinkedIn</span>
               </a>
-              <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-md bg-[#1877F2] hover:bg-[#1464cc] text-white transition font-medium flex items-center gap-1 shadow-xs">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" aria-label="Share article on Facebook" class="px-3 py-1.5 rounded-md bg-[#1877F2] hover:bg-[#1464cc] text-white transition font-medium flex items-center gap-1 shadow-xs">
                 📘 <span>Share</span>
               </a>
-              <button onclick="triggerRandomArticle()" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition font-medium cursor-pointer flex items-center gap-1">
+              <button onclick="triggerRandomArticle()" aria-label="Read another random dispatch" class="px-3 py-1.5 rounded-md bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition font-medium cursor-pointer flex items-center gap-1">
                 🎲 Next
               </button>
             </div>

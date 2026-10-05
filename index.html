@@ -153,7 +153,7 @@
     }
   </style>
 </head>
-<body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col">
+<body class="bg-[#FAF8F5] dark:bg-[#121110] text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-200 min-h-screen flex flex-col overflow-x-hidden">
 
   <!-- NOTIFICATION TOAST -->
   <div id="appToast" class="fixed bottom-6 right-6 z-50 hidden bg-zinc-900 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-xl border border-zinc-700 flex items-center gap-2">
@@ -163,7 +163,7 @@
   <!-- 30-SECOND QUICK PEEK MODAL -->
   <div id="quickPeekModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="bg-[#FAF8F5] dark:bg-[#1A1816] border border-zinc-200 dark:border-zinc-800 rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeQuickPeek()" class="absolute top-4 right-4 h-8 w-8 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 flex items-center justify-center font-bold text-sm cursor-pointer transition">
+      <button onclick="closeQuickPeek()" aria-label="Close Quick Peek preview" class="absolute top-4 right-4 h-8 w-8 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 flex items-center justify-center font-bold text-sm cursor-pointer transition">
         ✕
       </button>
       <div id="quickPeekContent">
@@ -177,15 +177,16 @@
     <div class="bg-[#FAF8F5] dark:bg-[#181615] border border-zinc-300 dark:border-zinc-700 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden flex flex-col max-h-[82vh]">
       <!-- Input Bar -->
       <div class="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center gap-3 bg-[#F4EFEA] dark:bg-[#1F1D1B]">
-        <span class="text-base text-zinc-400">🔍</span>
+        <span class="text-base text-zinc-400" aria-hidden="true">🔍</span>
         <input 
           type="text" 
           id="spotlightSearchInput" 
+          aria-label="Search dispatches by headline, keyword, author, or era"
           placeholder="Search by headline, keyword, author, or era... (e.g. 'Bronze', 'Energy', 'Elena')" 
           class="flex-1 bg-transparent text-sm sm:text-base font-serif text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none"
         />
         <kbd class="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-500">ESC</kbd>
-        <button onclick="closeSpotlightSearch()" class="text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 text-lg cursor-pointer px-1">✕</button>
+        <button onclick="closeSpotlightSearch()" aria-label="Close Spotlight Search" class="text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 text-lg cursor-pointer px-1">✕</button>
       </div>
 
       <!-- Live Search Results List -->
@@ -208,7 +209,7 @@
     <!-- Drawer Header -->
     <div class="p-5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-[#F4EFEA] dark:bg-[#1E1C1A]">
       <div class="flex items-center gap-2.5">
-        <span class="text-xl">📚</span>
+        <span class="text-xl" aria-hidden="true">📚</span>
         <div>
           <h3 class="font-masthead font-bold text-sm tracking-wide text-zinc-900 dark:text-zinc-100 uppercase">The Reader's Archive</h3>
           <p class="text-[11px] text-zinc-500">Your personal bookmarks & reading log</p>
@@ -221,11 +222,11 @@
 
     <!-- Drawer Tabs -->
     <div class="flex border-b border-zinc-200 dark:border-zinc-800 text-xs font-semibold px-4 pt-3 gap-2 bg-[#F4EFEA]/50 dark:bg-[#1E1C1A]/50">
-      <button onclick="switchDrawerTab('bookmarks')" id="drawerTabBookmarks" class="pb-2.5 px-3 border-b-2 border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 font-bold transition flex items-center gap-1.5 cursor-pointer">
+      <button onclick="switchDrawerTab('bookmarks')" id="drawerTabBookmarks" aria-label="Show Saved Stories" class="pb-2.5 px-3 border-b-2 border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 font-bold transition flex items-center gap-1.5 cursor-pointer">
         <span>🔖 Saved</span>
         <span id="drawerSavedCountBadge" class="px-1.5 py-0.2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-[10px]">0</span>
       </button>
-      <button onclick="switchDrawerTab('history')" id="drawerTabHistory" class="pb-2.5 px-3 border-b-2 border-transparent text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition flex items-center gap-1.5 cursor-pointer">
+      <button onclick="switchDrawerTab('history')" id="drawerTabHistory" aria-label="Show Reading History" class="pb-2.5 px-3 border-b-2 border-transparent text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition flex items-center gap-1.5 cursor-pointer">
         <span>🕒 Recently Read</span>
         <span id="drawerHistoryCountBadge" class="px-1.5 py-0.2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-[10px]">0</span>
       </button>
@@ -239,7 +240,7 @@
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-[#F4EFEA] dark:bg-[#1E1C1A] text-xs flex items-center justify-between">
       <span class="text-zinc-500 text-[11px]">Synced locally in browser</span>
-      <button onclick="clearCurrentArchiveTab()" class="text-zinc-500 hover:text-red-600 transition cursor-pointer text-[11px]">
+      <button onclick="clearCurrentArchiveTab()" aria-label="Clear current archive tab" class="text-zinc-500 hover:text-red-600 transition cursor-pointer text-[11px]">
         Clear Current Tab
       </button>
     </div>
@@ -250,21 +251,21 @@
     <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
       <div class="flex items-center gap-3">
         <span class="inline-flex items-center gap-1.5 font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-          <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
           Live Edition • Daily Stories
         </span>
-        <span class="text-zinc-500 dark:text-zinc-400 hidden sm:inline">|</span>
-        <span id="currentDate" class="text-zinc-600 dark:text-zinc-400"></span>
+        <span class="text-zinc-500 dark:text-zinc-400 hidden sm:inline" aria-hidden="true">|</span>
+        <span id="currentDate" class="text-zinc-600 dark:text-zinc-400">October 5, 2026</span>
       </div>
       <div class="flex items-center gap-3 sm:gap-4 text-zinc-600 dark:text-zinc-300">
         <!-- Time Travel Button -->
-        <button onclick="triggerTimeTravel()" title="Jump to a random story from history or markets" class="hover:text-amber-500 font-medium flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/80 dark:bg-zinc-800/80 border border-zinc-300 dark:border-zinc-700 shadow-xs cursor-pointer hover:scale-105 active:scale-95 transition">
-          <span id="timeTravelIcon" class="inline-block transition-transform duration-500 text-sm">🎲</span>
+        <button onclick="triggerTimeTravel()" aria-label="Jump to a random story from history or markets" title="Jump to a random story from history or markets" class="hover:text-amber-500 font-medium flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/80 dark:bg-zinc-800/80 border border-zinc-300 dark:border-zinc-700 shadow-xs cursor-pointer hover:scale-105 active:scale-95 transition">
+          <span id="timeTravelIcon" class="inline-block transition-transform duration-500 text-sm" aria-hidden="true">🎲</span>
           <span class="font-semibold text-xs text-zinc-800 dark:text-zinc-200">Time Travel</span>
         </button>
 
-        <button onclick="cycleReadingMood()" id="themeToggle" title="Cycle Reading Mood: Parchment, Sepia, Midnight" class="hover:text-zinc-900 dark:hover:text-white flex items-center gap-1.5 cursor-pointer px-2 py-0.5 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
-          <span id="themeIcon">📜</span> <span class="hidden sm:inline font-medium">Mood</span>
+        <button onclick="cycleReadingMood()" id="themeToggle" aria-label="Cycle Reading Mood: Parchment, Sepia, Midnight" title="Cycle Reading Mood: Parchment, Sepia, Midnight" class="hover:text-zinc-900 dark:hover:text-white flex items-center gap-1.5 cursor-pointer px-2 py-0.5 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800 transition">
+          <span id="themeIcon" aria-hidden="true">📜</span> <span class="hidden sm:inline font-medium">Mood</span>
         </button>
       </div>
     </div>
@@ -337,10 +338,11 @@
         <input 
           type="text" 
           id="searchInput" 
+          aria-label="Search articles across all dispatches"
           placeholder="Search articles..." 
           class="w-full text-xs sm:text-sm pl-8 pr-3 py-1 rounded-full border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
         />
-        <span class="absolute left-2.5 top-1.5 text-zinc-400 text-xs">🔍</span>
+        <span class="absolute left-2.5 top-1.5 text-zinc-400 text-xs" aria-hidden="true">🔍</span>
       </div>
     </div>
 
@@ -359,22 +361,47 @@
   <!-- MAIN CONTENT CONTAINER -->
   <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full">
     
-    <!-- FEATURED HERO STORY (Dynamically Rendered) -->
-    <div id="heroContainer" class="mb-12"></div>
+    <!-- FEATURED HERO STORY (Dynamically Rendered / Neo-Broadsheet Skeleton on initial paint) -->
+    <div id="heroContainer" class="mb-12">
+      <div id="heroSkeleton" class="broadsheet-card rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-[#FAF8F5] dark:bg-[#1A1816] p-6 lg:p-8 animate-pulse">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="h-4 w-32 bg-zinc-200 dark:bg-zinc-800 rounded-full"></div>
+            <div class="h-8 sm:h-10 w-4/5 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+            <div class="h-8 sm:h-10 w-3/5 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+            <div class="space-y-2 pt-2">
+              <div class="h-3.5 w-full bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+              <div class="h-3.5 w-5/6 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+              <div class="h-3.5 w-4/6 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+            </div>
+            <div class="flex items-center gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+              <div class="h-3 w-24 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+              <div class="h-3 w-20 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+            </div>
+          </div>
+          <div class="lg:col-span-5">
+            <div class="w-full h-64 sm:h-80 bg-zinc-200 dark:bg-zinc-800 rounded-xl"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- FEED SECTION HEADER -->
     <div class="flex items-center justify-between border-b-2 border-zinc-900 dark:border-zinc-700 pb-2 mb-6">
       <h2 id="feedTitle" class="font-masthead text-xl sm:text-2xl font-bold uppercase tracking-wide text-zinc-900 dark:text-zinc-100">
         Latest Articles & Stories
       </h2>
-      <span id="articleCount" class="text-xs text-zinc-500 font-medium">Loading stories...</span>
+      <span id="articleCount" class="text-xs text-zinc-500 font-medium flex items-center gap-1.5">
+        <span class="h-2 w-2 rounded-full bg-amber-500 animate-pulse" aria-hidden="true"></span>
+        <span>Fetching dispatches...</span>
+      </span>
     </div>
 
     <!-- ARTICLE GRID (Pre-rendered for Instant Paint & SEO Crawlers) -->
     <div id="articleGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
         <a href="article.html?id=ancient-bronze-age-collapse" class="block h-48 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80" alt="The Bronze Age Collapse" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80" alt="The Bronze Age Collapse" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async">
         </a>
         <div class="p-5 flex-1 flex flex-col justify-between">
           <div>
@@ -400,7 +427,7 @@
 
       <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
         <a href="article.html?id=silk-road-caravan-master" class="block h-48 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80" alt="The Caravan Master of the Taklamakan" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80" alt="The Caravan Master of the Taklamakan" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async">
         </a>
         <div class="p-5 flex-1 flex flex-col justify-between">
           <div>
@@ -426,7 +453,7 @@
 
       <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
         <a href="article.html?id=global-clean-energy-transition-2026" class="block h-48 overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80" alt="Global Clean Energy Transition" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80" alt="Global Clean Energy Transition" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async">
         </a>
         <div class="p-5 flex-1 flex flex-col justify-between">
           <div>
@@ -465,12 +492,28 @@
       <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-6 max-w-lg mx-auto">
         Join over 15,000 thinkers who receive our curated weekend briefings exploring forgotten history, macroeconomic transformations, and cultural criticism.
       </p>
-      <form onsubmit="handleNewsletterSubscribe(event)" class="flex flex-col sm:flex-row gap-2 justify-center max-w-md mx-auto">
-        <input type="email" id="newsletterEmail" required placeholder="Enter your email address" class="px-4 py-2 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 flex-1">
-        <button type="submit" class="px-5 py-2 text-sm font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition cursor-pointer">
-          Subscribe Free
+      <form onsubmit="handleNewsletterSubscribe(event)" class="flex flex-col sm:flex-row gap-2 justify-center max-w-md mx-auto" aria-label="Subscribe to the weekly gazette">
+        <input 
+          type="email" 
+          id="newsletterEmail" 
+          name="email"
+          autocomplete="email"
+          required 
+          aria-label="Email address for weekly dispatch"
+          placeholder="Enter your email address" 
+          class="px-4 py-2.5 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 flex-1"
+        >
+        <button 
+          type="submit" 
+          id="newsletterSubmitBtn"
+          aria-label="Subscribe to Timeless Wire Gazette"
+          class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition cursor-pointer min-h-[44px] flex items-center justify-center gap-1.5"
+        >
+          <span>Subscribe Free</span>
         </button>
       </form>
+      <!-- INLINE NEWSLETTER FEEDBACK CONTAINER -->
+      <div id="newsletterFeedback" class="hidden mt-3 text-xs font-semibold px-3.5 py-2 rounded-lg max-w-md mx-auto transition-all"></div>
     </section>
   </main>
 
@@ -798,7 +841,7 @@
       container.innerHTML = matches.map(art => `
         <a href="article.html?id=${art.id}" class="group block p-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/70 transition flex items-center justify-between gap-4">
           <div class="flex items-center gap-3 min-w-0">
-            <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-800 shrink-0">
+            <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-800 shrink-0" loading="lazy" decoding="async">
             <div class="min-w-0">
               <div class="flex items-center gap-2 text-[10px] text-zinc-500 mb-0.5">
                 <span class="font-bold text-crimson-600 dark:text-red-400 uppercase tracking-wider">${highlight(art.category, query)}</span>
@@ -900,7 +943,7 @@
       container.innerHTML = savedArticles.map(art => `
         <div class="p-3 rounded-xl bg-white dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center justify-between gap-3">
           <div class="flex items-center gap-3 min-w-0">
-            <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-700 shrink-0">
+            <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-700 shrink-0" loading="lazy" decoding="async">
             <div class="min-w-0">
               <span class="text-[10px] font-bold text-crimson-600 dark:text-red-400 uppercase tracking-wider block mb-0.5">${art.category}</span>
               <a href="article.html?id=${art.id}" class="font-serif font-bold text-xs sm:text-sm text-zinc-900 dark:text-zinc-100 hover:text-crimson-600 dark:hover:text-red-400 transition line-clamp-1">
@@ -913,7 +956,7 @@
             <a href="article.html?id=${art.id}" class="px-2.5 py-1 text-xs font-semibold rounded bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition">
               Read
             </a>
-            <button onclick="cardToggleBookmark(event, '${art.id}'); renderDrawerBookmarks();" title="Remove bookmark" class="h-7 w-7 rounded flex items-center justify-center text-xs text-zinc-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition cursor-pointer">
+            <button onclick="cardToggleBookmark(event, '${art.id}'); renderDrawerBookmarks();" aria-label="Remove ${art.title} from saved bookmarks" title="Remove bookmark" class="h-7 w-7 rounded flex items-center justify-center text-xs text-zinc-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition cursor-pointer">
               ✕
             </button>
           </div>
@@ -946,7 +989,7 @@
         return `
           <div class="p-3 rounded-xl bg-white dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center justify-between gap-3">
             <div class="flex items-center gap-3 min-w-0">
-              <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-700 shrink-0">
+              <img src="${art.coverImage}" alt="${art.title}" class="w-12 h-12 rounded-lg object-cover border border-zinc-200 dark:border-zinc-700 shrink-0" loading="lazy" decoding="async">
               <div class="min-w-0">
                 <div class="flex items-center gap-2 mb-0.5">
                   <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">${art.category}</span>
@@ -1028,7 +1071,7 @@
         </div>
 
         <div class="rounded-xl overflow-hidden mb-5 border border-zinc-200 dark:border-zinc-800 max-h-44">
-          <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover">
+          <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover" loading="lazy" decoding="async">
         </div>
 
         <div class="bg-amber-50/70 dark:bg-zinc-800/60 p-4 rounded-xl border border-amber-200/60 dark:border-zinc-700 mb-6">
@@ -1041,7 +1084,7 @@
         </div>
 
         <div class="flex items-center justify-between gap-3 pt-2 border-t border-zinc-200 dark:border-zinc-800">
-          <button onclick="cardToggleBookmark(event, '${art.id}'); closeQuickPeek();" class="px-3.5 py-2 text-xs font-semibold rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
+          <button onclick="cardToggleBookmark(event, '${art.id}'); closeQuickPeek();" aria-label="Bookmark ${art.title}" class="px-3.5 py-2 text-xs font-semibold rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer">
             🔖 Bookmark
           </button>
           <a href="article.html?id=${art.id}" class="px-5 py-2 text-xs font-semibold rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 transition">
@@ -1143,7 +1186,7 @@
             <div class="broadsheet-card group relative bg-white dark:bg-zinc-800/80 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-md transition">
               <a href="article.html?id=${featured.id}" class="grid grid-cols-1 lg:grid-cols-12 gap-0 block">
                 <div class="lg:col-span-7 h-72 lg:h-[420px] overflow-hidden">
-                  <img src="${featured.coverImage}" alt="${featured.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                  <img src="${featured.coverImage}" alt="${featured.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="eager" fetchpriority="high" decoding="async">
                 </div>
                 <div class="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
                   <div>
@@ -1172,10 +1215,10 @@
               </a>
               <!-- Direct Action Buttons -->
               <div class="absolute top-4 right-4 flex items-center gap-2 z-10">
-                <button onclick="openQuickPeek(event, '${featured.id}')" title="30-Sec Quick Peek" class="px-2.5 py-1 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow text-xs font-semibold hover:scale-105 transition cursor-pointer">
+                <button onclick="openQuickPeek(event, '${featured.id}')" aria-label="30-Second Quick Peek for ${featured.title}" title="30-Sec Quick Peek" class="px-2.5 py-1 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow text-xs font-semibold hover:scale-105 transition cursor-pointer">
                   ⚡ Quick Peek
                 </button>
-                <button onclick="cardToggleBookmark(event, '${featured.id}')" title="Bookmark story" class="h-8 w-8 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-xs cursor-pointer">
+                <button onclick="cardToggleBookmark(event, '${featured.id}')" aria-label="${isBookmarked ? 'Remove bookmark for' : 'Bookmark'} ${featured.title}" title="Bookmark story" class="h-8 w-8 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-xs cursor-pointer">
                   ${isBookmarked ? "★" : "🔖"}
                 </button>
               </div>
@@ -1212,14 +1255,14 @@
           return `
             <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
               <a href="article.html?id=${art.id}" class="block h-48 overflow-hidden relative">
-                <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <img src="${art.coverImage}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async">
               </a>
               <!-- Direct Action Buttons on Card -->
               <div class="absolute top-3 right-3 flex items-center gap-1.5 z-10">
-                <button onclick="openQuickPeek(event, '${art.id}')" title="30-Sec Quick Peek" class="px-2 py-0.5 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow text-[10px] font-bold hover:scale-105 transition cursor-pointer">
+                <button onclick="openQuickPeek(event, '${art.id}')" aria-label="30-Second Quick Peek for ${art.title}" title="30-Sec Quick Peek" class="px-2 py-0.5 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow text-[10px] font-bold hover:scale-105 transition cursor-pointer">
                   ⚡ Peek
                 </button>
-                <button onclick="cardToggleBookmark(event, '${art.id}')" title="Bookmark story" class="h-7 w-7 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-xs cursor-pointer">
+                <button onclick="cardToggleBookmark(event, '${art.id}')" aria-label="${isSaved ? 'Remove bookmark for' : 'Bookmark'} ${art.title}" title="Bookmark story" class="h-7 w-7 rounded-full bg-white/90 dark:bg-zinc-900/90 shadow hover:scale-110 transition flex items-center justify-center text-xs cursor-pointer">
                   ${isSaved ? "★" : "🔖"}
                 </button>
               </div>
@@ -1341,28 +1384,60 @@
     // Newsletter Subscriber Handler
     const SUBSCRIBERS_KEY = "timeless_wire_subscribers_v1";
     window.handleNewsletterSubscribe = function(e) {
-      e.preventDefault();
-      const input = document.getElementById("newsletterEmail") || e.target.querySelector('input[type="email"]');
+      if (e) e.preventDefault();
+      const input = document.getElementById("newsletterEmail") || (e.target ? e.target.querySelector('input[type="email"]') : null);
+      const feedback = document.getElementById("newsletterFeedback");
+      const submitBtn = document.getElementById("newsletterSubmitBtn");
       const email = (input ? input.value : "").trim().toLowerCase();
-      if (!email || !email.includes("@")) {
+      
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        if (feedback) {
+          feedback.className = "mt-3 text-xs font-semibold px-3.5 py-2 rounded-lg max-w-md mx-auto bg-red-100 text-red-800 dark:bg-red-950/70 dark:text-red-300 border border-red-300 dark:border-red-800 flex items-center justify-center gap-1.5";
+          feedback.innerHTML = "<span>⚠️</span> <span>Please enter a valid email address.</span>";
+          feedback.classList.remove("hidden");
+        }
         showToast("⚠️ Please enter a valid email address.");
         return;
       }
-      let subscribers = [];
-      try {
-        const raw = localStorage.getItem(SUBSCRIBERS_KEY);
-        subscribers = raw ? JSON.parse(raw) : [];
-      } catch(err) { subscribers = []; }
-      
-      const existing = subscribers.find(s => s.email === email);
-      if (existing) {
-        showToast("ℹ️ You are already subscribed to the Gazette!");
-      } else {
-        subscribers.unshift({ email, date: new Date().toISOString() });
-        localStorage.setItem(SUBSCRIBERS_KEY, JSON.stringify(subscribers));
-        showToast("✓ Subscribed! Welcome to The Timeless Wire Gazette.");
+
+      // Visual submission state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "<span>Subscribing...</span>";
       }
-      if (input) input.value = "";
+
+      setTimeout(() => {
+        let subscribers = [];
+        try {
+          const raw = localStorage.getItem(SUBSCRIBERS_KEY);
+          subscribers = raw ? JSON.parse(raw) : [];
+        } catch(err) { subscribers = []; }
+        
+        const existing = subscribers.find(s => s.email === email);
+        if (existing) {
+          if (feedback) {
+            feedback.className = "mt-3 text-xs font-semibold px-3.5 py-2 rounded-lg max-w-md mx-auto bg-amber-100 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300 border border-amber-300 dark:border-amber-800 flex items-center justify-center gap-1.5";
+            feedback.innerHTML = "<span>ℹ️</span> <span>You are already subscribed to the Gazette!</span>";
+            feedback.classList.remove("hidden");
+          }
+          showToast("ℹ️ You are already subscribed to the Gazette!");
+        } else {
+          subscribers.unshift({ email, date: new Date().toISOString(), source: "Gazette Footer" });
+          localStorage.setItem(SUBSCRIBERS_KEY, JSON.stringify(subscribers));
+          if (feedback) {
+            feedback.className = "mt-3 text-xs font-semibold px-3.5 py-2 rounded-lg max-w-md mx-auto bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 flex items-center justify-center gap-1.5";
+            feedback.innerHTML = "<span>✓</span> <span>Subscribed! Welcome to The Timeless Wire Gazette.</span>";
+            feedback.classList.remove("hidden");
+          }
+          showToast("✓ Subscribed! Welcome to The Timeless Wire Gazette.");
+          if (input) input.value = "";
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = "<span>Subscribe Free</span>";
+        }
+      }, 300);
     };
 
     // Initial render
@@ -1371,36 +1446,36 @@
   </script>
 
   <!-- FLOATING WIRE COMMAND DOCK (Bottom Center) -->
-  <div id="floatingWireDock" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-white/95 dark:bg-[#1A1816]/95 backdrop-blur-md px-3.5 py-2 rounded-full border border-zinc-300/80 dark:border-zinc-700/80 shadow-2xl flex items-center gap-2 sm:gap-3 transition-transform duration-300 hover:scale-[1.02]">
+  <div id="floatingWireDock" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-white/95 dark:bg-[#1A1816]/95 backdrop-blur-md px-3.5 py-2 rounded-full border border-zinc-300/80 dark:border-zinc-700/80 shadow-2xl flex items-center gap-2 sm:gap-3 transition-transform duration-300 hover:scale-[1.02] max-w-[95vw] pb-[max(0.5rem,env(safe-area-inset-bottom))]">
     <!-- Spotlight Search -->
-    <button onclick="openSpotlightSearch()" title="Search all dispatches (Ctrl+K or /)" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition cursor-pointer">
-      <span>🔍</span>
+    <button onclick="openSpotlightSearch()" aria-label="Open Spotlight Search (Ctrl+K or /)" title="Search all dispatches (Ctrl+K or /)" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition cursor-pointer">
+      <span aria-hidden="true">🔍</span>
       <span class="hidden sm:inline">Search</span>
       <kbd class="hidden md:inline text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-500">⌘K</kbd>
     </button>
     
-    <span class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></span>
+    <span class="h-4 w-px bg-zinc-300 dark:bg-zinc-700" aria-hidden="true"></span>
 
     <!-- Saved & History Drawer Trigger -->
-    <button onclick="openBookmarksDrawer('bookmarks')" title="Open saved articles and reading history" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition cursor-pointer relative">
-      <span>🔖</span>
+    <button onclick="openBookmarksDrawer('bookmarks')" aria-label="Open personal archive and bookmarks drawer" title="Open saved articles and reading history" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition cursor-pointer relative">
+      <span aria-hidden="true">🔖</span>
       <span class="hidden sm:inline">Archive</span>
       <span id="dockBookmarkBadge" class="h-4 min-w-4 px-1 rounded-full bg-crimson-600 text-white text-[10px] flex items-center justify-center font-bold">0</span>
     </button>
 
-    <span class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></span>
+    <span class="h-4 w-px bg-zinc-300 dark:bg-zinc-700" aria-hidden="true"></span>
 
     <!-- Reading Atmosphere Mood Switcher -->
-    <button onclick="cycleReadingMood()" id="dockMoodBtn" title="Switch reading atmosphere: Parchment, Sepia, Midnight" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition cursor-pointer">
-      <span id="dockMoodIcon">📜</span>
+    <button onclick="cycleReadingMood()" id="dockMoodBtn" aria-label="Switch reading atmosphere mood" title="Switch reading atmosphere: Parchment, Sepia, Midnight" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition cursor-pointer">
+      <span id="dockMoodIcon" aria-hidden="true">📜</span>
       <span id="dockMoodLabel" class="hidden sm:inline">Parchment</span>
     </button>
 
-    <span class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></span>
+    <span class="h-4 w-px bg-zinc-300 dark:bg-zinc-700" aria-hidden="true"></span>
 
     <!-- Serendipity Time Travel Dice -->
-    <button onclick="triggerTimeTravel()" title="Jump to a random story from the archives" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 text-xs font-bold transition cursor-pointer hover:scale-105 active:scale-95">
-      <span class="inline-block transition-transform duration-500" id="dockDiceIcon">🎲</span>
+    <button onclick="triggerTimeTravel()" aria-label="Jump to a random story from the archives" title="Jump to a random story from the archives" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 text-xs font-bold transition cursor-pointer hover:scale-105 active:scale-95">
+      <span class="inline-block transition-transform duration-500" id="dockDiceIcon" aria-hidden="true">🎲</span>
       <span class="hidden sm:inline">Time Travel</span>
     </button>
   </div>
