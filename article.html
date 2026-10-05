@@ -804,7 +804,7 @@
       if (window.location.protocol === 'file:') {
         return `article.html?id=${encodeURIComponent(id)}`;
       }
-      return `/article/${encodeURIComponent(id)}`;
+      return `/article?id=${encodeURIComponent(id)}`;
     }
 
     // Load Article Logic: Dual-Mode Clean Path & Query Parameter Routing

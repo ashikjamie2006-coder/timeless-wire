@@ -416,7 +416,7 @@
     <!-- FEATURED HERO STORY (Pre-rendered for Instant Paint & Googlebot Crawlers) -->
     <div id="heroContainer" class="mb-12">
       <div class="broadsheet-card group relative bg-white dark:bg-zinc-800/80 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-md transition">
-        <a href="/article/ancient-bronze-age-collapse" class="grid grid-cols-1 lg:grid-cols-12 gap-0 block">
+        <a href="/article?id=ancient-bronze-age-collapse" class="grid grid-cols-1 lg:grid-cols-12 gap-0 block">
           <div class="lg:col-span-7 h-72 lg:h-[420px] overflow-hidden aspect-[16/10] lg:aspect-auto">
             <img 
               src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80" 
@@ -479,7 +479,7 @@
     <!-- ARTICLE GRID (Pre-rendered for Instant Paint & SEO Crawlers) -->
     <div id="articleGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
-        <a href="/article/ancient-bronze-age-collapse" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
+        <a href="/article?id=ancient-bronze-age-collapse" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
           <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80" alt="The Bronze Age Collapse" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async" width="1200" height="675">
         </a>
         <div class="p-5 flex-1 flex flex-col justify-between">
@@ -489,7 +489,7 @@
               <span class="text-zinc-400">• 7 min read</span>
             </div>
             <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2">
-              <a href="/article/ancient-bronze-age-collapse" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
+              <a href="/article?id=ancient-bronze-age-collapse" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
                 The Bronze Age Collapse: When Civilization Vanished in 50 Years
               </a>
             </h3>
@@ -505,7 +505,7 @@
       </article>
 
       <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
-        <a href="/article/silk-road-caravan-master" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
+        <a href="/article?id=silk-road-caravan-master" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
           <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80" alt="The Caravan Master of the Taklamakan" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async" width="1200" height="675">
         </a>
         <div class="p-5 flex-1 flex flex-col justify-between">
@@ -515,7 +515,7 @@
               <span class="text-zinc-400">• 5 min read</span>
             </div>
             <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2">
-              <a href="/article/silk-road-caravan-master" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
+              <a href="/article?id=silk-road-caravan-master" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
                 The Caravan Master of the Taklamakan: Whispers of the Silk Road
               </a>
             </h3>
@@ -531,7 +531,7 @@
       </article>
 
       <article class="broadsheet-card bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col group hover:shadow-md transition relative">
-        <a href="/article/global-clean-energy-transition-2026" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
+        <a href="/article?id=global-clean-energy-transition-2026" class="block h-48 overflow-hidden relative aspect-[16/9] w-full">
           <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80" alt="Global Clean Energy Transition" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" decoding="async" width="1200" height="675">
         </a>
         <div class="p-5 flex-1 flex flex-col justify-between">
@@ -541,7 +541,7 @@
               <span class="text-zinc-400">• 6 min read</span>
             </div>
             <h3 class="font-serif font-bold text-lg text-zinc-900 dark:text-zinc-100 mb-2">
-              <a href="/article/global-clean-energy-transition-2026" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
+              <a href="/article?id=global-clean-energy-transition-2026" class="hover:text-crimson-600 dark:hover:text-red-400 transition">
                 Global Clean Energy Transition: The Geopolitics of Critical Minerals
               </a>
             </h3>
@@ -783,7 +783,10 @@
     }
 
     function getArticleUrl(articleId) {
-      return window.location.protocol === 'file:' ? `article.html?id=${articleId}` : `/article/${articleId}`;
+      if (window.location.protocol === 'file:') {
+        return `article.html?id=${encodeURIComponent(articleId)}`;
+      }
+      return `/article?id=${encodeURIComponent(articleId)}`;
     }
 
     const HISTORY_KEY = "timeless_wire_history_v1";

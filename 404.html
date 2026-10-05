@@ -2,6 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // Instant Auto-Recovery: If user lands on /article/slug or /article, route directly to article view
+    (function() {
+      try {
+        const path = window.location.pathname;
+        const match = path.match(/^\/article\/(.+)/);
+        if (match && match[1]) {
+          const slug = decodeURIComponent(match[1].replace(/\/$/, ''));
+          window.location.replace('/article?id=' + encodeURIComponent(slug));
+          return;
+        }
+        if (path === '/article/' || path === '/article') {
+          window.location.replace('/article');
+          return;
+        }
+      } catch (e) {}
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dispatch Missing in the Archives • 404 - Timeless Wire</title>
   <meta name="description" content="The dispatch or archive record you requested could not be located in the Timeless Wire broadsheet records.">
@@ -132,7 +150,7 @@
       <a href="/" class="px-5 py-2.5 rounded-full bg-crimson-600 hover:bg-crimson-700 text-white font-semibold text-xs transition shadow-xs flex items-center gap-1.5">
         <span>📰 Return to Front Page</span>
       </a>
-      <a href="/article/ancient-bronze-age-collapse" class="px-5 py-2.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 font-semibold text-xs text-zinc-800 dark:text-zinc-200 transition shadow-xs flex items-center gap-1.5">
+      <a href="/article?id=ancient-bronze-age-collapse" class="px-5 py-2.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 font-semibold text-xs text-zinc-800 dark:text-zinc-200 transition shadow-xs flex items-center gap-1.5">
         <span>⭐ Explore Lead Dispatch</span>
       </a>
     </div>

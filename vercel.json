@@ -6,7 +6,8 @@
     { "source": "/about", "destination": "/about.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/article/:slug*", "destination": "/article.html" },
+    { "source": "/article/(.*)", "destination": "/article.html?id=$1" },
+    { "source": "/article/:slug*", "destination": "/article.html?id=:slug*" },
     { "source": "/article", "destination": "/article.html" }
   ]
 }
